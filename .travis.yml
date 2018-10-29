@@ -14,14 +14,14 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "pigs_n_blankets-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: pigs-n-blankets # see README
+  api_key:
+    secure: mOLqEwj8PIpxk45fbnL6uQ4i65Ox2S0R5XGnvGUDLsLdF7BeerhjSlRnOga4kbnDGH+xMlE/SGVqiJ1++ALfi592tVLyE3Ww19HuT2GpIqKXXDc9fdjZnyANVzdB6m+BcpqKh3a5P+8r22xSMWFMrnW1vpMRJKm9J5G3GYrIyoMSv5jEj/H9+58BitgoJG+1ViVXsg2gRqnC8Gsa+8+JKfmgyrp/M3JETBAyngH/niueLxVRBTCABom8qHMNzZ8PQdLq5hCghi5rtulio/ygnzfP3MotOzy27L4D6wIBlyPeBo10kVhVFqBGu77XbrkFlAdLG7rFXWMmu/Mx6nNT8VS82GtH8giBy366620TZIcMCfoBUnaYhwCgB1JcH5O+sEWGroAZdm9lnJip3++yOaITqCek+cNkDhcVCFlPaPftEdWY/LyB+TOTYqOTW4iAMn5tGJ5lgXAcNyiGGO9nDZPgyfqVvDx+7B8w3/otkXLlh+RBVEb8I0Su+pN8KTT3gTcS/98ity1wbxHW6X6J4GO9COuY+H0btq3YbwWOPRP9WSnRlCKD1qhICsJWDn0vtMjWO4Jq+FMiV2Ws7dzJHJHE9ERHxlRERPekQA2gtX2GFsEDLBA3F9la924Qq8QiBmNhn2ezO3CMRWxtuHG6nkKBr9IB6d1WIEe5ON6JOQg= # see README
