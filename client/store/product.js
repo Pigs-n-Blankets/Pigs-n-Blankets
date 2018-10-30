@@ -58,9 +58,10 @@ export const putProduct = (product, productId) => async dispatch => {
   dispatch(updateProduct(data))
 }
 
-// export const deleteProductThunk = productId => async dispatch => {
-//   await axios.delete(`api/products/productId`)
-// }
+export const deleteProductThunk = productId => async dispatch => {
+  await axios.delete(`api/products/productId/${productId}`)
+  dispatch(removeProduct(productId))
+}
 
 /**
  * REDUCER HANDLER
@@ -81,6 +82,14 @@ const handler = {
       ...state,
       allProducts: state.allProducts.map(
         product => (product.id === action.product.id ? action.product : product)
+      )
+    }
+  },
+  [DELETE_PRODUCT]: (state, action) => {
+    return {
+      ...state,
+      allProducts: state.allProducts.filter(
+        product => product.id !== action.productId
       )
     }
   }
