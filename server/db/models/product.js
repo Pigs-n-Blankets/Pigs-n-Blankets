@@ -31,4 +31,17 @@ const Product = db.define('product', {
   }
 })
 
+// INSTANCE METHOD
+Product.prototype.truncate = function() {
+  let shortDescription = '', punctuation = ['.', '?', '!'];
+  for (let i = 0; i < this.description.length; i++){
+    if (punctuation.includes(this.description[i])){
+      break;
+    } else {
+      shortDescription += this.description[i];
+    }
+  }
+  return shortDescription;
+}
+
 module.exports = Product
