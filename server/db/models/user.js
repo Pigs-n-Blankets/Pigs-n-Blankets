@@ -3,10 +3,17 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    defaultValue: 'Blanket'
+  },
+  LastName: {
+    type: Sequelize.STRING,
+    defaultValue: 'Buddy'
+  },
   email: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
+    defaultValue: 'blanketeer1@gmail.com'
   },
   password: {
     type: Sequelize.STRING,
@@ -15,6 +22,12 @@ const User = db.define('user', {
     get() {
       return () => this.getDataValue('password')
     }
+  },
+  imageUrl: {
+    type: Sequelize.STRING
+  },
+  address: {
+    type: Sequelize.STRING
   },
   salt: {
     type: Sequelize.STRING,
