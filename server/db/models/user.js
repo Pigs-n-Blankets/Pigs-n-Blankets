@@ -29,6 +29,10 @@ const User = db.define('user', {
   address: {
     type: Sequelize.STRING
   },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   salt: {
     type: Sequelize.STRING,
     // Making `.salt` act like a function hides it when serializing to JSON.
