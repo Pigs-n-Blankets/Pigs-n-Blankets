@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_PRODUCTS = 'GET_PRODUCTS'
+const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
@@ -21,6 +22,7 @@ const defaultState = {
  * ACTION CREATORS
  */
 const getProducts = products => ({type: GET_PRODUCTS, products})
+const getSingleProduct = product => ({type: GET_SINGLE_PRODUCT, product})
 const addProduct = product => ({type: ADD_PRODUCT, product})
 const updateProduct = product => ({type: UPDATE_PRODUCT, product})
 const removeProduct = product => ({type: DELETE_PRODUCT, product})
@@ -32,6 +34,15 @@ export const fetchProducts = () => async dispatch => {
   try {
     const res = await axios.get('/api/products')
     dispatch(getProducts(res.data || defaultState))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const fetchSingleProduct = productId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/products/productId/${productId}`)
+    dispatch(getSingleProduct(res.data))
   } catch (err) {
     console.error(err)
   }
@@ -58,6 +69,9 @@ export const putProduct = (product, productId) => async dispatch => {
 const handler = {
   [GET_PRODUCTS]: (state, action) => {
     return {...state, allProducts: action.products}
+  },
+  [GET_SINGLE_PRODUCT]: (state, action) => {
+    return {...state, selectedProduct: action.product}
   },
   [ADD_PRODUCT]: (state, action) => {
     return {...state, allProducts: [...state.allProducts, action.product]}

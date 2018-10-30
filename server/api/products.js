@@ -1,12 +1,18 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, Category} = require('../db/models')
 module.exports = router
 
 //mounted on /products
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll()
+    const products = await Product.findAll({
+      include: [
+        {
+          model: Category
+        }
+      ]
+    })
     res.json(products)
   } catch (err) {
     next(err)
@@ -16,6 +22,21 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
+    res.json(product)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/productId/:productId', async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.productId, {
+      include: [
+        {
+          model: Category
+        }
+      ]
+    })
     res.json(product)
   } catch (err) {
     next(err)

@@ -17,7 +17,7 @@ const styles = theme => ({
   },
   gridList: {
     width: '70%',
-    height: '100%',
+    height: '100%'
   },
   gridListTitle: {
     backgroundColor: theme.palette.primary.main
@@ -28,12 +28,11 @@ const styles = theme => ({
 })
 
 class AllProducts extends Component {
-
   componentDidMount() {
     this.props.fetchInitialProducts()
   }
   render() {
-    const { classes, products } = this.props
+    const {classes, products} = this.props
     return (
       <div className={classes.root}>
         <GridList
@@ -43,7 +42,11 @@ class AllProducts extends Component {
           spacing={15}
         >
           {products.map(product => (
-            <GridListTile className={classes.gridListTitle} key={product.id} cols={1}>
+            <GridListTile
+              className={classes.gridListTitle}
+              key={product.id}
+              cols={1}
+            >
               <h1>{product.name}</h1>
             </GridListTile>
           ))}
@@ -67,4 +70,6 @@ const mapStateToProps = state => {
   }
 }
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(AllProducts))
+export default withStyles(styles)(
+  connect(mapStateToProps, mapDispatchToProps)(AllProducts)
+)
