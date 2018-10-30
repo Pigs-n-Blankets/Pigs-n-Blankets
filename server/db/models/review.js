@@ -10,4 +10,4 @@ const Review = db.define('review', {
     }
 })
 
-module.exports = Cart
+module.exports = Review
