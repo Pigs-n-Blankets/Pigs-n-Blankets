@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/add-product', async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
     res.json(product)
