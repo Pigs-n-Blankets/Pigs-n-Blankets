@@ -14,7 +14,10 @@ async function seed() {
   ])
 
   const products = await Promise.all([
-    Product.create({name: 'Doggy Pirate Pants'})
+    Product.create({name: 'Doggy Pirate Pants'}),
+    Product.create({name: 'Kitty Pirate Pants'}),
+    Product.create({name: 'Horsey Pirate Pants'}),
+    Product.create({name: 'Puppy Pirate Pants'})
   ])
 
   console.log(`seeded ${users.length} users`)

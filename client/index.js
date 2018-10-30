@@ -9,11 +9,30 @@ import App from './app'
 // establishes socket connection
 import './socket'
 
+// MATERIAL UI IMPORTS
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#424242'
+    },
+    secondary: {
+      main: '#ff5722'
+    }
+  },
+  status: {
+    danger: 'orange'
+  }
+})
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      <App />
-    </Router>
+    <MuiThemeProvider theme={theme}>
+      <Router history={history}>
+        <App />
+      </Router>
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('app')
 )
