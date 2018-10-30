@@ -14,10 +14,54 @@ async function seed() {
   ])
 
   const products = await Promise.all([
-    Product.create({name: 'Doggy Pirate Pants'}),
-    Product.create({name: 'Kitty Pirate Pants'}),
-    Product.create({name: 'Horsey Pirate Pants'}),
-    Product.create({name: 'Puppy Pirate Pants'})
+    Product.create({
+      name: 'Doggy Snowman',
+      price: 10.99,
+      description: 'dress your dog up as a snowman this holiday season!',
+      rating: 4.7,
+      imgUrl: 'https://www.rover.com/blog/wp-content/uploads/2017/12/snowmandog.jpg'
+    }),
+    Product.create({
+      name: 'Dapper Pup',
+      price: 7.95,
+      description: 'have the most dapper pup with this puppy tuxedo!',
+      rating: 3.4,
+      imgUrl: 'https://image.dhgate.com/0x0/f2/albu/g4/M00/81/F0/rBVaEFds4Z-AaBqjAAams5cUse8326.jpg'
+    }),
+    Product.create({
+      name: 'Super Cat',
+      price: 14.75,
+      description: 'We all know cats are the SUPERior species',
+      rating: 4.9,
+      imgUrl: 'http://cutecatsinhats.com/wp-content/uploads/2016/03/Gaorui-Puppy-lovely-Superman-Pet-Dog-Clothes-Halloween-apparel-Costumes-Cute-Jumpsuit-0-1024x1024.jpg'
+    }),
+    Product.create({
+      name: 'Sassy Kitty',
+      price: 13.99,
+      rating: 2.3,
+      imgUrl: 'https://ae01.alicdn.com/kf/HTB1xAzFNpXXXXbMXpXXq6xXFXXX9/Pet-Supplies-Cat-Clothes-Cats-Wear-Pet-Coats-Hoopet-Clothing-For-Domestic-Cats-Blouse-Jackets-Dogs.jpg'
+    }),
+    Product.create({
+      name: 'Cowboy Piglet',
+      price: 17.80,
+      rating: 5,
+      description: 'I mean, how can you resist...?',
+      imgUrl: 'http://thefw.com/files/2012/09/tumblr_m0edolFcz51rr5f7co1_500-e1348601887820.jpg?w=630&h=630&q=75'
+    }),
+    Product.create({
+      name: 'Piglet Booties',
+      price: 24.95,
+      rating: 2.7,
+      description: 'keep your piglets hooves dry in its pen',
+      imgUrl: 'http://slummysinglemummy.files.wordpress.com/2012/03/pig-in-wellies.jpg'
+    }),
+    Product.create({
+      name: 'Identity Crisis',
+      price: 24.95,
+      rating: 2.7,
+      description: 'Do you have a pig who thinks he is a unicorn? This is the perfect compromise',
+      imgUrl: 'https://i.dailymail.co.uk/i/pix/2014/09/26/1411729138384_Image_galleryImage_PIC_FROM_CATERS_NEWS_PICT.JPG'
+    }),
   ])
 
   console.log(`seeded ${users.length} users`)
