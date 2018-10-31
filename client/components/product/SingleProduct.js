@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Loading} from '../utils/Loading'
 import Reviews from '../review/Reviews'
 import UpdateProduct from './UpdateProduct'
+import Stars from '../review/Stars'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -77,8 +78,7 @@ class SingleProduct extends Component {
             </CardActionArea>
             <CardActions className={classes.cardActions}>
               <Typography variant="h6">{`$${product.price}`}</Typography>
-              <Typography>{product.rating}</Typography>
-              <StarIcon className={classes.icon} />
+              <Stars rating={product.rating} />
               <Button size="small" color="primary">
                 Delete
               </Button>

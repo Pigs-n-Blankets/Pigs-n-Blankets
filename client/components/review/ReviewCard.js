@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import Stars from './Stars'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -53,7 +54,9 @@ const ReviewCard = props => {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActions}>
-        <Typography>User Rating:{rating}</Typography>
+        <Typography>
+          User Rating: <Stars rating={rating} />
+        </Typography>
       </CardActions>
     </Card>
   )
