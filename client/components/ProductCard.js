@@ -12,6 +12,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import StarIcon from '@material-ui/icons/Star'
+import {putProduct, deleteProduct} from '../store'
 
 const styles = theme => ({
   card: {
@@ -39,8 +40,7 @@ const styles = theme => ({
 })
 
 const ProductCard = props => {
-  const {classes, id, name, imgUrl, rating, description, price} = props
-  console.log('USER ---->', props.user.isAdmin);
+  const {classes, id, name, imgUrl, rating, description, price, deleteThisProduct, updateThisProduct} = props
   return (
     <Card className={classes.card}>
     <Link to={`/products/productId/${id}`} className={classes.link}>
@@ -62,7 +62,11 @@ const ProductCard = props => {
         <StarIcon className={classes.icon} />
           {props.user.isAdmin ?
           <React.Fragment>
-            <Button size="small" color="primary">
+            <Button 
+              onClick={() => deleteThisProduct(id)}
+              size="small" 
+              color="primary"
+            >
               Delete
             </Button>
             <Button size="small" color="primary">
@@ -71,7 +75,6 @@ const ProductCard = props => {
           </React.Fragment> :
           null
         }
-
       </CardActions>
     </Card>
   )
@@ -83,4 +86,17 @@ const mapStateToProps = state => {
   }
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(ProductCard))
+const mapDispatchToProps = dispatch => {
+  return {
+    updateThisProduct: (product, productId) => {
+      dispatch(putProduct(product, productId))
+    },
+    deleteThisProduct: productId => {
+      dispatch(deleteProduct(productId))
+    }
+  }
+}
+
+export default withStyles(styles)(
+  connect(mapStateToProps, mapDispatchToProps)(ProductCard)
+)

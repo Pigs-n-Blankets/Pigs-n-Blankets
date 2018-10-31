@@ -51,7 +51,13 @@ router.put('/productId/:productId', async (req, res, next) => {
         id
       }
     })
-    const product = await Product.findById(id)
+    const product = await Product.findById(id, {
+      include: [
+        {
+          model: Category
+        }
+      ]
+    })
     res.json(product)
   } catch (err) {
     next(err)

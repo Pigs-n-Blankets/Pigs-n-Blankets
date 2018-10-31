@@ -41,6 +41,7 @@ class AddProduct extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange(event) {
+    console.log('change')
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -57,7 +58,6 @@ class AddProduct extends Component {
   }
   render() {
     const {classes} = this.props
-    console.log(this.props)
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
@@ -81,6 +81,7 @@ class AddProduct extends Component {
           variant="outlined"
         />
         <Button
+          type="Submit"
           onClick={this.handleSubmit}
           variant="outlined"
           className={classes.button}
