@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import {fetchSingleProduct, fetchReviews} from '../store'
+import {fetchSingleProduct, fetchReviews} from '../../store'
 import {connect} from 'react-redux'
-import {Loading} from './Loading'
-import Reviews from './Reviews'
+import {Loading} from '../utils/Loading'
+import Reviews from '../review/Reviews'
 import UpdateProduct from './UpdateProduct'
 
 // MATERIAL UI IMPORTS
@@ -90,7 +90,7 @@ class SingleProduct extends Component {
               </Button>
             </CardActions>
           </Card>
-        <UpdateProduct product={product} productId={product.id} />
+          <UpdateProduct product={product} productId={product.id} />
         </div>
         <div className={classes.wrapper}>
           <Reviews reviews={reviews} />

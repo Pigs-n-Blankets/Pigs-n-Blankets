@@ -1,6 +1,6 @@
 import React from 'react'
 import ReviewCard from './ReviewCard'
-import {Loading} from './Loading'
+import {Loading} from '../utils/Loading'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'

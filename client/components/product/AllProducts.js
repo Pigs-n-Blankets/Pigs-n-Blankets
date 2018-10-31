@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
-import {fetchProducts, fetchFilteredProducts, fetchCategories} from '../store'
+import {
+  fetchProducts,
+  fetchFilteredProducts,
+  fetchCategories
+} from '../../store'
 import {connect} from 'react-redux'
 import ProductCard from './ProductCard'
 
@@ -15,7 +19,7 @@ const styles = theme => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   content: {
     width: '70%',
@@ -33,7 +37,7 @@ const styles = theme => ({
     color: 'rgba(255, 255, 255, 0.54)'
   },
   textField: {
-    paddingBottom: theme.spacing.unit*6,
+    paddingBottom: theme.spacing.unit * 6,
     width: 200,
     alignSelf: 'flex-start'
   },
@@ -45,7 +49,7 @@ const styles = theme => ({
 class AllProducts extends Component {
   state = {
     category: ''
-  };
+  }
 
   componentDidMount() {
     this.props.fetchInitialProducts()
@@ -54,10 +58,10 @@ class AllProducts extends Component {
 
   handleChange = event => {
     this.setState({
-      category: event.target.value,
-    });
+      category: event.target.value
+    })
     this.props.fetchFilteredProducts(event.target.value)
-  };
+  }
 
   render() {
     const {classes, products, categories} = this.props
@@ -122,7 +126,7 @@ const mapDispatchToProps = dispatch => {
     fetchCategories: () => {
       dispatch(fetchCategories())
     },
-    fetchFilteredProducts: (categoryName) => {
+    fetchFilteredProducts: categoryName => {
       dispatch(fetchFilteredProducts(categoryName))
     }
   }

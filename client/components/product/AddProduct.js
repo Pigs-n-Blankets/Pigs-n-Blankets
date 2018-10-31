@@ -1,40 +1,41 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {postProduct} from '../../store'
+
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 import {withStyles} from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
-import {connect} from 'react-redux'
-import {putProduct} from '../store/product'
 import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
-    height: 100
+    flexWrap: 'wrap'
   },
   textField: {
-    paddingBottom: 0,
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
   },
   dense: {
-    marginTop: 0
+    marginTop: 16
   },
   menu: {
     width: 200
+  },
+  button: {
+    margin: theme.spacing.unit
   }
 })
 
-class UpdateProduct extends Component {
-  constructor(props) {
+class AddProduct extends Component {
+  constructor() {
     super()
     this.state = {
-      name: props.product.name,
-      price: props.product.price,
-      description: props.product.description,
-      imgUrl: props.product.imgUrl
+      name: undefined,
+      price: undefined,
+      description: undefined,
+      imgUrl: undefined
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -47,45 +48,37 @@ class UpdateProduct extends Component {
   }
   handleSubmit(event) {
     event.preventDefault()
-    this.props.updateThisProduct(this.state, this.props.productId)
+    this.props.postNewProduct(this.state)
+    this.setState({
+      name: null,
+      price: null,
+      description: null,
+      imgUrl: null
+    })
   }
   render() {
     const {classes} = this.props
     return (
       <form className={classes.container} noValidate autoComplete="off">
-        <h2>
-          <span>Update This Product:</span>
-        </h2>
         <TextField
           name="name"
-          id="filled-name"
+          id="outlined-name"
           label="Name"
           className={classes.textField}
           value={this.state.name}
           onChange={this.handleChange}
           margin="normal"
-          variant="filled"
-        />
-        <TextField
-          name="price"
-          id="filled-name"
-          label="Price"
-          className={classes.textField}
-          value={this.state.price}
-          onChange={this.handleChange}
-          margin="normal"
-          variant="filled"
+          variant="outlined"
         />
         <TextField
           name="description"
-          id="filled-multiline-flexible"
+          id="outlined-name"
           label="Description"
-          multiline
           className={classes.textField}
           value={this.state.description}
           onChange={this.handleChange}
           margin="normal"
-          variant="filled"
+          variant="outlined"
         />
         <Button
           type="Submit"
@@ -102,10 +95,14 @@ class UpdateProduct extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    updateThisProduct: (product, productId) => {
-      dispatch(putProduct(product, productId))
+    postNewProduct: product => {
+      dispatch(postProduct(product))
     }
   }
 }
 
-export default withStyles(styles)(connect(null, mapDispatch)(UpdateProduct))
+AddProduct.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(connect(null, mapDispatch)(AddProduct))
