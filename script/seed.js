@@ -81,12 +81,14 @@ async function seed() {
       firstName: 'Cody',
       lastName: 'TheDog',
       email: 'cody@email.com',
+      address: 'Doghouse Chicago, IL',
       password: '123'
     }),
     User.create({
       firstName: 'Murphy',
       lastName: 'TheDog',
       email: 'murphy@email.com',
+      address: 'Doghouse Chicago, IL',
       password: '123'
     })
   ]).then(
