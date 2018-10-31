@@ -17,11 +17,10 @@ import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 
-
 const styles = theme => ({
   root: {
     width: '100%',
-    paddingBottom: theme.spacing.unit * 5,
+    paddingBottom: theme.spacing.unit * 5
   },
   grow: {
     flexGrow: 1
@@ -116,10 +115,9 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
           <div className={classes.grow} />
           {isLoggedIn ? (
             <div>
-              {/* The navbar will show these links after you log in */}
               <Link to="/products" className={classes.navLinks}>
                 <IconButton color="inherit">
-                    <AppIcon />
+                  <AppIcon />
                 </IconButton>
               </Link>
               <Link to="/cart" className={classes.navLinks}>
@@ -140,9 +138,17 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
             </div>
           ) : (
             <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/login" className={classes.navLinks}>Login</Link>
-              <Link to="/signup" className={classes.navLinks}>Sign Up</Link>
+              <Link to="/products" className={classes.navLinks}>
+                <IconButton color="inherit">
+                  <AppIcon />
+                </IconButton>
+              </Link>
+              <Link to="/login" className={classes.navLinks}>
+                Login
+              </Link>
+              <Link to="/signup" className={classes.navLinks}>
+                Sign Up
+              </Link>
             </div>
           )}
         </Toolbar>
