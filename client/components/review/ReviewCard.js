@@ -1,68 +1,43 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 // MATERIAL UI IMPORTS
-import {withStyles} from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import StarIcon from '@material-ui/icons/Star'
+import {withStyles} from '@material-ui/core/styles'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Avatar from '@material-ui/core/Avatar'
+import Divider from '@material-ui/core/Divider'
 
 const styles = theme => ({
-  card: {
-    maxWidth: 345,
-    boxShadow: 'none',
-    border: '1px solid #D8DEE2'
-  },
-  media: {
-    height: 250
-  },
-  description: {
-    height: 20
-  },
-  icon: {
-    margin: theme.spacing.unit,
-    fontSize: 15
-  },
-  cardActions: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  link: {
-    color: 'inherit'
+  root: {
+    width: '100%',
+    maxWidth: 600,
+    minWidth: 600,
+    backgroundColor: theme.palette.background.paper
   }
 })
 
 const ReviewCard = props => {
   const {classes, id, rating, description, user} = props
+  const primary = `${user.firstName} ${user.lastName} ${rating} Stars`
   return (
-    <Card className={classes.card}>
-      <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            User: USER IS BROKEN {user.firstName} {user.lastName}
-          </Typography>
-          <Typography component="p" className={classes.description}>
-            {description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions className={classes.cardActions}>
-        <Typography>User Rating:{rating}</Typography>
-      </CardActions>
-    </Card>
+    <div className={classes.root}>
+      <Divider />
+      <ListItem>
+        <Avatar>
+          <img src={user.imgUrl} />
+        </Avatar>
+        <ListItemText primary={primary} secondary={description} />
+      </ListItem>
+    </div>
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  }
+ReviewCard.propTypes = {
+  classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(ReviewCard))
+export default withStyles(styles)(ReviewCard)
