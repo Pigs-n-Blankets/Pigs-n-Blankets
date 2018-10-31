@@ -70,3 +70,32 @@ router.delete('/productId/:productId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/categories', async(req, res, next) => {
+  try {
+    const categories = await Category.findAll()
+    res.json(categories)
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+router.get('/category/:categoryName', async(req, res, next) => {
+  const categoryName = req.params.categoryName;
+  try {
+    const products = await Product.findAll({
+      include: [{
+          model: Category,
+          through: {
+            attributes: ['categoryId', 'productId']
+          },
+          where: {
+            name: categoryName
+          }
+        }]
+    })
+    res.json(products)
+  } catch (err) {
+    next(err)
+  }
+})

@@ -1,35 +1,33 @@
 import axios from 'axios'
 import history from '../history'
 
-/**
- * ACTION TYPES
- */
+// ACTION TYPES
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
+const GET_FILTERED_PRODUCTS = 'GET_FILTERED_PRODUCTS'
+const GET_PRODUCT_CATEGORIES = 'GET_PRODUCT_CATEGORIES'
 
-/**
- * INITIAL STATE
- */
+// INITIAL STATE
 const defaultState = {
   allProducts: [],
-  selectedProduct: {}
+  selectedProduct: {},
+  categories: []
 }
 
-/**
- * ACTION CREATORS
- */
+// ACTION CREATORS
 const getProducts = products => ({type: GET_PRODUCTS, products})
 const getSingleProduct = product => ({type: GET_SINGLE_PRODUCT, product})
 const addProduct = product => ({type: ADD_PRODUCT, product})
 const updateProduct = product => ({type: UPDATE_PRODUCT, product})
 const removeProduct = product => ({type: DELETE_PRODUCT, product})
+const getFilteredProducts = products => ({type: GET_FILTERED_PRODUCTS, products})
+const getProductCategories = categories => ({type: GET_PRODUCT_CATEGORIES, categories})
 
-/**
- * THUNK CREATORS
- */
+
+// THUNK CREATORS
 export const fetchProducts = () => async dispatch => {
   try {
     const res = await axios.get('/api/products')
@@ -38,7 +36,6 @@ export const fetchProducts = () => async dispatch => {
     console.error(err)
   }
 }
-
 export const fetchSingleProduct = productId => async dispatch => {
   try {
     const res = await axios.get(`/api/products/productId/${productId}`)
@@ -47,26 +44,33 @@ export const fetchSingleProduct = productId => async dispatch => {
     console.error(err)
   }
 }
-
 export const postProduct = product => async dispatch => {
   const {data} = await axios.post('/api/products/add-product', product)
   dispatch(addProduct(data))
 }
-
 export const putProduct = (product, productId) => async dispatch => {
   const {data} = await axios.put(`api/products/productId/${productId}`, product)
   dispatch(updateProduct(data))
 }
-
 export const deleteProductThunk = productId => async dispatch => {
   await axios.delete(`api/products/productId/${productId}`)
   dispatch(removeProduct(productId))
 }
+export const fetchFilteredProducts = categoryName => async dispatch => {
+  try {
+    const route = categoryName === 'all' ? `api/products` : `api/products/category/${categoryName}`;
+    const { data: products } = await axios.get(route)
+    dispatch(getFilteredProducts(products))
+  } catch (err) {
+    console.error(err)
+  }
+}
+export const fetchCategories = () => async dispatch => {
+  const {data: categories } = await axios.get(`api/products/categories`)
+  dispatch(getProductCategories(categories))
+}
 
-/**
- * REDUCER HANDLER
- */
-
+// HANDLERS
 const handler = {
   [GET_PRODUCTS]: (state, action) => {
     return {...state, allProducts: action.products}
@@ -92,11 +96,16 @@ const handler = {
         product => product.id !== action.productId
       )
     }
+  },
+  [GET_FILTERED_PRODUCTS]: (state, action) => {
+    return {...state, allProducts: action.products}
+  },
+  [GET_PRODUCT_CATEGORIES]: (state, action) => {
+    return {...state, categories: action.categories}
   }
 }
-/**
- * REDUCER
- */
+
+// REDUCER
 export default function(state = defaultState, action) {
   if (!handler.hasOwnProperty(action.type)) {
     return state
