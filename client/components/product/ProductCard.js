@@ -12,7 +12,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import StarIcon from '@material-ui/icons/Star'
-import {putProduct, deleteProduct} from '../store'
+import {putProduct, deleteProduct} from '../../store'
 
 const styles = theme => ({
   card: {
@@ -40,31 +40,41 @@ const styles = theme => ({
 })
 
 const ProductCard = props => {
-  const {classes, id, name, imgUrl, rating, description, price, deleteThisProduct, updateThisProduct} = props
+  const {
+    classes,
+    id,
+    name,
+    imgUrl,
+    rating,
+    description,
+    price,
+    deleteThisProduct,
+    updateThisProduct
+  } = props
   return (
     <Card className={classes.card}>
-    <Link to={`/products/productId/${id}`} className={classes.link}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image={imgUrl} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {name}
-          </Typography>
-          <Typography component="p" className={classes.description}>
-            {description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <Link to={`/products/productId/${id}`} className={classes.link}>
+        <CardActionArea>
+          <CardMedia className={classes.media} image={imgUrl} />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {name}
+            </Typography>
+            <Typography component="p" className={classes.description}>
+              {description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
       </Link>
       <CardActions className={classes.cardActions}>
         <Typography variant="h6">{`$${price}`}</Typography>
         {/* <Typography>{rating}</Typography> */}
         <StarIcon className={classes.icon} />
-          {props.user.isAdmin ?
+        {props.user.isAdmin ? (
           <React.Fragment>
-            <Button 
+            <Button
               onClick={() => deleteThisProduct(id)}
-              size="small" 
+              size="small"
               color="primary"
             >
               Delete
@@ -72,9 +82,8 @@ const ProductCard = props => {
             <Button size="small" color="primary">
               Edit
             </Button>
-          </React.Fragment> :
-          null
-        }
+          </React.Fragment>
+        ) : null}
       </CardActions>
     </Card>
   )
