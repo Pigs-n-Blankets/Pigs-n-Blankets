@@ -11,18 +11,20 @@ import TextField from '@material-ui/core/TextField'
 
 const styles = theme => ({
   root: {
-
+    width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    flexWrap: 'wrap',
-    // justifyContent: 'spac',
     alignItems: 'center',
+  },
+  content: {
+    width: '70%',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper
   },
   gridList: {
-    width: '70%',
-    height: '100%'
+    // width: '70%',
+    // height: '100%'
   },
   gridListTitle: {
     // backgroundColor: theme.palette.primary.light
@@ -31,8 +33,7 @@ const styles = theme => ({
     color: 'rgba(255, 255, 255, 0.54)'
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit*6,
     width: 200,
     alignSelf: 'flex-start'
   },
@@ -59,54 +60,55 @@ class AllProducts extends Component {
   };
 
   render() {
-    const {classes, products} = this.props
+    const {classes, products, categories} = this.props
     return (
       <div className={classes.root}>
-        <TextField
-          // id="standard-select-currency-native"
-          select
-          // label="Native select"
-          className={classes.textField}
-          onChange={this.handleChange}
-          value={this.state.category}
-          SelectProps={{
-            native: true,
-            MenuProps: {
-              className: classes.menu
-            }
-          }}
-          helperText="Please select a product category"
-          margin="normal"
-        >
-          <option>all</option>
-          {this.props.categories.map(option => (
-            <option key={option.id} value={option.name}>
-              {option.name}
-            </option>
-          ))}
-        </TextField>
-        <GridList
-          cellHeight="auto"
-          className={classes.gridList}
-          cols={3}
-          spacing={15}
-        >
-          {products.map(product => (
-            <GridListTile
-              className={classes.gridListTitle}
-              key={product.id}
-              cols={1}
-            >
-              <ProductCard
-                imgUrl={product.imgUrl}
-                name={product.name}
-                rating={product.rating}
-                description={product.description}
-                price={product.price}
-              />
-            </GridListTile>
-          ))}
-        </GridList>
+        <div className={classes.content}>
+          <TextField
+            select
+            className={classes.textField}
+            onChange={this.handleChange}
+            value={this.state.category}
+            SelectProps={{
+              native: true,
+              MenuProps: {
+                className: classes.menu
+              }
+            }}
+            helperText="Please select a product category"
+            margin="normal"
+          >
+            <option>all</option>
+            {categories.map(option => (
+              <option key={option.id} value={option.name}>
+                {option.name}
+              </option>
+            ))}
+          </TextField>
+          <GridList
+            cellHeight="auto"
+            className={classes.gridList}
+            cols={3}
+            spacing={15}
+          >
+            {products.map(product => (
+              <GridListTile
+                className={classes.gridListTitle}
+                key={product.id}
+                cols={1}
+              >
+                <ProductCard
+                  id={product.id}
+                  imgUrl={product.imgUrl}
+                  name={product.name}
+                  rating={product.rating}
+                  description={product.description}
+                  price={product.price}
+                />
+              </GridListTile>
+            ))}
+          </GridList>
+        </div>
       </div>
     )
   }
