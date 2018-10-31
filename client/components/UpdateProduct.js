@@ -11,8 +11,7 @@ import Button from '@material-ui/core/Button'
 const styles = theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
-    height: 100
+    flexWrap: 'wrap'
   },
   textField: {
     paddingBottom: 0,
@@ -56,45 +55,47 @@ class UpdateProduct extends Component {
         <h2>
           <span>Update This Product:</span>
         </h2>
-        <TextField
-          name="name"
-          id="filled-name"
-          label="Name"
-          className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChange}
-          margin="normal"
-          variant="filled"
-        />
-        <TextField
-          name="price"
-          id="filled-name"
-          label="Price"
-          className={classes.textField}
-          value={this.state.price}
-          onChange={this.handleChange}
-          margin="normal"
-          variant="filled"
-        />
-        <TextField
-          name="description"
-          id="filled-multiline-flexible"
-          label="Description"
-          multiline
-          className={classes.textField}
-          value={this.state.description}
-          onChange={this.handleChange}
-          margin="normal"
-          variant="filled"
-        />
-        <Button
-          type="Submit"
-          onClick={this.handleSubmit}
-          variant="outlined"
-          className={classes.button}
-        >
-          Submit
-        </Button>
+        <span>
+          <TextField
+            name="name"
+            id="filled-name"
+            label="Name"
+            className={classes.textField}
+            value={this.state.name}
+            onChange={this.handleChange}
+            margin="normal"
+            variant="filled"
+          />
+          <TextField
+            name="price"
+            id="filled-name"
+            label="Price"
+            className={classes.textField}
+            value={this.state.price}
+            onChange={this.handleChange}
+            margin="normal"
+            variant="filled"
+          />
+          <TextField
+            name="description"
+            id="filled-multiline-flexible"
+            label="Description"
+            multiline
+            className={classes.textField}
+            value={this.state.description}
+            onChange={this.handleChange}
+            margin="normal"
+            variant="filled"
+          />
+          <Button
+            type="Submit"
+            onClick={this.handleSubmit}
+            variant="outlined"
+            className={classes.button}
+          >
+            Submit
+          </Button>
+        </span>
       </form>
     )
   }
