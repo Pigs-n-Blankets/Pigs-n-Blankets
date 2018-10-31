@@ -19,6 +19,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// REVIEW: resources not actions
 router.post('/add-product', async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
@@ -43,6 +44,7 @@ router.get('/productId/:productId', async (req, res, next) => {
   }
 })
 
+// REVIEW: collections, not api descriptions
 router.put('/productId/:productId', async (req, res, next) => {
   try {
     const id = req.params.productId
@@ -71,6 +73,8 @@ router.delete('/productId/:productId', async (req, res, next) => {
   }
 })
 
+
+// REVIEW: categories router?
 router.get('/categories', async(req, res, next) => {
   try {
     const categories = await Category.findAll()

@@ -95,13 +95,28 @@ class SingleProduct extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchInitialProduct: productId => {
-      dispatch(fetchSingleProduct(productId))
-    }
-  }
-}
+
+//const mapDispatchToProps = {
+//  fetchSingleProduct,
+//  fetchManyProducts,
+//}
+
+//const mapDispatchToProps = function (dispatch) {
+//  return {
+//    fetchSingleProduct: (...args) => dispatch(fetchSingleProduct(...args)),
+//    fetchManyProducts: (...args) => dispatch(fetchInitialProducts(...args)),
+//  }
+//}
+
+
+//const mapDispatchToProps = function (dispatch) {
+//  const mapped = {}
+//  Object.entries(actionCreators).forEach(([name, actionCreator]) => {
+//    mapped[name] = (...args) => dispatch(actionCreator(...args))
+//  })
+//  return mapped
+//}
+
 
 const mapStateToProps = state => {
   return {

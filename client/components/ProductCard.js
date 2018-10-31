@@ -40,6 +40,7 @@ const styles = theme => ({
 
 const ProductCard = props => {
   const {classes, id, name, imgUrl, rating, description, price} = props
+  // REVIEW: auth
   console.log('USER ---->', props.user.isAdmin);
   return (
     <Card className={classes.card}>
