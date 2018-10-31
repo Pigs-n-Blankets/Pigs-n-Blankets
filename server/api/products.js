@@ -2,6 +2,13 @@ const router = require('express').Router()
 const {Product, Category} = require('../db/models')
 module.exports = router
 
+const isAdmin = (req, res, next) => {
+  if (!req.user || !req.user.isAdmin) {
+    res.status(403)
+    return next(new Error('Access denied'))
+  }
+}
+
 //mounted on /products
 
 router.get('/', async (req, res, next) => {
@@ -19,7 +26,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
     res.json(product)
@@ -43,7 +50,7 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', isAdmin, async (req, res, next) => {
   try {
     const id = req.params.productId
     await Product.update(req.body, {
@@ -64,7 +71,7 @@ router.put('/:productId', async (req, res, next) => {
   }
 })
 
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:productId', isAdmin, async (req, res, next) => {
   try {
     await Product.destroy({
       where: {
