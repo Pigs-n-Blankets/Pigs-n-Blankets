@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
@@ -24,7 +23,7 @@ const styles = theme => ({
     height: 250
   },
   description: {
-    height: 60
+    height: 20
   },
   icon: {
     margin: theme.spacing.unit,
