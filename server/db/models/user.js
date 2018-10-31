@@ -7,7 +7,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     defaultValue: 'Blanket'
   },
-  LastName: {
+  lastName: {
     type: Sequelize.STRING,
     defaultValue: 'Buddy'
   },

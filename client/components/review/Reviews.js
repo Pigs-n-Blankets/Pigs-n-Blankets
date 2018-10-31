@@ -7,6 +7,7 @@ import {withStyles} from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import Typography from '@material-ui/core/Typography'
+import List from '@material-ui/core/List'
 
 const styles = theme => ({
   root: {
@@ -43,36 +44,34 @@ const styles = theme => ({
 
 const Reviews = props => {
   const {classes, reviews} = props
-  if (!reviews) {
+  if (!reviews[0]) {
     return <div>There are no current reviews for this product!</div>
   }
+  console.log(reviews[0].user)
   return (
-    <GridList
-      cellHeight="auto"
-      className={classes.gridList}
-      cols={3}
-      spacing={15}
-    >
-      <GridListTile className={classes.gridListTitle} cols={3}>
-        <Typography gutterBottom variant="h3" component="h2">
-          Product Reviews
-        </Typography>
-      </GridListTile>
-      {reviews.map(review => (
-        <GridListTile
-          className={classes.gridListTitle}
-          key={review.id}
-          cols={1}
-        >
+    // <GridList
+    //   cellHeight="auto"
+    //   className={classes.gridList}
+    //   cols={3}
+    //   spacing={15}
+    // >
+    <div>
+      <Typography gutterBottom variant="h3" component="h2">
+        Product Reviews
+      </Typography>
+      <List>
+        {reviews.map(review => (
           <ReviewCard
+            key={review.id}
             id={review.id}
             rating={review.rating}
             description={review.description}
-            user={review.price}
+            user={review.user}
           />
-        </GridListTile>
-      ))}
-    </GridList>
+        ))}
+      </List>
+    </div>
+    // </GridList>
   )
 }
 
