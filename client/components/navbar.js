@@ -10,20 +10,17 @@ import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import InputBase from '@material-ui/core/InputBase'
 import Badge from '@material-ui/core/Badge'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
 import {fade} from '@material-ui/core/styles/colorManipulator'
 import {withStyles} from '@material-ui/core/styles'
-import MenuIcon from '@material-ui/icons/Menu'
+import AppIcon from '@material-ui/icons/Apps'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import NotificationsIcon from '@material-ui/icons/Notifications'
-import MoreIcon from '@material-ui/icons/MoreVert'
 
 const styles = theme => ({
   root: {
-    width: '100%'
+    width: '100%',
+    paddingBottom: theme.spacing.unit * 5
   },
   grow: {
     flexGrow: 1
@@ -77,17 +74,8 @@ const styles = theme => ({
       width: 200
     }
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex'
-    }
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none'
-    }
+  navLinks: {
+    color: 'inherit'
   }
 })
 
@@ -102,14 +90,14 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Link to="/">
+          <Link to="/" className={classes.navLinks}>
             <Typography
               className={classes.title}
               variant="h6"
               color="inherit"
               noWrap
             >
-              Pigs 'N Blankets
+              Pigs 'n Blankets
             </Typography>
           </Link>
           <div className={classes.search}>
@@ -124,41 +112,43 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
               }}
             />
           </div>
-          <Link to="/products">
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
-              Products
-            </Typography>
-          </Link>
           <div className={classes.grow} />
           {isLoggedIn ? (
             <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to="/cart">
+              <Link to="/products" className={classes.navLinks}>
+                <IconButton color="inherit">
+                  <AppIcon />
+                </IconButton>
+              </Link>
+              <Link to="/cart" className={classes.navLinks}>
                 <IconButton color="inherit">
                   <Badge badgeContent={4} color="secondary">
                     <ShoppingCartIcon />
                   </Badge>
                 </IconButton>
               </Link>
-              <Link to="/account">
+              <Link to="/account" className={classes.navLinks}>
                 <IconButton aria-haspopup="true" color="inherit">
                   <AccountCircle />
                 </IconButton>
               </Link>
-              <a href="#" onClick={handleClick}>
+              <a href="#" onClick={handleClick} className={classes.navLinks}>
                 Logout
               </a>
             </div>
           ) : (
             <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+              <Link to="/products" className={classes.navLinks}>
+                <IconButton color="inherit">
+                  <AppIcon />
+                </IconButton>
+              </Link>
+              <Link to="/login" className={classes.navLinks}>
+                Login
+              </Link>
+              <Link to="/signup" className={classes.navLinks}>
+                Sign Up
+              </Link>
             </div>
           )}
         </Toolbar>
