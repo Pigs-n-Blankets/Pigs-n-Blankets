@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {fetchSingleProduct, fetchReviews} from '../../store'
+import {fetchSingleProduct, fetchReviews, deleteProduct} from '../../store'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {Loading} from '../utils/Loading'
 import Reviews from '../review/Reviews'
 import UpdateProduct from './UpdateProduct'
@@ -79,9 +80,15 @@ class SingleProduct extends Component {
               <Typography variant="h6">{`$${product.price}`}</Typography>
               <Typography>{product.rating}</Typography>
               <StarIcon className={classes.icon} />
-              <Button size="small" color="primary">
-                Delete
-              </Button>
+              <Link to="/products" className={classes.link}>
+                <Button
+                  onClick={this.props.deleteThisProduct(product.id)}
+                  size="small"
+                  color="primary"
+                >
+                  Delete
+                </Button>
+              </Link>
               <Button size="small" color="primary">
                 Edit
               </Button>
@@ -107,6 +114,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchReviews: productId => {
       dispatch(fetchReviews(productId))
+    },
+    deleteThisProduct: productId => {
+      dispatch(deleteProduct(productId))
     }
   }
 }

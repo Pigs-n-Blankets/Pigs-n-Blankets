@@ -51,9 +51,13 @@ const ProductCard = props => {
     deleteThisProduct,
     updateThisProduct
   } = props
+  const truncDesc =
+    description.length > 55
+      ? description.slice(0, 55).concat('...')
+      : description
   return (
     <Card className={classes.card}>
-      <Link to={`/products/productId/${id}`} className={classes.link}>
+      <Link to={`/products/${id}`} className={classes.link}>
         <CardActionArea>
           <CardMedia className={classes.media} image={imgUrl} />
           <CardContent>
@@ -61,7 +65,7 @@ const ProductCard = props => {
               {name}
             </Typography>
             <Typography component="p" className={classes.description}>
-              {description}
+              {truncDesc}
             </Typography>
           </CardContent>
         </CardActionArea>

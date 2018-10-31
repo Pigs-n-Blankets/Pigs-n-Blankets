@@ -60,32 +60,35 @@ class UpdateProduct extends Component {
           name="name"
           id="filled-name"
           label="Name"
+          fullWidth
           className={classes.textField}
           value={this.state.name}
           onChange={this.handleChange}
           margin="normal"
-          variant="filled"
+          //variant="filled"
         />
         <TextField
           name="price"
           id="filled-name"
           label="Price"
+          fullWidth
           className={classes.textField}
           value={this.state.price}
           onChange={this.handleChange}
           margin="normal"
-          variant="filled"
+          //variant="filled"
         />
         <TextField
           name="description"
           id="filled-multiline-flexible"
           label="Description"
+          fullWidth
           multiline
           className={classes.textField}
           value={this.state.description}
           onChange={this.handleChange}
           margin="normal"
-          variant="filled"
+          variant="outlined"
         />
         <Button
           type="Submit"
