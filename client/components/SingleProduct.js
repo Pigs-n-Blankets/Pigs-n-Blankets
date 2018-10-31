@@ -3,6 +3,7 @@ import {fetchSingleProduct, fetchReviews} from '../store'
 import {connect} from 'react-redux'
 import {Loading} from './Loading'
 import Reviews from './Reviews'
+import UpdateProduct from './UpdateProduct'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -89,6 +90,7 @@ class SingleProduct extends Component {
               </Button>
             </CardActions>
           </Card>
+        <UpdateProduct product={product} productId={product.id} />
         </div>
         <div className={classes.wrapper}>
           <Reviews reviews={reviews} />
