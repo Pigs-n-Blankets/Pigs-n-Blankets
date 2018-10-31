@@ -127,7 +127,7 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
                   </Badge>
                 </IconButton>
               </Link>
-              <Link to="/account" className={classes.navLinks}>
+              <Link to="/user" className={classes.navLinks}>
                 <IconButton aria-haspopup="true" color="inherit">
                   <AccountCircle />
                 </IconButton>

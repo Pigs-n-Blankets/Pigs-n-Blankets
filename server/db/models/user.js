@@ -24,7 +24,8 @@ const User = db.define('user', {
     }
   },
   imageUrl: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: 'https://mylostpetalert.com/wp-content/themes/mlpa-child/images/nophoto.gif'
   },
   address: {
     type: Sequelize.STRING

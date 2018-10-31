@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import UserProfile from './UserProfile'
 
 // MATERIAL UI IMPORTS
 import PropTypes from 'prop-types'
@@ -28,17 +29,19 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   content: {
     width: '70%',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+
   },
   appBar: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: 'none',
-    borderBottom: '1px solid #D8DEE2'
+    borderBottom: '1px solid #D8DEE2',
+    marginBottom: '2%'
   }
 })
 
@@ -73,8 +76,7 @@ class UserAccount extends React.Component {
           </AppBar>
           {value === 0 &&
             <TabContainer>
-              Profile
-              {/* add profile component here */}
+              <UserProfile />
             </TabContainer>
           }
           {value === 1 &&
