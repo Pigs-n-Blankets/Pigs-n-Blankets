@@ -74,15 +74,15 @@ class SingleProduct extends Component {
           spacing={15}
         >
           <GridListTile className={classes.gridListTitle} cols={1}>
-            {/* <ProductCard
+            <ProductCard
               id={product.id}
               imgUrl={product.imgUrl}
               name={product.name}
               rating={product.rating}
               description={product.description}
               price={product.price}
-            /> */}
-            <Card className={classes.card}>
+            />
+            {/* <Card className={classes.card}>
               <CardActionArea>
                 <CardMedia className={classes.media} image={product.imgUrl} />
                 <CardContent className="wrapper">
@@ -112,7 +112,7 @@ class SingleProduct extends Component {
                   Add to Cart
                 </Button>
               </CardActions>
-            </Card>
+            </Card> */}
           </GridListTile>
           <GridListTile className={classes.gridListTitle} cols={1}>
             <UpdateProduct product={product} productId={product.id} />
