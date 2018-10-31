@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import {fetchSingleProduct} from '../store'
+import {fetchSingleProduct, fetchReviews} from '../store'
 import {connect} from 'react-redux'
 import {Loading} from './Loading'
+import Reviews from './Reviews'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -45,12 +46,12 @@ class SingleProduct extends Component {
   componentDidMount() {
     const productId = this.props.match.params.productId
     this.props.fetchInitialProduct(productId)
+    this.props.fetchReviews(productId)
   }
 
   render() {
-    const {product, classes} = this.props
-    console.log(product)
-    while (!product.id) {
+    const {product, reviews, classes} = this.props
+    if (!product.id) {
       return <Loading />
     }
     return (
@@ -89,7 +90,9 @@ class SingleProduct extends Component {
             </CardActions>
           </Card>
         </div>
-        <div className={classes.wrapper}>Reviews go here</div>
+        <div className={classes.wrapper}>
+          <Reviews reviews={reviews} />
+        </div>
       </div>
     )
   }
@@ -99,13 +102,17 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchInitialProduct: productId => {
       dispatch(fetchSingleProduct(productId))
+    },
+    fetchReviews: productId => {
+      dispatch(fetchReviews(productId))
     }
   }
 }
 
 const mapStateToProps = state => {
   return {
-    product: state.product.selectedProduct
+    product: state.product.selectedProduct,
+    reviews: state.review
   }
 }
 
