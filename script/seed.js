@@ -1,8 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
-const {Product} = require('../server/db/models')
+const {User, Product, Category} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -62,8 +61,21 @@ async function seed() {
       description: 'Do you have a pig who thinks he is a unicorn? This is the perfect compromise',
       imgUrl: 'https://i.dailymail.co.uk/i/pix/2014/09/26/1411729138384_Image_galleryImage_PIC_FROM_CATERS_NEWS_PICT.JPG'
     }),
-  ])
-
+    Category.create({name: 'dogs'}),
+    Category.create({name: 'cats'}),
+    Category.create({name: 'pigs'}),
+    Category.create({name: 'horses'})
+  ]).then(([doggySnowman, dapperPup, superCat, sassyKitty, cowboyPiglet, pigletBooties, identityCrisis, dogs, cats, pigs] ) => {
+    return Promise.all([
+      doggySnowman.setCategories(dogs),
+      dapperPup.setCategories(dogs),
+      superCat.setCategories(cats),
+      sassyKitty.setCategories(cats),
+      cowboyPiglet.setCategories(pigs),
+      pigletBooties.setCategories(pigs),
+      identityCrisis.setCategories(pigs)
+    ])
+  })
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
