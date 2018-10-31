@@ -28,7 +28,7 @@ const styles = theme => ({
   },
   icon: {
     margin: theme.spacing.unit,
-    fontSize: 24
+    fontSize: 15
   },
   cardActions: {
     display: 'flex',
@@ -41,14 +41,10 @@ const styles = theme => ({
 
 const ProductCard = props => {
   const {classes, id, name, imgUrl, rating, description, price} = props
-
-  // const handleClick = () => {
-
-  // }
-
+  console.log('USER ---->', props.user.isAdmin);
   return (
-    <Link to={`/products/productId/${id}`} className={classes.link}>
     <Card className={classes.card}>
+    <Link to={`/products/productId/${id}`} className={classes.link}>
       <CardActionArea>
         <CardMedia className={classes.media} image={imgUrl} />
         <CardContent>
@@ -60,19 +56,25 @@ const ProductCard = props => {
           </Typography>
         </CardContent>
       </CardActionArea>
+      </Link>
       <CardActions className={classes.cardActions}>
         <Typography variant="h6">{`$${price}`}</Typography>
-        <Typography>{rating}</Typography>
+        {/* <Typography>{rating}</Typography> */}
         <StarIcon className={classes.icon} />
-        <Button size="small" color="primary">
-          Delete
-        </Button>
-        <Button size="small" color="primary">
-          Edit
-        </Button>
+          {props.user.isAdmin ?
+          <React.Fragment>
+            <Button size="small" color="primary">
+              Delete
+            </Button>
+            <Button size="small" color="primary">
+              Edit
+            </Button>
+          </React.Fragment> :
+          null
+        }
+
       </CardActions>
     </Card>
-    </Link>
   )
 }
 
