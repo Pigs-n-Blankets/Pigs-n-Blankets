@@ -11,14 +11,16 @@ import Button from '@material-ui/core/Button'
 const styles = theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    height: 100
   },
   textField: {
+    paddingBottom: 0,
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
   },
   dense: {
-    marginTop: 16
+    marginTop: 0
   },
   menu: {
     width: 200
@@ -37,11 +39,6 @@ class UpdateProduct extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  // componentDidMount() {
-  //   this.setState({
-  //     name:
-  //   })
-  // }
   handleChange(event) {
     console.log('change')
     this.setState({
@@ -51,46 +48,44 @@ class UpdateProduct extends Component {
   handleSubmit(event) {
     event.preventDefault()
     this.props.updateThisProduct(this.state, this.props.productId)
-    this.setState({
-      name: '',
-      price: 0,
-      description: '',
-      imgUrl: ''
-    })
   }
   render() {
     const {classes} = this.props
     return (
       <form className={classes.container} noValidate autoComplete="off">
+        <h2>
+          <span>Update This Product:</span>
+        </h2>
         <TextField
           name="name"
-          id="outlined-name"
+          id="filled-name"
           label="Name"
           className={classes.textField}
           value={this.state.name}
           onChange={this.handleChange}
           margin="normal"
-          variant="outlined"
+          variant="filled"
         />
         <TextField
           name="price"
-          id="outlined-name"
+          id="filled-name"
           label="Price"
           className={classes.textField}
           value={this.state.price}
           onChange={this.handleChange}
           margin="normal"
-          variant="outlined"
+          variant="filled"
         />
         <TextField
           name="description"
-          id="outlined-name"
+          id="filled-multiline-flexible"
           label="Description"
+          multiline
           className={classes.textField}
           value={this.state.description}
           onChange={this.handleChange}
           margin="normal"
-          variant="outlined"
+          variant="filled"
         />
         <Button
           type="Submit"
