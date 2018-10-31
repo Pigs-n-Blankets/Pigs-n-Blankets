@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import Stars from '../review/Stars'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -68,8 +69,6 @@ const ProductCard = props => {
       </Link>
       <CardActions className={classes.cardActions}>
         <Typography variant="h6">{`$${price}`}</Typography>
-        {/* <Typography>{rating}</Typography> */}
-        <StarIcon className={classes.icon} />
         {props.user.isAdmin ? (
           <React.Fragment>
             <Button
@@ -83,7 +82,9 @@ const ProductCard = props => {
               Edit
             </Button>
           </React.Fragment>
-        ) : null}
+        ) : (
+          <Stars rating={rating} />
+        )}
       </CardActions>
     </Card>
   )
