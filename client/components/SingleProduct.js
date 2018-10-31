@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {fetchSingleProduct} from '../store'
 import {connect} from 'react-redux'
 import {Loading} from './Loading'
+import UpdateProduct from './UpdateProduct'
 
 class SingleProduct extends Component {
   componentDidMount() {
@@ -27,6 +28,7 @@ class SingleProduct extends Component {
             <li key={category.id}> {category.name}</li>
           ))}
         </ul>
+        <UpdateProduct product={product} productId={product.id} />
       </div>
     )
   }

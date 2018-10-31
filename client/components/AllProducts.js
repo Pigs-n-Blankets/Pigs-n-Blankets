@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {fetchProducts} from '../store'
 import {connect} from 'react-redux'
-import ProductCard from './ProductCard';
+import ProductCard from './ProductCard'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -37,14 +37,25 @@ class AllProducts extends Component {
     return (
       <div className={classes.root}>
         <GridList
-          cellHeight='auto'
+          cellHeight="auto"
           className={classes.gridList}
           cols={3}
           spacing={15}
         >
           {products.map(product => (
-            <GridListTile className={classes.gridListTitle} key={product.id} cols={1}>
-              <ProductCard imgUrl={product.imgUrl} name={product.name} rating={product.rating} description={product.description} price={product.price}/>
+            <GridListTile
+              className={classes.gridListTitle}
+              key={product.id}
+              cols={1}
+            >
+              <ProductCard
+                id={product.id}
+                imgUrl={product.imgUrl}
+                name={product.name}
+                rating={product.rating}
+                description={product.description}
+                price={product.price}
+              />
             </GridListTile>
           ))}
         </GridList>

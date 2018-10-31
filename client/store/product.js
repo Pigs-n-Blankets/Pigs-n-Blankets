@@ -25,7 +25,7 @@ const getProducts = products => ({type: GET_PRODUCTS, products})
 const getSingleProduct = product => ({type: GET_SINGLE_PRODUCT, product})
 const addProduct = product => ({type: ADD_PRODUCT, product})
 const updateProduct = product => ({type: UPDATE_PRODUCT, product})
-const removeProduct = product => ({type: DELETE_PRODUCT, product})
+const removeProduct = productId => ({type: DELETE_PRODUCT, productId})
 
 /**
  * THUNK CREATORS
@@ -54,12 +54,15 @@ export const postProduct = product => async dispatch => {
 }
 
 export const putProduct = (product, productId) => async dispatch => {
-  const {data} = await axios.put(`api/products/productId/${productId}`, product)
+  const {data} = await axios.put(
+    `/api/products/productId/${productId}`,
+    product
+  )
   dispatch(updateProduct(data))
 }
 
-export const deleteProductThunk = productId => async dispatch => {
-  await axios.delete(`api/products/productId/${productId}`)
+export const deleteProduct = productId => async dispatch => {
+  await axios.delete(`/api/products/productId/${productId}`)
   dispatch(removeProduct(productId))
 }
 
@@ -82,7 +85,8 @@ const handler = {
       ...state,
       allProducts: state.allProducts.map(
         product => (product.id === action.product.id ? action.product : product)
-      )
+      ),
+      selectedProduct: action.product
     }
   },
   [DELETE_PRODUCT]: (state, action) => {
