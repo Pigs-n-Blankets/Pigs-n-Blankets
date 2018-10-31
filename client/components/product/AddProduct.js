@@ -32,10 +32,10 @@ class AddProduct extends Component {
   constructor() {
     super()
     this.state = {
-      name: '',
-      price: null,
-      description: '',
-      imgUrl: ''
+      name: undefined,
+      price: undefined,
+      description: undefined,
+      imgUrl: undefined
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -50,10 +50,10 @@ class AddProduct extends Component {
     event.preventDefault()
     this.props.postNewProduct(this.state)
     this.setState({
-      name: '',
-      price: '',
-      description: '',
-      imgUrl: ''
+      name: null,
+      price: null,
+      description: null,
+      imgUrl: null
     })
   }
   render() {

@@ -23,8 +23,14 @@ const getSingleProduct = product => ({type: GET_SINGLE_PRODUCT, product})
 const addProduct = product => ({type: ADD_PRODUCT, product})
 const updateProduct = product => ({type: UPDATE_PRODUCT, product})
 const removeProduct = productId => ({type: DELETE_PRODUCT, productId})
-const getFilteredProducts = products => ({type: GET_FILTERED_PRODUCTS, products})
-const getProductCategories = categories => ({type: GET_PRODUCT_CATEGORIES, categories})
+const getFilteredProducts = products => ({
+  type: GET_FILTERED_PRODUCTS,
+  products
+})
+const getProductCategories = categories => ({
+  type: GET_PRODUCT_CATEGORIES,
+  categories
+})
 
 // THUNK CREATORS
 export const fetchProducts = () => async dispatch => {
@@ -37,39 +43,37 @@ export const fetchProducts = () => async dispatch => {
 }
 export const fetchSingleProduct = productId => async dispatch => {
   try {
-    const res = await axios.get(`/api/products/productId/${productId}`)
+    const res = await axios.get(`/api/products/${productId}`)
     dispatch(getSingleProduct(res.data))
   } catch (err) {
     console.error(err)
   }
 }
 export const postProduct = product => async dispatch => {
-  const {data} = await axios.post('/api/products/add-product', product)
+  const {data} = await axios.post('/api/products/', product)
   dispatch(addProduct(data))
 }
 export const putProduct = (product, productId) => async dispatch => {
-  const {data} = await axios.put(
-    `/api/products/productId/${productId}`,
-    product
-  )
+  const {data} = await axios.put(`/api/products/${productId}`, product)
   dispatch(updateProduct(data))
 }
 
 export const deleteProduct = productId => async dispatch => {
-  await axios.delete(`/api/products/productId/${productId}`)
+  await axios.delete(`/api/products/${productId}`)
   dispatch(removeProduct(productId))
 }
 export const fetchFilteredProducts = categoryName => async dispatch => {
   try {
-    const route = categoryName === 'all' ? `api/products` : `api/products/category/${categoryName}`;
-    const { data: products } = await axios.get(route)
+    const route =
+      categoryName === 'all' ? `api/products` : `/api/category/${categoryName}`
+    const {data: products} = await axios.get(route)
     dispatch(getFilteredProducts(products))
   } catch (err) {
     console.error(err)
   }
 }
 export const fetchCategories = () => async dispatch => {
-  const {data: categories } = await axios.get(`api/products/categories`)
+  const {data: categories} = await axios.get(`/api/category`)
   dispatch(getProductCategories(categories))
 }
 

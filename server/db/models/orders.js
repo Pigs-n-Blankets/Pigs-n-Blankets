@@ -4,12 +4,15 @@ const db = require('../db')
 const Order = db.define('order', {
   subtotal: {
     type: Sequelize.DECIMAL,
-    defaultValue: 0.00
+    defaultValue: 0.0
   },
   orderStatus: {
     type: Sequelize.ENUM,
-    values: ['created', 'processing', 'cancelled', 'completed']
+    values: ['in-cart', 'created', 'processing', 'cancelled', 'completed']
+  },
+  sessionId: {
+    type: Sequelize.STRING
   }
 })
 
-module.exports = Order;
+module.exports = Order

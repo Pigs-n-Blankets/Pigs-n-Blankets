@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/add-product', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
     res.json(product)
@@ -28,7 +28,7 @@ router.post('/add-product', async (req, res, next) => {
   }
 })
 
-router.get('/productId/:productId', async (req, res, next) => {
+router.get('/:productId', async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.productId, {
       include: [
@@ -43,7 +43,7 @@ router.get('/productId/:productId', async (req, res, next) => {
   }
 })
 
-router.put('/productId/:productId', async (req, res, next) => {
+router.put('/:productId', async (req, res, next) => {
   try {
     const id = req.params.productId
     await Product.update(req.body, {
@@ -64,7 +64,7 @@ router.put('/productId/:productId', async (req, res, next) => {
   }
 })
 
-router.delete('/productId/:productId', async (req, res, next) => {
+router.delete('/:productId', async (req, res, next) => {
   try {
     await Product.destroy({
       where: {
@@ -72,35 +72,6 @@ router.delete('/productId/:productId', async (req, res, next) => {
       }
     })
     res.sendStatus(200)
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.get('/categories', async(req, res, next) => {
-  try {
-    const categories = await Category.findAll()
-    res.json(categories)
-  } catch (err) {
-    console.error(err)
-  }
-})
-
-router.get('/category/:categoryName', async(req, res, next) => {
-  const categoryName = req.params.categoryName;
-  try {
-    const products = await Product.findAll({
-      include: [{
-          model: Category,
-          through: {
-            attributes: ['categoryId', 'productId']
-          },
-          where: {
-            name: categoryName
-          }
-        }]
-    })
-    res.json(products)
   } catch (err) {
     next(err)
   }
