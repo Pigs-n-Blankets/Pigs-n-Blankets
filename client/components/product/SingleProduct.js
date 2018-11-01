@@ -19,7 +19,6 @@ const styles = theme => ({
     width: '70%'
   },
   gridItem: {
-    // border: '1px solid #D8DEE2',
     display: 'flex'
   },
   gridContent: {
