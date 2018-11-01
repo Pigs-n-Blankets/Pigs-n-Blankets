@@ -93,11 +93,11 @@ async function seed() {
     }),
     Order.create({
       orderStatus: 'inCart',
-      sessionId: '123'
+      sessionId: 'KV35_tqiLEeR65z5Mmom2fKNG8sClhZj'
     }),
     Order.create({
       orderStatus: 'inCart',
-      sessionId: '123'
+      sessionId: 'KV35_tqiLEeR65z5Mmom2fKNG8sClhZj'
     }),
     Order.create({
       orderStatus: 'inCart',

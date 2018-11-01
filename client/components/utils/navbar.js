@@ -113,6 +113,13 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
             />
           </div>
           <div className={classes.grow} />
+          <Link to="/cart" className={classes.navLinks}>
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+          </Link>
           {isLoggedIn ? (
             <div>
               <Link to="/products" className={classes.navLinks}>
@@ -120,13 +127,7 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
                   <AppIcon />
                 </IconButton>
               </Link>
-              <Link to="/cart" className={classes.navLinks}>
-                <IconButton color="inherit">
-                  <Badge badgeContent={4} color="secondary">
-                    <ShoppingCartIcon />
-                  </Badge>
-                </IconButton>
-              </Link>
+
               <Link to="/user" className={classes.navLinks}>
                 <IconButton aria-haspopup="true" color="inherit">
                   <AccountCircle />

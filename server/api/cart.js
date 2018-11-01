@@ -2,9 +2,16 @@ const router = require('express').Router()
 const {Order, Product} = require('../db/models')
 module.exports = router
 
-router.get('/:id/:idType', async (req, res, next) => {
-  const id = req.params.id
-  const idType = req.params.idType // userId or sessionId
+router.get('/', async (req, res, next) => {
+  let id
+  let idType;
+  if (req.user) {
+    id = req.user.dataValues.id
+    idType = 'userId'
+  } else {
+    id = req.session.id
+    idType = 'sessionId'
+  }
 
   try {
       const orders = await Order.findAll({
