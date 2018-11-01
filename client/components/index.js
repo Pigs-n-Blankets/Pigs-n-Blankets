@@ -11,3 +11,5 @@ export {default as AllProducts} from './product/AllProducts'
 export {default as SingleProduct} from './product/SingleProduct'
 export {default as AddProduct} from './product/AddProduct'
 export {default as SingleProductCard} from './product/SingleProductCard'
+export {default as CartView} from './cart/CartView'
+
