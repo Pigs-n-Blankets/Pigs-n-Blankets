@@ -3,10 +3,12 @@ const {Product, Category} = require('../db/models')
 module.exports = router
 
 const isAdmin = (req, res, next) => {
+  console.log(req.user)
   if (!req.user || !req.user.isAdmin) {
     res.status(403)
     return next(new Error('Access denied'))
   }
+  next()
 }
 
 //mounted on /products
