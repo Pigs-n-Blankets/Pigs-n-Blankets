@@ -8,7 +8,6 @@ const Stars = props => {
   for (let i = 0; i < props.rating; i++) {
     ratArr.push(i)
   }
-  console.log(ratArr)
   if (Math.floor(props.rating) === props.rating) {
     return <div>{ratArr.map(idx => <StarIcon key={idx} />)}</div>
   } else {

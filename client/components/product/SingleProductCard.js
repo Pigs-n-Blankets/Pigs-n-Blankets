@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 // MATERIAL UI IMPORTS
@@ -17,6 +17,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
+import TextField from '@material-ui/core/TextField'
 
 const styles = theme => ({
   root: {
@@ -41,101 +42,125 @@ const styles = theme => ({
   content: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   profileImg: {
-    flexBasis: '50%',
+    flexBasis: '50%'
   },
   expansionPanel: {
     boxShadow: 'none',
-    borderTop: 'none',
+    borderTop: 'none'
   },
   submit: {
     marginTop: theme.spacing.unit,
-    marginLeft: theme.spacing.unit*2
-
+    marginLeft: theme.spacing.unit * 2
   },
   gutter: {
-    marginBottom: theme.spacing.unit*2,
+    marginBottom: theme.spacing.unit * 2
   },
   rightIcon: {
     marginLeft: theme.spacing.unit
   }
 })
 
-function SingleProductCard(props) {
-  const {classes, product} = props
-  const {name, rating, imgUrl, description, price} = product
+class SingleProductCard extends Component {
+  constructor() {
+    super()
+    this.state = {
+      quantity: 1
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+  handleChange(event) {
+    this.setState({
+      quantity: event.target.value
+    })
+  }
+  render() {
+    const {classes, product} = this.props
+    const {name, rating, imgUrl, description, price} = product
 
-  return (
-    <div className={classes.root}>
-      <Card className={classes.card}>
-        <CardMedia className={classes.profileImg} image={imgUrl} />
+    return (
+      <div className={classes.root}>
+        <Card className={classes.card}>
+          <CardMedia className={classes.profileImg} image={imgUrl} />
 
-        <div className={classes.details}>
-          <CardContent className={classes.content}>
-            <Typography gutterBottom variant="h4" component="h4" className={classes.gutter}>
-              {name}
-            </Typography>
-            <Stars rating={rating} />
-            <Typography gutterBottom variant="h6" className={classes.gutter}>
-              {`$${price}`}
-            </Typography>
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography
+                gutterBottom
+                variant="h4"
+                component="h4"
+                className={classes.gutter}
+              >
+                {name}
+              </Typography>
+              <Stars rating={rating} />
+              <Typography gutterBottom variant="h6" className={classes.gutter}>
+                {`$${price}`}
+              </Typography>
 
-            <ExpansionPanel className={classes.expansionPanel}>
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography gutterBottom >
-                  Description
-                </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
-                </Typography>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-
-
-          </CardContent>
-        </div>
-      </Card>
-      <CardActions className={classes.cardActions}>
-        {props.user.isAdmin ? (
-          <React.Fragment>
-          <Button
-          type="button"
-          variant="contained"
-          color="secondary"
-          className={classes.submit}
-        >
-          EDIT
-          <EditIcon className={classes.rightIcon}/>
-        </Button>
-          <Button
-          type="button"
-          variant="contained"
-          color="secondary"
-          className={classes.submit}
-        >
-          DELETE
-          <DeleteIcon className={classes.rightIcon}/>
-        </Button>
-        </React.Fragment>
-        ) : (
-        <Button
-          type="button"
-          variant="contained"
-          color="secondary"
-          className={classes.submit}
-        >
-          ADD TO CART
-        </Button>
-        )}
-      </CardActions>
-    </div>
-  )
+              <ExpansionPanel className={classes.expansionPanel}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography gutterBottom>Description</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <Typography>{description}</Typography>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </CardContent>
+          </div>
+        </Card>
+        <CardActions className={classes.cardActions}>
+          {this.props.user.isAdmin ? (
+            <React.Fragment>
+              <Button
+                type="button"
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
+                EDIT
+                <EditIcon className={classes.rightIcon} />
+              </Button>
+              <Button
+                type="button"
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
+                DELETE
+                <DeleteIcon className={classes.rightIcon} />
+              </Button>
+            </React.Fragment>
+          ) : (
+            <div>
+              <TextField
+                id="standard-number"
+                label="Quantity"
+                value={this.state.quantity}
+                onChange={this.handleChange}
+                type="number"
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                margin="normal"
+              />
+              <Button
+                type="button"
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
+                ADD TO CART
+              </Button>
+            </div>
+          )}
+        </CardActions>
+      </div>
+    )
+  }
 }
 
 const mapState = state => {
