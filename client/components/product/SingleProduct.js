@@ -10,28 +10,29 @@ import Stars from '../review/Stars'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
+// import Card from '@material-ui/core/Card'
+// import CardActionArea from '@material-ui/core/CardActionArea'
+// import CardActions from '@material-ui/core/CardActions'
+// import CardContent from '@material-ui/core/CardContent'
+// import CardMedia from '@material-ui/core/CardMedia'
+// import Button from '@material-ui/core/Button'
+// import Typography from '@material-ui/core/Typography'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
-import TextField from '@material-ui/core/TextField'
+// import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   wrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
-  gridList: {
-    width: '70%'
+  grid: {
+    width: '70%',
   },
   card: {
-    maxWidth: 800,
-    minWidth: 800,
+    // maxWidth: 800,
+    // minWidth: 800,
     boxShadow: 'none',
     border: '1px solid #D8DEE2'
   },
@@ -50,7 +51,11 @@ const styles = theme => ({
     justifyContent: 'space-between'
   },
 
-  gridListTitle: {}
+  gridItem: {
+    border: '1px solid #D8DEE2',
+    display: 'flex',
+    // justifyContent: 'space-between'
+  }
 })
 
 class SingleProduct extends Component {
@@ -67,13 +72,13 @@ class SingleProduct extends Component {
     }
     return (
       <div className={classes.wrapper}>
-        <GridList
+        <Grid
+          container
           cellHeight="auto"
-          className={classes.gridList}
-          cols={2}
-          spacing={15}
+          className={classes.grid}
+          spacing={24}
         >
-          <GridListTile className={classes.gridListTitle} cols={1}>
+          <Grid item xs={6} className={classes.gridItem} justify="flex-start">
             <ProductCard
               id={product.id}
               imgUrl={product.imgUrl}
@@ -82,46 +87,15 @@ class SingleProduct extends Component {
               description={product.description}
               price={product.price}
             />
-            {/* <Card className={classes.card}>
-              <CardActionArea>
-                <CardMedia className={classes.media} image={product.imgUrl} />
-                <CardContent className="wrapper">
-                  <Typography gutterBottom variant="h3" component="h2">
-                    {product.name}
-                  </Typography>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {product.categories.map(category => (
-                      <div key={category.id}>{category.name}</div>
-                    ))}
-                  </Typography>
-                  <Typography component="p" className={classes.description}>
-                    {product.description}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions className={classes.cardActions}>
-                <Typography variant="h6">{`$${product.price}`}</Typography>
-                <Stars rating={product.rating} />
-                <Button size="small" color="primary">
-                  Delete
-                </Button>
-                <Button size="small" color="primary">
-                  Edit
-                </Button>
-                <Button size="small" color="primary">
-                  Add to Cart
-                </Button>
-              </CardActions>
-            </Card> */}
-          </GridListTile>
-          <GridListTile className={classes.gridListTitle} cols={1}>
+          </Grid>
+          <Grid item xs={6} className={classes.gridItem} justify="flex-end">
             <UpdateProduct product={product} productId={product.id} />
-          </GridListTile>
+          </Grid>
 
-          <GridListTile className={classes.gridListTitle} cols={2}>
+          <Grid item xs={12} className={classes.gridItem}>
             <Reviews reviews={reviews} />
-          </GridListTile>
-        </GridList>
+          </Grid>
+        </Grid>
       </div>
     )
   }
