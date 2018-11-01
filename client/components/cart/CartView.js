@@ -1,13 +1,28 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchCart } from '../../store'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {fetchCart} from '../../store'
+import CartCard from './CartCard'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
 
 const style = theme => ({
-  container: {
-
+  root: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    // alignItems: 'center',
+    width: '70%',
+  },
+  submit: {
+    marginTop: theme.spacing.unit,
+    marginLeft: theme.spacing.unit * 2,
+    alignSelf: 'flex-end'
   }
 })
 
@@ -17,19 +32,28 @@ class CartView extends Component {
   }
 
   render() {
-    console.log('render')
+    const {classes} = this.props
     return (
-      <div>
-        {this.props.cart.map((order) => {
-          return <li key={order.id}>{order.product.name}</li>
-        })}
+      <div className={classes.root}>
+        <div className={classes.content}>
+          {this.props.cart.map(order => {
+            return <CartCard key={order.id} />
+          })}
+          <Button
+            type="button"
+            variant="contained"
+            color="secondary"
+            className={classes.submit}
+          >
+            CHECKOUT
+          </Button>
+        </div>
       </div>
     )
   }
 }
 
 const mapState = state => {
-  console.log('USER ID', state.user.id)
   return {
     cart: state.cart.cart,
     isLoggedIn: !!state.user.id,
