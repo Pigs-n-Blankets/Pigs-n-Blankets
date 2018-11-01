@@ -4,43 +4,26 @@ import {connect} from 'react-redux'
 import {Loading} from '../utils/Loading'
 import Reviews from '../review/Reviews'
 import UpdateProduct from './UpdateProduct'
-import Stars from '../review/Stars'
+import SingleProductCard from './SingleProductCard'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import StarIcon from '@material-ui/icons/Star'
+import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
-  card: {
-    maxWidth: 800,
-    minWidth: 800,
-    boxShadow: 'none',
-    border: '1px solid #D8DEE2'
-  },
-  media: {
-    height: 300
-  },
-  description: {
-    height: 40
-  },
-  icon: {
-    margin: theme.spacing.unit,
-    fontSize: 24
-  },
-  cardActions: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
   wrapper: {
     display: 'flex',
     justifyContent: 'center'
+  },
+  grid: {
+    width: '70%'
+  },
+  gridItem: {
+    // border: '1px solid #D8DEE2',
+    display: 'flex'
+  },
+  gridContent: {
+    justifyContent: 'center',
   }
 })
 
@@ -57,48 +40,33 @@ class SingleProduct extends Component {
       return <Loading />
     }
     return (
-      <div>
-        <div className={classes.wrapper}>
-          <Card className={classes.card}>
-            <CardActionArea>
-              <CardMedia className={classes.media} image={product.imgUrl} />
-              <CardContent className="wrapper">
-                <Typography gutterBottom variant="h3" component="h2">
-                  {product.name}
-                </Typography>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {product.categories.map(category => (
-                    <div key={category.id}>{category.name}</div>
-                  ))}
-                </Typography>
-                <Typography component="p" className={classes.description}>
-                  {product.description}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions className={classes.cardActions}>
-              <Typography variant="h6">{`$${product.price}`}</Typography>
-              <Stars rating={product.rating} />
-              <Button size="small" color="primary">
-                Delete
-              </Button>
-              <Button size="small" color="primary">
-                Edit
-              </Button>
-              <Button size="small" color="primary">
-                Add to Cart
-              </Button>
-            </CardActions>
-          </Card>
-          <UpdateProduct product={product} productId={product.id} />
-        </div>
-        <div className={classes.wrapper}>
-          <Reviews reviews={reviews} />
-        </div>
+      <div className={classes.wrapper}>
+        <Grid
+          container
+          className={classes.grid}
+          spacing={40}
+        >
+          <Grid item xs={12} className={`${classes.gridItem} ${classes.gridContent}`}>
+            <SingleProductCard
+              product={product}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Reviews reviews={reviews} />
+          </Grid>
+
+          <Grid item xs={12}>
+            <UpdateProduct product={product} productId={product.id} />
+          </Grid>
+        </Grid>
+
+
       </div>
     )
   }
 }
+
 
 const mapDispatchToProps = dispatch => {
   return {
