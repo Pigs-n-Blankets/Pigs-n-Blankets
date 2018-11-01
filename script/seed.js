@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product, Category, Review} = require('../server/db/models')
+const {User, Product, Category, Review, Order} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -90,6 +90,18 @@ async function seed() {
       email: 'murphy@email.com',
       address: 'Doghouse Chicago, IL',
       password: '123'
+    }),
+    Order.create({
+      orderStatus: 'inCart',
+      sessionId: '123'
+    }),
+    Order.create({
+      orderStatus: 'inCart',
+      sessionId: '123'
+    }),
+    Order.create({
+      orderStatus: 'inCart',
+      sessionId: '321'
     })
   ]).then(
     ([
@@ -108,7 +120,10 @@ async function seed() {
       review2,
       review3,
       cody,
-      murphy
+      murphy,
+      order1,
+      order2,
+      order3
     ]) => {
       return Promise.all([
         doggySnowman.setCategories(dogs),
@@ -123,7 +138,11 @@ async function seed() {
         review2.setUser(murphy),
         review2.setProduct(doggySnowman),
         review3.setUser(cody),
-        review3.setProduct(dapperPup)
+        review3.setProduct(dapperPup),
+        order1.setProduct(doggySnowman),
+        order2.setProduct(dapperPup),
+        order3.setProduct(superCat),
+        order3.setUser(cody)
       ])
     }
   )

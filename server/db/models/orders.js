@@ -8,7 +8,7 @@ const Order = db.define('order', {
   },
   orderStatus: {
     type: Sequelize.ENUM,
-    values: ['in-cart', 'created', 'processing', 'cancelled', 'completed']
+    values: ['inCart', 'created', 'processing', 'cancelled', 'completed']
   },
   sessionId: {
     type: Sequelize.STRING
