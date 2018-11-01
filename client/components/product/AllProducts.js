@@ -26,13 +26,6 @@ const styles = theme => ({
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper
   },
-  gridList: {
-    // width: '70%',
-    // height: '100%'
-  },
-  gridListTitle: {
-    // backgroundColor: theme.palette.primary.light
-  },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'
   },

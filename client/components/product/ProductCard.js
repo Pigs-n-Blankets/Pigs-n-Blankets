@@ -12,20 +12,22 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import StarIcon from '@material-ui/icons/Star'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 import {putProduct, deleteProduct} from '../../store'
 
 const styles = theme => ({
   card: {
     maxWidth: 345,
     boxShadow: 'none',
-    border: '1px solid #D8DEE2'
+    border: '1px solid #D8DEE2',
+    height: '400px'
   },
   media: {
     height: 250
   },
   description: {
-    height: 20
+    height: 30
   },
   icon: {
     margin: theme.spacing.unit,
@@ -76,10 +78,10 @@ const ProductCard = props => {
               size="small"
               color="primary"
             >
-              Delete
+            <DeleteIcon/>
             </Button>
             <Button size="small" color="primary">
-              Edit
+              <EditIcon/>
             </Button>
           </React.Fragment>
         ) : (

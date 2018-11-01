@@ -4,22 +4,10 @@ import {connect} from 'react-redux'
 import {Loading} from '../utils/Loading'
 import Reviews from '../review/Reviews'
 import UpdateProduct from './UpdateProduct'
-import ProductCard from './ProductCard'
-
-import Stars from '../review/Stars'
+import SingleProductCard from './SingleProductCard'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
-// import Card from '@material-ui/core/Card'
-// import CardActionArea from '@material-ui/core/CardActionArea'
-// import CardActions from '@material-ui/core/CardActions'
-// import CardContent from '@material-ui/core/CardContent'
-// import CardMedia from '@material-ui/core/CardMedia'
-// import Button from '@material-ui/core/Button'
-// import Typography from '@material-ui/core/Typography'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
-// import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
@@ -28,33 +16,14 @@ const styles = theme => ({
     justifyContent: 'center'
   },
   grid: {
-    width: '70%',
+    width: '70%'
   },
-  card: {
-    // maxWidth: 800,
-    // minWidth: 800,
-    boxShadow: 'none',
-    border: '1px solid #D8DEE2'
-  },
-  media: {
-    height: 300
-  },
-  description: {
-    height: 40
-  },
-  icon: {
-    margin: theme.spacing.unit,
-    fontSize: 24
-  },
-  cardActions: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-
   gridItem: {
-    border: '1px solid #D8DEE2',
-    display: 'flex',
-    // justifyContent: 'space-between'
+    // border: '1px solid #D8DEE2',
+    display: 'flex'
+  },
+  gridContent: {
+    justifyContent: 'center',
   }
 })
 
@@ -74,32 +43,30 @@ class SingleProduct extends Component {
       <div className={classes.wrapper}>
         <Grid
           container
-          cellHeight="auto"
           className={classes.grid}
-          spacing={24}
+          spacing={40}
         >
-          <Grid item xs={6} className={classes.gridItem} justify="flex-start">
-            <ProductCard
-              id={product.id}
-              imgUrl={product.imgUrl}
-              name={product.name}
-              rating={product.rating}
-              description={product.description}
-              price={product.price}
+          <Grid item xs={12} className={`${classes.gridItem} ${classes.gridContent}`}>
+            <SingleProductCard
+              product={product}
             />
           </Grid>
-          <Grid item xs={6} className={classes.gridItem} justify="flex-end">
-            <UpdateProduct product={product} productId={product.id} />
-          </Grid>
 
-          <Grid item xs={12} className={classes.gridItem}>
+          <Grid item xs={12}>
             <Reviews reviews={reviews} />
           </Grid>
+
+          <Grid item xs={12}>
+            <UpdateProduct product={product} productId={product.id} />
+          </Grid>
         </Grid>
+
+
       </div>
     )
   }
 }
+
 
 const mapDispatchToProps = dispatch => {
   return {
