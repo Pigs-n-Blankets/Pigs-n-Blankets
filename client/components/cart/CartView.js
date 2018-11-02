@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Loading} from '../utils/Loading'
 import {fetchCart, deleteFromCart} from '../../store'
 import CartCard from './CartCard'
 
@@ -48,9 +49,11 @@ class CartView extends Component {
   }
 
   render() {
+
     const {classes} = this.props
     return (
                // onClick={() => this.props.deleteFromCart(order.productId)}
+               // {order.product.name} - {order.quantity}
       <div className={classes.wrapper}>
         <div className={classes.content}>
           <Paper className={classes.root}>

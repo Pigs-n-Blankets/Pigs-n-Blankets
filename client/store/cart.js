@@ -19,7 +19,7 @@ const removeFromCart = productId => ({type: REMOVE_FROM_CART, productId})
 // THUNK CREATORS
 export const fetchCart = () => async dispatch => {
   try {
-    const { data: cart } = await axios.get(`/api/cart/`)
+    const {data: cart} = await axios.get(`/api/cart/`)
     dispatch(getCart(cart))
   } catch (err) {
     console.error(err)
@@ -32,6 +32,12 @@ export const deleteFromCart = (productId) => async dispatch => {
   } catch (err) {
     console.err(err)
   }
+}
+
+export const postCart = (productId, quantity) => async dispatch => {
+  await axios.post('/api/cart/', {productId, quantity})
+  const {data: cart} = await axios.get(`/api/cart/`)
+  dispatch(getCart(cart))
 }
 
 // HANDLERS
