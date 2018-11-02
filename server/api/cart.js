@@ -32,6 +32,7 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  // needs req.body to be {quantity: quantity, product: product}
   let id
   let idType
   if (req.user) {
@@ -41,10 +42,11 @@ router.post('/', async (req, res, next) => {
     id = req.session.id
     idType = 'sessionId'
   }
-  const price = req.body.price
+  const product = req.body.product
+  const price = product.price
   const quantity = req.body.quantity
   const subtotal = quantity * price
-  const product = req.body.product
+
   const myOrder = {
     [idType]: id,
     orderStatus: 'inCart',
