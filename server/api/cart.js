@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const {Order, Product} = require('../db/models')
 module.exports = router
+const Sequelize = require('sequelize')
+
 
 const idFinder = req => {
   let id
@@ -17,7 +19,6 @@ const idFinder = req => {
 
 router.get('/', async (req, res, next) => {
   const {id, idType} = idFinder(req)
-
   try {
     const orders = await Order.findAll({
       include: [
@@ -31,6 +32,29 @@ router.get('/', async (req, res, next) => {
       }
     })
     res.json(orders)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:userId', async(req, res, next) => {
+  const userId = req.params.userId;
+  const Op = Sequelize.Op;
+  try {
+    const orderHistory = await Order.findAll({
+      include: [
+        {
+          model: Product
+        }
+      ],
+      where: {
+        userId: userId,
+        orderStatus: {
+          [Op.or]: ['created', 'processing', 'cancelled', 'completed']
+        }
+      }
+    })
+    res.json(orderHistory)
   } catch (err) {
     next(err)
   }
@@ -130,6 +154,16 @@ router.put('/quantity/:productId', async (req, res, next) => {
       quantity: Number(req.body.quantity) + Number(order[0].quantity)
     }
     await order[0].update(myOrder)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/quantity/update/:orderId', async (req, res, next) => {
+  // req.body = {quantity}
+  try {
+    const order = await Order.findById(req.params.orderId)
+    await order.update(req.body)
   } catch (err) {
     next(err)
   }

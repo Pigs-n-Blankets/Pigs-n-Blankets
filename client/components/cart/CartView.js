@@ -47,7 +47,9 @@ class CartView extends Component {
   constructor() {
     super()
     this.state = {
-      loading: true
+      loading: true,
+      totalQuantity: 0,
+      totalPrice: 0
     }
   }
   componentDidMount() {
@@ -55,15 +57,21 @@ class CartView extends Component {
     this.setState({loading: false})
   }
 
-  render() {
-    const {classes} = this.props
+  componentDidUpdate(previousProps, previousState) {
     let totalQuantity = 0
     let totalPrice = 0
     this.props.cart.forEach(order => {
       totalQuantity += order.quantity
+
       totalPrice += order.price * order.quantity
     })
-    console.log(this.state.loading)
+    if (previousState.totalQuantity !== totalQuantity) {
+      this.setState({totalQuantity, totalPrice})
+    }
+  }
+
+  render() {
+    const {classes} = this.props
     return (
       <div className={classes.wrapper}>
         <div className={classes.content}>
@@ -75,6 +83,7 @@ class CartView extends Component {
                   <TableCell numeric>PRODUCT</TableCell>
                   <TableCell numeric>PRICE</TableCell>
                   <TableCell numeric>QUANTITY</TableCell>
+                  <TableCell />
                   <TableCell numeric>REMOVE</TableCell>
                 </TableRow>
               </TableHead>
@@ -84,15 +93,20 @@ class CartView extends Component {
                     return <CartCard key={order.id} order={order} />
                   })
                 ) : (
-                  <div />
+                  <TableRow>
+                    <TableCell />
+                  </TableRow>
                 )}
+                <TableRow />
               </TableBody>
+
               <TableFooter>
                 <TableRow>
                   <TableCell />
                   <TableCell />
-                  <TableCell numeric>${totalPrice}</TableCell>
-                  <TableCell numeric>{totalQuantity}</TableCell>
+                  <TableCell numeric>${this.state.totalPrice}</TableCell>
+                  <TableCell numeric>{this.state.totalQuantity}</TableCell>
+                  <TableCell />
                   <TableCell />
                 </TableRow>
               </TableFooter>
