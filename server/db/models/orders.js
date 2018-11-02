@@ -12,6 +12,16 @@ const Order = db.define('order', {
   },
   sessionId: {
     type: Sequelize.STRING
+  },
+  price: {
+    type: Sequelize.DECIMAL(10, 2),
+    validate: {
+      min: 0
+    }
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
   }
 })
 

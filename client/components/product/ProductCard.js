@@ -78,10 +78,10 @@ const ProductCard = props => {
               size="small"
               color="primary"
             >
-            <DeleteIcon/>
+              <DeleteIcon />
             </Button>
             <Button size="small" color="primary">
-              <EditIcon/>
+              <EditIcon />
             </Button>
           </React.Fragment>
         ) : (
