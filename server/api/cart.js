@@ -32,7 +32,7 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  // needs req.body to be {quantity: quantity, product: product}
+  // needs req.body to be {quantity, productId}
   let id
   let idType
   if (req.user) {
@@ -42,19 +42,20 @@ router.post('/', async (req, res, next) => {
     id = req.session.id
     idType = 'sessionId'
   }
-  const product = req.body.product
-  const price = product.price
-  const quantity = req.body.quantity
-  const subtotal = quantity * price
-
-  const myOrder = {
-    [idType]: id,
-    orderStatus: 'inCart',
-    price: price,
-    quantity: quantity,
-    subtotal: subtotal
-  }
   try {
+    const product = await Product.findById(req.body.productId)
+    console.log(product)
+    const price = product.price
+    const quantity = req.body.quantity
+    const subtotal = quantity * price
+
+    const myOrder = {
+      [idType]: id,
+      orderStatus: 'inCart',
+      price: price,
+      quantity: quantity,
+      subtotal: subtotal
+    }
     const order = await Order.create(myOrder)
     await order.setProduct(product)
     res.json(order)

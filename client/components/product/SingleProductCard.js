@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {postCart} from '../../store/cart'
 
 // MATERIAL UI IMPORTS
 import Typography from '@material-ui/core/Typography'
@@ -70,11 +71,19 @@ class SingleProductCard extends Component {
       quantity: 1
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleAddToCart = this.handleAddToCart.bind(this)
   }
   handleChange(event) {
     this.setState({
       quantity: event.target.value
     })
+  }
+  handleAddToCart() {
+    if (this.state.quantity >= 1) {
+      this.props.postCart(this.props.product.id, this.state.quantity)
+    } else {
+      alert('Quantity must be greater than 0')
+    }
   }
   render() {
     const {classes, product} = this.props
@@ -152,6 +161,7 @@ class SingleProductCard extends Component {
                 variant="contained"
                 color="secondary"
                 className={classes.submit}
+                onClick={this.handleAddToCart}
               >
                 ADD TO CART
               </Button>
@@ -169,8 +179,18 @@ const mapState = state => {
   }
 }
 
+const mapDispatch = dispatch => {
+  return {
+    postCart: (product, quantity) => {
+      dispatch(postCart(product, quantity))
+    }
+  }
+}
+
 SingleProductCard.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(connect(mapState)(SingleProductCard))
+export default withStyles(styles)(
+  connect(mapState, mapDispatch)(SingleProductCard)
+)

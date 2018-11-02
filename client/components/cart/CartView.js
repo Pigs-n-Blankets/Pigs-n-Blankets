@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchCart } from '../../store'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {fetchCart} from '../../store'
+import {Loading} from '../utils/Loading'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
 
 const style = theme => ({
-  container: {
-
-  }
+  container: {}
 })
 
 class CartView extends Component {
@@ -17,11 +16,18 @@ class CartView extends Component {
   }
 
   render() {
-    console.log('render')
+    console.log('CART ---->', this.props.cart[0])
+    if (!this.props.cart[0]) {
+      return <Loading />
+    }
     return (
       <div>
-        {this.props.cart.map((order) => {
-          return <li key={order.id}>{order.product.name}</li>
+        {this.props.cart.map(order => {
+          return (
+            <li key={order.id}>
+              {order.product.name} - {order.quantity}
+            </li>
+          )
         })}
       </div>
     )
