@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {deleteFromCart} from '../../store'
+import {Link} from 'react-router-dom'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -74,7 +75,9 @@ class CartCard extends Component {
           <img src={imgUrl} className={classes.productImg} />
         </TableCell>
         <TableCell className={classes.nameCell}>
-          <Typography variant="subtitle1">{name}</Typography>
+          <Link to={`/products/productId/${product.id}`}>
+            <Typography variant="subtitle1">{name}</Typography>
+          </Link>
         </TableCell>
         <TableCell numeric className={classes.priceCell}>
           <Typography variant="subtitle1">{`$${price}`}</Typography>
