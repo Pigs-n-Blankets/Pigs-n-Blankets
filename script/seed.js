@@ -126,7 +126,6 @@ async function seed() {
       order3
     ]) => {
       return Promise.all([
-        console.log(doggySnowman),
         doggySnowman.setCategories(dogs),
         dapperPup.setCategories(dogs),
         superCat.setCategories(cats),
