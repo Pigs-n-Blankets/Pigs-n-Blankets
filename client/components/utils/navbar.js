@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../../store'
+import { fetchCart } from '../../store'
 
+
+// MATERIAL UI IMPORTS
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
@@ -85,9 +88,12 @@ const handleSubmit = event => {
   alert('CONFIGURE ME IN HANDLESUBMIT IN NAVBAR.JS')
 }
 
-const Navbar = ({classes, handleClick, isLoggedIn}) => {
-  return (
-    <div className={classes.root}>
+class Navbar extends Component {
+  render() {
+    const { classes, handleClick, isLoggedIn } = this.props
+
+    return (
+      <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Link to="/" className={classes.navLinks}>
@@ -115,7 +121,7 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
           <div className={classes.grow} />
           <Link to="/cart" className={classes.navLinks}>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <Badge badgeContent={this.props.cart.length} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
@@ -155,46 +161,14 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
         </Toolbar>
       </AppBar>
     </div>
-  )
+    )
+  }
 }
 
-// const Navbar = ({classes, handleClick, isLoggedIn}) => {
-//   return (
-//     <div className={classes.root}>
-//       <nav>
-//         <Link to="/">Pigs 'N Blankets</Link>
-//         <form onSubmit={handleSubmit}>
-//           <input name="search" type="text" defaultValue="Search" />
-//           <button type="submit">Search!</button>
-//         </form>
-//         <Link to="/products">Products</Link>
-//         {isLoggedIn ? (
-//           <div>
-//             {/* The navbar will show these links after you log in */}
-//             <Link to="/account">My Account</Link>
-//             <Link to="/cart">My Cart</Link>
-//             <a href="#" onClick={handleClick}>
-//               Logout
-//             </a>
-//           </div>
-//         ) : (
-//           <div>
-//             {/* The navbar will show these links before you log in */}
-//             <Link to="/login">Login</Link>
-//             <Link to="/signup">Sign Up</Link>
-//           </div>
-//         )}
-//       </nav>
-//     </div>
-//   )
-// }
-
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cart.cart,
   }
 }
 
@@ -207,9 +181,6 @@ const mapDispatch = dispatch => {
 }
 
 export default withStyles(styles)(connect(mapState, mapDispatch)(Navbar))
-/**
- * PROP TYPES
- */
 
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
