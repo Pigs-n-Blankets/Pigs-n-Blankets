@@ -52,12 +52,19 @@ class CartCard extends Component {
     quantity: this.props.order.quantity
   }
 
+  componentDidMount() {
+    this.setState({quantity: this.props.order.quantity})
+  }
+
   handleChange = () => {
     this.setState({
       quantity: event.target.value
     })
   }
   render() {
+    if (this.state.quantity !== this.props.order.quantity) {
+      this.setState({quantity: this.props.order.quantity})
+    }
     const {classes, order} = this.props
     const {product} = order
     const {imgUrl, name, price, quantity} = product

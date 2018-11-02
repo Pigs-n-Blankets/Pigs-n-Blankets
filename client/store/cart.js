@@ -41,8 +41,13 @@ export const postCart = (productId, quantity) => async dispatch => {
 }
 
 export const putCartUser = () => async dispatch => {
-  console.log('user is being updated')
   await axios.put('/api/cart')
+  const {data: cart} = await axios.get(`/api/cart/`)
+  dispatch(getCart(cart))
+}
+
+export const putCartQuantity = (productId, quantity) => async dispatch => {
+  await axios.put(`/api/cart/quantity/${productId}`, {quantity})
   const {data: cart} = await axios.get(`/api/cart/`)
   dispatch(getCart(cart))
 }
