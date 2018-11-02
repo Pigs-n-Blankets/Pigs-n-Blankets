@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {postCart} from '../../store/cart'
+import {postCart, putCartQuantity} from '../../store/cart'
 
 // MATERIAL UI IMPORTS
 import Typography from '@material-ui/core/Typography'
@@ -55,7 +55,7 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing.unit,
 
-    marginLeft: theme.spacing.unit*2
+    marginLeft: theme.spacing.unit * 2
   },
   gutter: {
     marginBottom: theme.spacing.unit * 2
@@ -81,7 +81,17 @@ class SingleProductCard extends Component {
   }
   handleAddToCart() {
     if (this.state.quantity >= 1) {
-      this.props.postCart(this.props.product.id, this.state.quantity)
+      let found = false
+      this.props.cart.forEach(cart => {
+        if (cart.productId === this.props.product.id) {
+          found = true
+        }
+      })
+      if (!found) {
+        this.props.postCart(this.props.product.id, this.state.quantity)
+      } else {
+        this.props.putCartQuantity(this.props.product.id, this.state.quantity)
+      }
     } else {
       alert('Quantity must be greater than 0')
     }
@@ -176,7 +186,8 @@ class SingleProductCard extends Component {
 
 const mapState = state => {
   return {
-    user: state.user
+    user: state.user,
+    cart: state.cart.cart
   }
 }
 
@@ -184,6 +195,9 @@ const mapDispatch = dispatch => {
   return {
     postCart: (product, quantity) => {
       dispatch(postCart(product, quantity))
+    },
+    putCartQuantity: (productId, quantity) => {
+      dispatch(putCartQuantity(productId, quantity))
     }
   }
 }

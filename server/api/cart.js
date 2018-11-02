@@ -113,3 +113,24 @@ router.put('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/quantity/:productId', async (req, res, next) => {
+  // req.body = {quantity}
+  try {
+    const {id, idType} = idFinder(req)
+    const productId = req.params.productId
+    const order = await Order.findAll({
+      where: {
+        [idType]: id,
+        orderStatus: 'inCart',
+        productId: productId
+      }
+    })
+    const myOrder = {
+      quantity: Number(req.body.quantity) + Number(order[0].quantity)
+    }
+    await order[0].update(myOrder)
+  } catch (err) {
+    next(err)
+  }
+})

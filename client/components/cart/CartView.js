@@ -44,8 +44,15 @@ const style = theme => ({
 })
 
 class CartView extends Component {
+  constructor() {
+    super()
+    this.state = {
+      loading: true
+    }
+  }
   componentDidMount() {
     this.props.fetchCart()
+    this.setState({loading: false})
   }
 
   render() {
@@ -56,6 +63,7 @@ class CartView extends Component {
       totalQuantity += order.quantity
       totalPrice += order.price * order.quantity
     })
+    console.log(this.state.loading)
     return (
       <div className={classes.wrapper}>
         <div className={classes.content}>
@@ -71,9 +79,13 @@ class CartView extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.props.cart.map(order => {
-                  return <CartCard key={order.id} order={order} />
-                })}
+                {!this.state.loading ? (
+                  this.props.cart.map(order => {
+                    return <CartCard key={order.id} order={order} />
+                  })
+                ) : (
+                  <div />
+                )}
               </TableBody>
               <TableFooter>
                 <TableRow>
