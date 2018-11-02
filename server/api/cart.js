@@ -158,3 +158,13 @@ router.put('/quantity/:productId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/quantity/update/:orderId', async (req, res, next) => {
+  // req.body = {quantity}
+  try {
+    const order = await Order.findById(req.params.orderId)
+    await order.update(req.body)
+  } catch (err) {
+    next(err)
+  }
+})
