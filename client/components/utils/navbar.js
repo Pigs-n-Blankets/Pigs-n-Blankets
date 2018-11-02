@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout} from '../../store'
+import {logout, fetchCart} from '../../store'
 
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -85,76 +85,86 @@ const handleSubmit = event => {
   alert('CONFIGURE ME IN HANDLESUBMIT IN NAVBAR.JS')
 }
 
-const Navbar = ({classes, handleClick, isLoggedIn}) => {
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Link to="/" className={classes.navLinks}>
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
-              Pigs 'n Blankets
-            </Typography>
-          </Link>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+class Navbar extends Component {
+  componentDidMount() {
+    this.props.fetchCart()
+  }
+  render() {
+    const classes = this.props.classes
+    const handleClick = this.props.handleClick
+    const isLoggedIn = this.props.isLoggedIn
+    const cart = this.props.cart
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Link to="/" className={classes.navLinks}>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                color="inherit"
+                noWrap
+              >
+                Pigs 'n Blankets
+              </Typography>
+            </Link>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-            />
-          </div>
-          <div className={classes.grow} />
-          {isLoggedIn ? (
-            <div>
-              <Link to="/products" className={classes.navLinks}>
-                <IconButton color="inherit">
-                  <AppIcon />
-                </IconButton>
-              </Link>
-              <Link to="/cart" className={classes.navLinks}>
-                <IconButton color="inherit">
-                  <Badge badgeContent={4} color="secondary">
-                    <ShoppingCartIcon />
-                  </Badge>
-                </IconButton>
-              </Link>
-              <Link to="/user" className={classes.navLinks}>
-                <IconButton aria-haspopup="true" color="inherit">
-                  <AccountCircle />
-                </IconButton>
-              </Link>
-              <a href="#" onClick={handleClick} className={classes.navLinks}>
-                Logout
-              </a>
-            </div>
-          ) : (
-            <div>
-              <Link to="/products" className={classes.navLinks}>
-                <IconButton color="inherit">
-                  <AppIcon />
-                </IconButton>
-              </Link>
-              <Link to="/login" className={classes.navLinks}>
-                Login
-              </Link>
-              <Link to="/signup" className={classes.navLinks}>
-                Sign Up
-              </Link>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </div>
-  )
+            <div className={classes.grow} />
+            <Link to="/cart" className={classes.navLinks}>
+              <IconButton color="inherit">
+                <Badge badgeContent={cart.length} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Link>
+            {isLoggedIn ? (
+              <div>
+                <Link to="/products" className={classes.navLinks}>
+                  <IconButton color="inherit">
+                    <AppIcon />
+                  </IconButton>
+                </Link>
+
+                <Link to="/user" className={classes.navLinks}>
+                  <IconButton aria-haspopup="true" color="inherit">
+                    <AccountCircle />
+                  </IconButton>
+                </Link>
+                <a href="#" onClick={handleClick} className={classes.navLinks}>
+                  Logout
+                </a>
+              </div>
+            ) : (
+              <div>
+                <Link to="/products" className={classes.navLinks}>
+                  <IconButton color="inherit">
+                    <AppIcon />
+                  </IconButton>
+                </Link>
+                <Link to="/login" className={classes.navLinks}>
+                  Login
+                </Link>
+                <Link to="/signup" className={classes.navLinks}>
+                  Sign Up
+                </Link>
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
 }
 
 // const Navbar = ({classes, handleClick, isLoggedIn}) => {
@@ -193,7 +203,8 @@ const Navbar = ({classes, handleClick, isLoggedIn}) => {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cart.cart
   }
 }
 
@@ -201,6 +212,9 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
+    },
+    fetchCart: () => {
+      return dispatch(fetchCart())
     }
   }
 }
