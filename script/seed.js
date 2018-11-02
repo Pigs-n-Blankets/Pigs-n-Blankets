@@ -11,7 +11,16 @@ const {
 
 const {User, Product, Category, Review, Order} = require('../server/db/models')
 
-const shuffle = () => 0.5 - Math.random();
+function shuffle(array) {
+  var m = array.length, t, i;
+  while (m) {
+    i = Math.floor(Math.random() * m--);
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+  return array;
+}
 
 async function seed() {
   await db.sync({ force: true });
@@ -42,7 +51,7 @@ async function seed() {
   async function seedProducts() {
     for (let i = 0; i < products.length; i++) {
       // const randomCategories = categories.sort(shuffle).slice(0, 2);
-      const randomReviews = reviews.sort(shuffle).slice(0, 2);
+      const randomReviews = shuffle(reviews).slice(0, 2);
       // await products[i].setCategories(randomCategories);
       // await products[i].setCategories(randomCategories);
       await products[i].setReviews(randomReviews);
