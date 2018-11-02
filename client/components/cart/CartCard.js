@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {deleteFromCart} from '../../store'
+import {deleteFromCart, replaceCartQuantity} from '../../store'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -25,14 +25,18 @@ const styles = theme => ({
     width: '25%'
   },
   nameCell: {
-    width: '25%',
+    width: '20%',
     textAlign: 'right'
   },
   priceCell: {
-    width: '15%'
+    width: '5%'
   },
   quantityCell: {
-    width: '25%',
+    width: '35%',
+    fontSize: '10px'
+  },
+  updateCell: {
+    width: '5%',
     fontSize: '10px'
   },
   removeCell: {
@@ -52,19 +56,22 @@ class CartCard extends Component {
     quantity: this.props.order.quantity
   }
 
-  componentDidMount() {
-    this.setState({quantity: this.props.order.quantity})
-  }
-
-  handleChange = () => {
+  handleChange = event => {
     this.setState({
       quantity: event.target.value
     })
   }
-  render() {
-    if (this.state.quantity !== this.props.order.quantity) {
-      this.setState({quantity: this.props.order.quantity})
+  handleUpdate = () => {
+    if (this.state.quantity >= 1) {
+      this.props.replaceCartQuantity(this.props.order.id, this.state.quantity)
+    } else {
+      alert('quantity must be 1 or greater')
     }
+  }
+  render() {
+    // if (this.state.quantity !== this.props.order.quantity) {
+    //   this.setState({quantity: this.props.order.quantity})
+    // }
     const {classes, order} = this.props
     const {product} = order
     const {imgUrl, name, price, quantity} = product
@@ -89,6 +96,15 @@ class CartCard extends Component {
             variant="outlined"
           />
         </TableCell>
+        <TableCell className={classes.updateCell}>
+          <Button
+            type="button"
+            className={classes.submit}
+            onClick={this.handleUpdate}
+          >
+            Update
+          </Button>
+        </TableCell>
         <TableCell className={classes.removeCell}>
           <Button type="button" className={classes.submit}>
             <DeleteIcon
@@ -110,6 +126,9 @@ const mapDispatch = dispatch => {
   return {
     deleteFromCart: productId => {
       return dispatch(deleteFromCart(productId))
+    },
+    replaceCartQuantity: (orderId, quantity) => {
+      dispatch(replaceCartQuantity(orderId, quantity))
     }
   }
 }

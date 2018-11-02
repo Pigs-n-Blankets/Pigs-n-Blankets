@@ -52,6 +52,12 @@ export const putCartQuantity = (productId, quantity) => async dispatch => {
   dispatch(getCart(cart))
 }
 
+export const replaceCartQuantity = (orderId, quantity) => async dispatch => {
+  await axios.put(`/api/cart/quantity/update/${orderId}`, {quantity})
+  const {data: cart} = await axios.get(`/api/cart/`)
+  dispatch(getCart(cart))
+}
+
 // HANDLERS
 const handler = {
   [GET_CART]: (state, action) => {
