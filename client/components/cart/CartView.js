@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchCart} from '../../store'
+import {fetchCart, deleteFromCart} from '../../store'
 import CartCard from './CartCard'
 
 // MATERIAL UI IMPORTS
@@ -50,6 +50,7 @@ class CartView extends Component {
   render() {
     const {classes} = this.props
     return (
+               // onClick={() => this.props.deleteFromCart(order.productId)}
       <div className={classes.wrapper}>
         <div className={classes.content}>
           <Paper className={classes.root}>
@@ -105,6 +106,9 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: () => {
       return dispatch(fetchCart())
+    },
+    deleteFromCart: (productId) => {
+      return dispatch(deleteFromCart(productId))
     }
   }
 }
