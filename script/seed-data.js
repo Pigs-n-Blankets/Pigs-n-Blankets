@@ -5,7 +5,7 @@ const productData = [
     description: 'dress your dog up as a snowman this holiday season!',
     rating: 4.7,
     imgUrl:
-      'https://www.rover.com/blog/wp-content/uploads/2017/12/snowmandog.jpg'
+      'https://www.rover.com/blog/wp-content/uploads/2017/12/snowmandog.jpg',
   },
   {
     name: 'Dapper Pup',
@@ -147,9 +147,47 @@ const orderData = [
     orderStatus: 'inCart',
   },
   {
+    orderStatus: 'inCart',
+  },
+  {
+    orderStatus: 'inCart',
+  },
+  {
     orderStatus: 'created',
+  },
+  {
+    orderStatus: 'created',
+  },
+  {
+    orderStatus: 'created',
+  },
+  {
+    orderStatus: 'processing',
+  },
+  {
+    orderStatus: 'processing',
+  },
+  {
+    orderStatus: 'processing',
+  },
+  {
+    orderStatus: 'completed',
+  },
+  {
+    orderStatus: 'completed',
+  },
+  {
+    orderStatus: 'completed',
+  },
+  {
+    orderStatus: 'cancelled',
+  },
+  {
+    orderStatus: 'cancelled',
+  },
+  {
+    orderStatus: 'cancelled',
   }
-
 ]
 
 const reviewData = [
