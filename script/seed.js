@@ -64,7 +64,7 @@ async function seed() {
       const defaultUser = users.filter((user) => user.firstName==='user')[0]
       const randomProduct = shuffle(products)[0]
       await orders[i].setUser(defaultUser)
-      // await orders[i].setProduct(randomProduct)
+      await orders[i].setProduct(randomProduct)
     }
     return orders;
   }
