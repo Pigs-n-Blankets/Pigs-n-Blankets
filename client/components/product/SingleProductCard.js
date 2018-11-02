@@ -53,7 +53,6 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing.unit,
     marginLeft: theme.spacing.unit*2
-
   },
   gutter: {
     marginBottom: theme.spacing.unit*2,
