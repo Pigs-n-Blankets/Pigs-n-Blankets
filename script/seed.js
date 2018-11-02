@@ -48,18 +48,28 @@ async function seed() {
   const reviews = await Review.findAll();
   const orders = await Order.findAll();
 
-  async function seedProducts() {
-    for (let i = 0; i < products.length; i++) {
-      // const randomCategories = categories.sort(shuffle).slice(0, 2);
-      const randomReviews = shuffle(reviews).slice(0, 2);
-      // await products[i].setCategories(randomCategories);
-      // await products[i].setCategories(randomCategories);
-      await products[i].setReviews(randomReviews);
+  async function seedReviews() {
+    for (let i = 0; i < reviews.length; i++) {
+      const randomUser = shuffle(users)[0]
+      const randomProduct = shuffle(products)[0]
+      await reviews[i].setUser(randomUser);
+      await reviews[i].setProduct(randomProduct);
     }
-    return products;
+    return reviews;
   }
+  await seedReviews();
 
-  await seedProducts();
+  async function seedOrders() {
+    for(let i = 0; i < orders.length; i++){
+      const defaultUser = users.filter((user) => user.firstName==='user')[0]
+      const randomProduct = shuffle(products)[0]
+      await orders[i].setUser(defaultUser)
+      // await orders[i].setProduct(randomProduct)
+    }
+    return orders;
+  }
+  await seedOrders();
+
 
   console.log(`seeded successfully`);
 }
@@ -84,11 +94,6 @@ if (module === require.main) {
 }
 
 module.exports = seed;
-
-
-
-
-
 
 
 
