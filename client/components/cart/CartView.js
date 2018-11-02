@@ -1,14 +1,12 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchCart } from '../../store'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {fetchCart, deleteFromCart} from '../../store'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
 
 const style = theme => ({
-  container: {
-
-  }
+  container: {}
 })
 
 class CartView extends Component {
@@ -20,8 +18,18 @@ class CartView extends Component {
     console.log('render')
     return (
       <div>
-        {this.props.cart.map((order) => {
-          return <li key={order.id}>{order.product.name}</li>
+        {this.props.cart.map(order => {
+          return (
+            <li key={order.id}>
+              {order.product.name}
+              <button
+                type="button"
+                onClick={() => this.props.deleteFromCart(order.productId)}
+              >
+                DELETE
+              </button>
+            </li>
+          )
         })}
       </div>
     )
@@ -41,6 +49,9 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: () => {
       return dispatch(fetchCart())
+    },
+    deleteFromCart: (productId) => {
+      return dispatch(deleteFromCart(productId))
     }
   }
 }
