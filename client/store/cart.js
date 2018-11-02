@@ -5,6 +5,7 @@ import product from './product'
 // ACTION TYPES
 const GET_CART = 'GET_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+const GET_ORDER_HISTORY = 'GET_ORDER_HISTORY'
 
 // INITIAL STATE:
 const defaultState = {
@@ -15,6 +16,7 @@ const defaultState = {
 // ACTION CREATORS
 const getCart = cart => ({type: GET_CART, cart})
 const removeFromCart = productId => ({type: REMOVE_FROM_CART, productId})
+const getOrderHistory = orders => ({type: GET_ORDER_HISTORY, orders})
 
 // THUNK CREATORS
 export const fetchCart = () => async dispatch => {
@@ -33,23 +35,25 @@ export const deleteFromCart = productId => async dispatch => {
     console.err(err)
   }
 }
-
 export const postCart = (productId, quantity) => async dispatch => {
   await axios.post('/api/cart/', {productId, quantity})
   const {data: cart} = await axios.get(`/api/cart/`)
   dispatch(getCart(cart))
 }
-
 export const putCartUser = () => async dispatch => {
   await axios.put('/api/cart')
   const {data: cart} = await axios.get(`/api/cart/`)
   dispatch(getCart(cart))
 }
-
 export const putCartQuantity = (productId, quantity) => async dispatch => {
   await axios.put(`/api/cart/quantity/${productId}`, {quantity})
   const {data: cart} = await axios.get(`/api/cart/`)
   dispatch(getCart(cart))
+}
+export const fetchOrderHistory = (userId) => async dispatch => {
+  const {data: orders} = await axios.get(`/api/cart/${userId}`)
+  console.log(orders)
+  dispatch(getOrderHistory(orders))
 }
 
 // HANDLERS
@@ -62,6 +66,9 @@ const handler = {
       order => order.productId !== action.productId
     )
     return {...state, cart: newCart}
+  },
+  [GET_ORDER_HISTORY]: (state, action) => {
+    return {...state, orderHistory: action.orders}
   }
 }
 

@@ -64,8 +64,9 @@ const userData = [
     email: "user@user.com",
     address: '415 W Erie St. chicago, IL',
     isAdmin: false,
-    password: 'user',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjeZOs1OzbCzaKqkL2H5azjxc5PkIMP0ylrqpm8nJVwGBgH-C7'
+    password: '189a54153c10f2cc925f20a7de251a7cd5ba45010fb6a51c6eabdb0072ef3499',
+    salt: 'jXo5hEtiF/v8D4WtkAW2gg==',
+    imageUrl: 'http://dy5jipgyozh6.cloudfront.net/wp-content/uploads/2017/01/03212027/dogs-liking-people.jpg'
   },
   {
     firstName: "admin",
@@ -73,7 +74,8 @@ const userData = [
     email: "admin@admin.com",
     address: '415 W Superior St. chicago, IL',
     isAdmin: true,
-    password: 'admin',
+    password: '6a1bddc659db6a92893e8de82bf0617b923f9bc7b20ae38c15d5f74c7badee57',
+    salt: 'uTV7+Lrpnkz3SBQq8YsPJg==',
     imageUrl: 'https://www.usnews.com/dims4/USNEWS/31a9441/2147483647/thumbnail/970x647/quality/85/?url=http%3A%2F%2Fmedia.beam.usnews.com%2Fdc%2F81%2F792744d24cb3a89642c491d9507b%2F160525-goldenretriever-stock.jpg'
   },
   {
