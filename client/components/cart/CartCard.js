@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {deleteFromCart} from '../../store'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -47,7 +49,7 @@ const styles = theme => ({
 
 class CartCard extends Component {
   state = {
-    quantity: '1'
+    quantity: this.props.order.quantity
   }
 
   handleChange = () => {
@@ -81,11 +83,11 @@ class CartCard extends Component {
           />
         </TableCell>
         <TableCell className={classes.removeCell}>
-          <Button
-            type="button"
-            className={classes.submit}
-          >
-            <DeleteIcon className={classes.rightIcon} />
+          <Button type="button" className={classes.submit}>
+            <DeleteIcon
+              className={classes.rightIcon}
+              onClick={() => this.props.deleteFromCart(order.productId)}
+            />
           </Button>
         </TableCell>
       </TableRow>
@@ -97,4 +99,12 @@ CartCard.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(CartCard)
+const mapDispatch = dispatch => {
+  return {
+    deleteFromCart: productId => {
+      return dispatch(deleteFromCart(productId))
+    }
+  }
+}
+
+export default withStyles(styles)(connect(null, mapDispatch)(CartCard))

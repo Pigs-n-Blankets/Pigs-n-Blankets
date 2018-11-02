@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Loading} from '../utils/Loading'
-import {fetchCart, deleteFromCart} from '../../store'
+import {fetchCart} from '../../store'
 import CartCard from './CartCard'
 
 // MATERIAL UI IMPORTS
@@ -31,7 +31,7 @@ const style = theme => ({
     width: '100%',
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 2,
-    overflowX: 'auto',
+    overflowX: 'auto'
   },
   table: {
     width: '100%'
@@ -49,11 +49,14 @@ class CartView extends Component {
   }
 
   render() {
-
     const {classes} = this.props
+    let totalQuantity = 0
+    let totalPrice = 0
+    this.props.cart.forEach(order => {
+      totalQuantity += order.quantity
+      totalPrice += order.price * order.quantity
+    })
     return (
-               // onClick={() => this.props.deleteFromCart(order.productId)}
-               // {order.product.name} - {order.quantity}
       <div className={classes.wrapper}>
         <div className={classes.content}>
           <Paper className={classes.root}>
@@ -76,8 +79,8 @@ class CartView extends Component {
                 <TableRow>
                   <TableCell />
                   <TableCell />
-                  <TableCell numeric>Subtotal</TableCell>
-                  <TableCell numeric>quantity</TableCell>
+                  <TableCell numeric>${totalPrice}</TableCell>
+                  <TableCell numeric>{totalQuantity}</TableCell>
                   <TableCell />
                 </TableRow>
               </TableFooter>
@@ -109,9 +112,6 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: () => {
       return dispatch(fetchCart())
-    },
-    deleteFromCart: (productId) => {
-      return dispatch(deleteFromCart(productId))
     }
   }
 }

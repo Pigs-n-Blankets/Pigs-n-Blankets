@@ -1,5 +1,5 @@
 import axios from 'axios'
-import product from './product';
+import product from './product'
 // import history from '../history'
 
 // ACTION TYPES
@@ -25,7 +25,7 @@ export const fetchCart = () => async dispatch => {
     console.error(err)
   }
 }
-export const deleteFromCart = (productId) => async dispatch => {
+export const deleteFromCart = productId => async dispatch => {
   try {
     await axios.delete(`/api/cart/${productId}`)
     dispatch(removeFromCart(productId))
@@ -40,13 +40,22 @@ export const postCart = (productId, quantity) => async dispatch => {
   dispatch(getCart(cart))
 }
 
+export const putCartUser = () => async dispatch => {
+  console.log('user is being updated')
+  await axios.put('/api/cart')
+  const {data: cart} = await axios.get(`/api/cart/`)
+  dispatch(getCart(cart))
+}
+
 // HANDLERS
 const handler = {
   [GET_CART]: (state, action) => {
     return {...state, cart: action.cart}
   },
   [REMOVE_FROM_CART]: (state, action) => {
-    const newCart = state.cart.filter((order) => order.productId !== action.productId)
+    const newCart = state.cart.filter(
+      order => order.productId !== action.productId
+    )
     return {...state, cart: newCart}
   }
 }

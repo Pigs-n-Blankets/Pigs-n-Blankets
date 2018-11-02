@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Order, Product} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+const idFinder = req => {
   let id
   let idType
   if (req.user) {
@@ -12,6 +12,11 @@ router.get('/', async (req, res, next) => {
     id = req.session.id
     idType = 'sessionId'
   }
+  return {id, idType}
+}
+
+router.get('/', async (req, res, next) => {
+  const {id, idType} = idFinder(req)
 
   try {
     const orders = await Order.findAll({
@@ -33,15 +38,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   // needs req.body to be {quantity, productId}
-  let id
-  let idType
-  if (req.user) {
-    id = req.user.dataValues.id
-    idType = 'userId'
-  } else {
-    id = req.session.id
-    idType = 'sessionId'
-  }
+  const {id, idType} = idFinder(req)
   try {
     const product = await Product.findById(req.body.productId)
     console.log(product)
@@ -64,31 +61,54 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-
 router.delete('/:productId', async (req, res, next) => {
-  let id
-  let idType;
-  if (req.user) {
-    id = req.user.dataValues.id
-    idType = 'userId'
-  } else {
-    id = req.session.id
-    idType = 'sessionId'
-  }
+  const {id, idType} = idFinder(req)
 
   try {
     const productId = req.params.productId
     await Order.destroy({
-      include: [{
-        model: Product
-      }],
+      include: [
+        {
+          model: Product
+        }
+      ],
       where: {
         [idType]: id,
         orderStatus: 'inCart',
         productId: productId
       }
     })
-    res.status(204).end();
+    res.status(204).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  const userId = req.user.dataValues.id
+  const sessionId = req.session.id
+
+  const myOrder = {
+    userId: userId
+  }
+  try {
+    const orders = await Order.findAll({
+      include: [
+        {
+          model: Product
+        }
+      ],
+      where: {
+        sessionId: sessionId,
+        orderStatus: 'inCart'
+      }
+    })
+    Promise.all(
+      orders.forEach(order => {
+        order.update(myOrder)
+      })
+    )
+    res.status(204).end()
   } catch (err) {
     next(err)
   }
