@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import UserProfile from './UserProfile'
+import OrderHistory from './OrderHistory'
 
 // MATERIAL UI IMPORTS
 import PropTypes from 'prop-types'
@@ -81,8 +82,7 @@ class UserAccount extends React.Component {
           }
           {value === 1 &&
             <TabContainer>
-              Orders
-              {/* add order component here */}
+              <OrderHistory />
             </TabContainer>
           }
           {value === 2 &&
