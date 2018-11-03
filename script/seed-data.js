@@ -47,6 +47,49 @@ const productData = [
       'http://slummysinglemummy.files.wordpress.com/2012/03/pig-in-wellies.jpg'
   },
   {
+    name: "Pumpkin",
+    price: 9.95,
+    rating: 1.3,
+    description:
+      'For when your guinea pig feels left out during pumpkin spice latte season',
+    imgUrl:
+      'https://i.pinimg.com/originals/bd/c7/43/bdc74309e7aa9b91e860d0e4585b43f3.jpg'
+  },
+  {
+    name: "It's a Fiesta!",
+    price: 19.99,
+    rating: 3.5,
+    description:
+      'want a hat...what about a hat with fruit, or one with red pom poms? This is your one-stop-shop!',
+    imgUrl:
+      'https://lakewood.advocatemag.com/wp-content/uploads/2012/02/164.jpg'
+  },
+  {
+    name: "Teacher's Pet",
+    price: 14.95,
+    rating: 4,
+    description:
+      'Keep your turtle warm this winter season',
+    imgUrl:
+      'https://s-i.huffpost.com/gadgets/slideshows/326347/slide_326347_3139345_free.jpg'
+  },
+  {
+    name: "Which Witch!?",
+    price: 12.49,
+    rating: 2.3,
+    imgUrl:
+      'https://mms.businesswire.com/media/20130905005372/en/381196/5/Guinea_Pig_Witch_Costume.jpg?download=1'
+  },
+  {
+    name: "Guinea Up!",
+    price: 29.95,
+    rating: 5,
+    description:
+      'ride into the wild west with this number',
+    imgUrl:
+      'https://i.dailymail.co.uk/i/pix/2016/01/14/11/302852A100000578-0-image-a-56_1452772150655.jpg'
+  },
+  {
     name: 'Identity Crisis',
     price: 24.95,
     rating: 2.7,
@@ -55,6 +98,36 @@ const productData = [
     imgUrl:
       'https://i.dailymail.co.uk/i/pix/2014/09/26/1411729138384_Image_galleryImage_PIC_FROM_CATERS_NEWS_PICT.JPG'
   },
+  {
+    name: "Super Bunny",
+    price: 10.38,
+    rating: 4.1,
+    description:
+      "It's a bird, it's a plane, it's superbunny!!",
+    imgUrl:
+      'https://i.ytimg.com/vi/oy1UjKiXlQA/maxresdefault.jpg'
+  },
+  {
+    name: "Rocker Chick",
+    price: 8.75,
+    rating: 4.4,
+    description:
+      "Feel the beat",
+    imgUrl:
+      'http://www.freakingnews.com/pictures/11000/Punk-Parrot--11484.jpg'
+  },
+  {
+    name: "Sea Horse",
+    price: 31.25,
+    rating: 3.9,
+    description:
+      "Put on that scuba gear and head to the beach!",
+    imgUrl:
+      'https://www.queencreek.org/Home/ShowImage?id=13309&t=636106594413600000'
+  },
+
+
+
 ]
 
 const userData = [
