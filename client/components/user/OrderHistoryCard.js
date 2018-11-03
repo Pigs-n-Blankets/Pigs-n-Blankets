@@ -21,23 +21,24 @@ const styles = theme => ({
     overflowX: 'auto'
   },
   productImg: {
-    maxWidth: '100%'
+    maxWidth: '100%',
+
   },
   imgCell: {
-    width: '25%'
+    width: '15%',
   },
   nameCell: {
     width: '25%',
-    textAlign: 'right'
+    textAlign: 'right',
   },
   priceCell: {
-    width: '10%'
+    width: '10%',
   },
   quantityCell: {
-    width: '20%',
+    width: '5%',
   },
   dateCell: {
-    width: '20%',
+    width: '15%',
     textAlign: 'right',
   },
   textField: {
@@ -53,7 +54,6 @@ class OrderHistoryCard extends Component {
     const {classes, order} = this.props
     const {product, quantity, subtotal} = order
     const { id, imgUrl, name, price, updatedAt } = product
-    console.log('QUANTITIES --->', quantity)
     return (
       <TableRow>
         <TableCell className={classes.imgCell}>

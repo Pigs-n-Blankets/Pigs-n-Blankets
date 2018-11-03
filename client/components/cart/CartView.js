@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {Loading} from '../utils/Loading'
 import {fetchCart} from '../../store'
 import CartCard from './CartCard'
+const numeral = require('numeral');
+
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -68,6 +70,7 @@ class CartView extends Component {
       totalQuantity += order.quantity
       totalPrice += order.price * order.quantity
     })
+    totalPrice = numeral(totalPrice).format('$ 0,0[.]00')
     if (previousState.totalQuantity !== totalQuantity) {
       this.setState({totalQuantity, totalPrice})
     }
@@ -86,8 +89,8 @@ class CartView extends Component {
                   <TableCell numeric>PRODUCT</TableCell>
                   <TableCell numeric>PRICE</TableCell>
                   <TableCell className={classes.center}>QUANTITY</TableCell>
-                  <TableCell className={classes.center}> UPDATE </TableCell>
-                  <TableCell numeric>REMOVE</TableCell>
+                  <TableCell className={classes.center}>UPDATE</TableCell>
+                  <TableCell className={classes.center}>REMOVE</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -107,7 +110,7 @@ class CartView extends Component {
                   <TableCell />
                   <TableCell />
                   <TableCell numeric>
-                    <Typography variant="h6">${this.state.totalPrice}</Typography>
+                    <Typography variant="h6">{this.state.totalPrice}</Typography>
                   </TableCell>
                   <TableCell className={classes.center}>
                     <Typography variant="h6">{this.state.totalQuantity}</Typography>
