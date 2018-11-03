@@ -47,13 +47,13 @@ const productData = [
       'http://slummysinglemummy.files.wordpress.com/2012/03/pig-in-wellies.jpg'
   },
   {
-    name: 'Identity Crisis',
-    price: 24.95,
-    rating: 2.7,
+    name: "Pumpkin",
+    price: 9.95,
+    rating: 1.3,
     description:
-      'Do you have a pig who thinks he is a unicorn? This is the perfect compromise',
+      'For when your guinea pig feels left out during pumpkin spice latte season',
     imgUrl:
-      'https://i.dailymail.co.uk/i/pix/2014/09/26/1411729138384_Image_galleryImage_PIC_FROM_CATERS_NEWS_PICT.JPG'
+      'https://i.pinimg.com/originals/bd/c7/43/bdc74309e7aa9b91e860d0e4585b43f3.jpg'
   },
   {
     name: "It's a Fiesta!",
@@ -90,13 +90,13 @@ const productData = [
       'https://i.dailymail.co.uk/i/pix/2016/01/14/11/302852A100000578-0-image-a-56_1452772150655.jpg'
   },
   {
-    name: "Pumpkin",
-    price: 9.95,
-    rating: 1.3,
+    name: 'Identity Crisis',
+    price: 24.95,
+    rating: 2.7,
     description:
-      'For when your guinea pig feels left out during pumpkin spice latte season',
+      'Do you have a pig who thinks he is a unicorn? This is the perfect compromise',
     imgUrl:
-      'https://i.pinimg.com/originals/bd/c7/43/bdc74309e7aa9b91e860d0e4585b43f3.jpg'
+      'https://i.dailymail.co.uk/i/pix/2014/09/26/1411729138384_Image_galleryImage_PIC_FROM_CATERS_NEWS_PICT.JPG'
   },
   {
     name: "Super Bunny",
