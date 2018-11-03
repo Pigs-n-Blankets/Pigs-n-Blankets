@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {deleteFromCart} from '../../store'
+import {deleteFromCart, fetchSingleProduct} from '../../store'
 import {Link} from 'react-router-dom'
 var dateFormat = require('dateformat')
 
@@ -14,10 +14,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import toRenderProps from 'recompose/toRenderProps'
-import withState from 'recompose/withState'
 import MoreIcon from '@material-ui/icons/MoreVert'
-
 
 const styles = theme => ({
   root: {
@@ -47,22 +44,27 @@ const styles = theme => ({
 
 class OrderHistoryCard extends Component {
   state = {
-    anchorEl: null,
-  };
+    anchorEl: null
+  }
 
   handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
+    this.setState({anchorEl: event.currentTarget})
+  }
 
   handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
+    this.setState({anchorEl: null})
+  }
+
+  // setProduct = () => {
+  //   this.setState({ anchorEl: null });
+  //   this.props.fetchSingleProduct()
+  // };
 
   render() {
     const {classes, order} = this.props
     const {product, quantity, subtotal} = order
     const {id, imgUrl, name, price, updatedAt} = product
-    const { anchorEl } = this.state;
+    const {anchorEl} = this.state
 
     return (
       <TableRow>
@@ -72,16 +74,16 @@ class OrderHistoryCard extends Component {
           </Link>
         </TableCell>
         <TableCell className={classes.nameCell}>
-          <Typography variant="subtitle1">{name}</Typography>
+          <Typography variant="caption">{name}</Typography>
         </TableCell>
         <TableCell numeric className={classes.priceCell}>
-          <Typography variant="caption text">{`$${price}`}</Typography>
+          <Typography variant="caption">{`$${price}`}</Typography>
         </TableCell>
         <TableCell numeric className={classes.quantityCell}>
-          <Typography variant="caption text">{quantity}</Typography>
+          <Typography variant="caption">{quantity}</Typography>
         </TableCell>
         <TableCell numeric className={classes.dateCell}>
-          <Typography variant="caption text">
+          <Typography variant="caption">
             {dateFormat(updatedAt, 'mm-dd-yyyy')}
           </Typography>
         </TableCell>
@@ -91,10 +93,7 @@ class OrderHistoryCard extends Component {
             aria-haspopup="true"
             onClick={this.handleClick}
           >
-            <MoreIcon
-              className={classes.icon}
-              onClick={() => this.props.deleteFromCart(order.productId)}
-            />
+            <MoreIcon className={classes.icon} />
           </Button>
           <Menu
             id="simple-menu"
@@ -103,14 +102,22 @@ class OrderHistoryCard extends Component {
             onClose={this.handleClose}
           >
             <MenuItem
-            onClick={this.handleClose}
+              onClick={
+                () => {
+                  this.props.fetchSingleProduct(id)
+                }
+              }
             >
-              <Link to='/review 'className={classes.link}>Review</Link>
+              <Link to="/review" className={classes.link}>
+                Review
+              </Link>
             </MenuItem>
             <MenuItem
-            onClick={this.handleClose}
+              onClick={this.handleClose}
             >
-              <Link to={`products/${id}`} className={classes.link}>Buy Again</Link>
+              <Link to={`products/${id}`} className={classes.link}>
+                Buy Again
+              </Link>
             </MenuItem>
           </Menu>
         </TableCell>
@@ -127,6 +134,9 @@ const mapDispatch = dispatch => {
   return {
     deleteFromCart: productId => {
       return dispatch(deleteFromCart(productId))
+    },
+    fetchSingleProduct: productId => {
+      dispatch(fetchSingleProduct(productId))
     }
   }
 }
