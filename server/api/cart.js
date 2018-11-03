@@ -37,6 +37,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// ORDER HISTORY ROUTE
 router.get('/:userId', async(req, res, next) => {
   const userId = req.params.userId;
   const Op = Sequelize.Op;

@@ -12,6 +12,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete'
+import UpdateIcon from '@material-ui/icons/Update'
 
 const styles = theme => ({
   root: {
@@ -34,7 +35,8 @@ const styles = theme => ({
   },
   quantityCell: {
     width: '35%',
-    fontSize: '10px'
+    fontSize: '10px',
+    textAlign: 'center'
   },
   updateCell: {
     width: '5%',
@@ -100,12 +102,11 @@ class CartCard extends Component {
           />
         </TableCell>
         <TableCell className={classes.updateCell}>
-          <Button
-            type="button"
-            className={classes.submit}
-            onClick={this.handleUpdate}
-          >
-            Update
+          <Button type="button" className={classes.submit}>
+            <UpdateIcon
+              className={classes.submit}
+              onClick={this.handleUpdate}
+            />
           </Button>
         </TableCell>
         <TableCell className={classes.removeCell}>

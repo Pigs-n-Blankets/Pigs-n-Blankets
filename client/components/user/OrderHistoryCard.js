@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {deleteFromCart} from '../../store'
+import {Link} from 'react-router-dom'
+var dateFormat = require('dateformat');
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -29,15 +31,14 @@ const styles = theme => ({
     textAlign: 'right'
   },
   priceCell: {
-    width: '15%'
+    width: '10%'
   },
   quantityCell: {
-    width: '25%',
-    fontSize: '10px'
+    width: '20%',
   },
   dateCell: {
-    width: '5%',
-    textAlign: 'right'
+    width: '20%',
+    textAlign: 'right',
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -50,12 +51,13 @@ const styles = theme => ({
 class OrderHistoryCard extends Component {
   render() {
     const {classes, order} = this.props
-    const {product} = order
-    const { imgUrl, name, price, quantity, updatedAt } = product
+    const {product, quantity, subtotal} = order
+    const { id, imgUrl, name, price, updatedAt } = product
+    console.log('QUANTITIES --->', quantity)
     return (
       <TableRow>
         <TableCell className={classes.imgCell}>
-          <img src={imgUrl} className={classes.productImg} />
+          <Link to={`products/${id}`}><img src={imgUrl} className={classes.productImg} /></Link>
         </TableCell>
         <TableCell className={classes.nameCell}>
           <Typography variant="subtitle1">{name}</Typography>
@@ -67,7 +69,7 @@ class OrderHistoryCard extends Component {
           <Typography variant="subtitle1">{quantity}</Typography>
         </TableCell>
         <TableCell numeric className={classes.dateCell}>
-          <Typography variant="subtitle1">{updatedAt}</Typography>
+          <Typography variant="subtitle1">{dateFormat(updatedAt, "mm-dd-yyyy")}</Typography>
         </TableCell>
       </TableRow>
     )

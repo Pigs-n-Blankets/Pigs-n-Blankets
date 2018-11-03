@@ -42,7 +42,7 @@ async function seed() {
 
   await db.sync();
 
-  const products = await Product.findAll();
+  let products = await Product.findAll();
   const categories = await Category.findAll();
   const users = await User.findAll();
   const reviews = await Review.findAll();
@@ -65,6 +65,8 @@ async function seed() {
       const randomProduct = shuffle(products)[0]
       await orders[i].setUser(defaultUser)
       await orders[i].setProduct(randomProduct)
+      await orders[i].update({price: randomProduct.price})
+      products = products.filter((product) => product!==randomProduct)
     }
     return orders;
   }
