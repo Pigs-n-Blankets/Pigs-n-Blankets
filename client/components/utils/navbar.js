@@ -16,6 +16,8 @@ import AppIcon from '@material-ui/icons/Apps'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import Button from '@material-ui/core/Button';
+
 
 const styles = theme => ({
   root: {
@@ -33,7 +35,8 @@ const styles = theme => ({
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block'
-    }
+    },
+    fontWeight: 300
   },
   search: {
     position: 'relative',
@@ -75,6 +78,19 @@ const styles = theme => ({
     }
   },
   navLinks: {
+    color: 'inherit',
+    fontWeight: 300,
+    // paddingLeft: '5px'
+  },
+  icon: {
+    marginLeft: '15px'
+  },
+  logo: {
+    width: '40px',
+    paddingRight: '15px'
+  },
+  navLinkText: {
+    fontWeight: 300,
     color: 'inherit'
   }
 })
@@ -98,6 +114,9 @@ class Navbar extends Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
+            <Link to="/" className={classes.navLinks}>
+              <img className={classes.logo} src="pigLogo.png" />
+            </Link>
             <Link to="/" className={classes.navLinks}>
               <Typography
                 className={classes.title}
@@ -128,35 +147,29 @@ class Navbar extends Component {
                 </Badge>
               </IconButton>
             </Link>
-            {isLoggedIn ? (
-              <div>
-                <Link to="/products" className={classes.navLinks}>
-                  <IconButton color="inherit">
+            <Link to="/products" className={classes.navLinks}>
+                  <IconButton color="inherit" className={classes.icon}>
                     <AppIcon />
                   </IconButton>
-                </Link>
-
+            </Link>
+            {isLoggedIn ? (
+              <div>
                 <Link to="/user" className={classes.navLinks}>
-                  <IconButton aria-haspopup="true" color="inherit">
+                  <IconButton color="inherit" className={classes.icon}>
                     <AccountCircle />
                   </IconButton>
                 </Link>
                 <a href="#" onClick={handleClick} className={classes.navLinks}>
-                  Logout
+                  <Button color="inherit" className={classes.navLinkText}>Logout</Button>
                 </a>
               </div>
             ) : (
               <div>
-                <Link to="/products" className={classes.navLinks}>
-                  <IconButton color="inherit">
-                    <AppIcon />
-                  </IconButton>
+                <Link to="/login" className={classes.navLinks}>
+                  <Button color="inherit" className={classes.navLinkText}>Login</Button>
                 </Link>
                 <Link to="/login" className={classes.navLinks}>
-                  Login
-                </Link>
-                <Link to="/signup" className={classes.navLinks}>
-                  Sign Up
+                  <Button color="inherit" className={classes.navLinkText}>Sign Up</Button>
                 </Link>
               </div>
             )}
@@ -167,40 +180,7 @@ class Navbar extends Component {
   }
 }
 
-// const Navbar = ({classes, handleClick, isLoggedIn}) => {
-//   return (
-//     <div className={classes.root}>
-//       <nav>
-//         <Link to="/">Pigs 'N Blankets</Link>
-//         <form onSubmit={handleSubmit}>
-//           <input name="search" type="text" defaultValue="Search" />
-//           <button type="submit">Search!</button>
-//         </form>
-//         <Link to="/products">Products</Link>
-//         {isLoggedIn ? (
-//           <div>
-//             {/* The navbar will show these links after you log in */}
-//             <Link to="/account">My Account</Link>
-//             <Link to="/cart">My Cart</Link>
-//             <a href="#" onClick={handleClick}>
-//               Logout
-//             </a>
-//           </div>
-//         ) : (
-//           <div>
-//             {/* The navbar will show these links before you log in */}
-//             <Link to="/login">Login</Link>
-//             <Link to="/signup">Sign Up</Link>
-//           </div>
-//         )}
-//       </nav>
-//     </div>
-//   )
-// }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,

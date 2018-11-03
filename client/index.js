@@ -24,6 +24,12 @@ const theme = createMuiTheme({
   },
   status: {
     danger: 'orange'
+  },
+  typography: {
+    // fontFamily: [
+    //   '"Source Sans Pro"',
+    //   'sans-serif'
+    // ]
   }
 })
 
