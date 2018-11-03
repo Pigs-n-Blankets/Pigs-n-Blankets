@@ -1,16 +1,20 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {deleteFromCart} from '../../store'
+import {deleteFromCart, fetchSingleProduct} from '../../store'
+import {Link} from 'react-router-dom'
+var dateFormat = require('dateformat')
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
-import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
+
 import Button from '@material-ui/core/Button'
-import DeleteIcon from '@material-ui/icons/Delete'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import MoreIcon from '@material-ui/icons/MoreVert'
 
 const styles = theme => ({
   root: {
@@ -22,21 +26,9 @@ const styles = theme => ({
     maxWidth: '100%'
   },
   imgCell: {
-    width: '25%'
-  },
-  nameCell: {
-    width: '25%',
-    textAlign: 'right'
-  },
-  priceCell: {
     width: '15%'
   },
-  quantityCell: {
-    width: '25%',
-    fontSize: '10px'
-  },
-  dateCell: {
-    width: '5%',
+  nameCell: {
     textAlign: 'right'
   },
   textField: {
@@ -44,30 +36,90 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: '40%',
     height: 'auto'
+  },
+  link: {
+    color: 'inherit'
   }
 })
 
 class OrderHistoryCard extends Component {
+  state = {
+    anchorEl: null
+  }
+
+  handleClick = event => {
+    this.setState({anchorEl: event.currentTarget})
+  }
+
+  handleClose = () => {
+    this.setState({anchorEl: null})
+  }
+
+  // setProduct = () => {
+  //   this.setState({ anchorEl: null });
+  //   this.props.fetchSingleProduct()
+  // };
+
   render() {
     const {classes, order} = this.props
-    const {product} = order
-    const { imgUrl, name, price, quantity, updatedAt } = product
+    const {product, quantity, subtotal} = order
+    const {id, imgUrl, name, price, updatedAt} = product
+    const {anchorEl} = this.state
+
     return (
       <TableRow>
         <TableCell className={classes.imgCell}>
-          <img src={imgUrl} className={classes.productImg} />
+          <Link to={`products/${id}`}>
+            <img src={imgUrl} className={classes.productImg} />
+          </Link>
         </TableCell>
         <TableCell className={classes.nameCell}>
-          <Typography variant="subtitle1">{name}</Typography>
+          <Typography variant="caption">{name}</Typography>
         </TableCell>
         <TableCell numeric className={classes.priceCell}>
-          <Typography variant="subtitle1">{`$${price}`}</Typography>
+          <Typography variant="caption">{`$${price}`}</Typography>
         </TableCell>
         <TableCell numeric className={classes.quantityCell}>
-          <Typography variant="subtitle1">{quantity}</Typography>
+          <Typography variant="caption">{quantity}</Typography>
         </TableCell>
         <TableCell numeric className={classes.dateCell}>
-          <Typography variant="subtitle1">{updatedAt}</Typography>
+          <Typography variant="caption">
+            {dateFormat(updatedAt, 'mm-dd-yyyy')}
+          </Typography>
+        </TableCell>
+        <TableCell numeric className={classes.optinsCell}>
+          <Button
+            aria-owns={anchorEl ? 'simple-menu' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            <MoreIcon className={classes.icon} />
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+          >
+            <MenuItem
+              onClick={
+                () => {
+                  this.props.fetchSingleProduct(id)
+                }
+              }
+            >
+              <Link to="/review" className={classes.link}>
+                Review
+              </Link>
+            </MenuItem>
+            <MenuItem
+              onClick={this.handleClose}
+            >
+              <Link to={`products/${id}`} className={classes.link}>
+                Buy Again
+              </Link>
+            </MenuItem>
+          </Menu>
         </TableCell>
       </TableRow>
     )
@@ -82,6 +134,9 @@ const mapDispatch = dispatch => {
   return {
     deleteFromCart: productId => {
       return dispatch(deleteFromCart(productId))
+    },
+    fetchSingleProduct: productId => {
+      dispatch(fetchSingleProduct(productId))
     }
   }
 }

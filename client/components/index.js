@@ -13,6 +13,8 @@ export {default as AddProduct} from './product/AddProduct'
 export {default as SingleProductCard} from './product/SingleProductCard'
 export {default as CartView} from './cart/CartView'
 export {default as CartCard} from './cart/CartCard'
+export {default as OrderHistory} from './user/OrderHistory'
 export {default as Home} from './utils/Home'
+export {default as ReviewForm} from './review/ReviewForm'
 
 

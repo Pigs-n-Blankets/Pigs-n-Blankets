@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {Loading} from '../utils/Loading'
 import {fetchCart} from '../../store'
 import CartCard from './CartCard'
+const numeral = require('numeral');
+
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -14,6 +16,7 @@ import TableFooter from '@material-ui/core/TableFooter'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
 const style = theme => ({
   wrapper: {
@@ -40,6 +43,9 @@ const style = theme => ({
     marginTop: theme.spacing.unit,
     marginLeft: theme.spacing.unit * 2,
     alignSelf: 'flex-end'
+  },
+  center: {
+    textAlign: 'center'
   }
 })
 
@@ -62,9 +68,9 @@ class CartView extends Component {
     let totalPrice = 0
     this.props.cart.forEach(order => {
       totalQuantity += order.quantity
-
       totalPrice += order.price * order.quantity
     })
+    totalPrice = numeral(totalPrice).format('$ 0,0[.]00')
     if (previousState.totalQuantity !== totalQuantity) {
       this.setState({totalQuantity, totalPrice})
     }
@@ -82,9 +88,9 @@ class CartView extends Component {
                   <TableCell />
                   <TableCell numeric>PRODUCT</TableCell>
                   <TableCell numeric>PRICE</TableCell>
-                  <TableCell numeric>QUANTITY</TableCell>
-                  <TableCell />
-                  <TableCell numeric>REMOVE</TableCell>
+                  <TableCell className={classes.center}>QUANTITY</TableCell>
+                  <TableCell className={classes.center}>UPDATE</TableCell>
+                  <TableCell className={classes.center}>REMOVE</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -99,13 +105,16 @@ class CartView extends Component {
                 )}
                 <TableRow />
               </TableBody>
-
               <TableFooter>
                 <TableRow>
                   <TableCell />
                   <TableCell />
-                  <TableCell numeric>${this.state.totalPrice}</TableCell>
-                  <TableCell numeric>{this.state.totalQuantity}</TableCell>
+                  <TableCell numeric>
+                    <Typography variant="h6">{this.state.totalPrice}</Typography>
+                  </TableCell>
+                  <TableCell className={classes.center}>
+                    <Typography variant="h6">{this.state.totalQuantity}</Typography>
+                  </TableCell>
                   <TableCell />
                   <TableCell />
                 </TableRow>

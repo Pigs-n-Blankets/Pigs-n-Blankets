@@ -56,7 +56,7 @@ const ProductCard = props => {
   } = props
   return (
     <Card className={classes.card}>
-      <Link to={`/products/productId/${id}`} className={classes.link}>
+      <Link to={`/products/${id}`} className={classes.link}>
         <CardActionArea>
           <CardMedia className={classes.media} image={imgUrl} />
           <CardContent>

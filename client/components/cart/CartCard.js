@@ -12,6 +12,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete'
+import UpdateIcon from '@material-ui/icons/Update'
 
 const styles = theme => ({
   root: {
@@ -23,32 +24,42 @@ const styles = theme => ({
     maxWidth: '100%'
   },
   imgCell: {
-    width: '25%'
+    width: '25%',
+
   },
   nameCell: {
-    width: '20%',
-    textAlign: 'right'
+    // width: '25%',
+    textAlign: 'right',
+
   },
   priceCell: {
-    width: '5%'
+    // width: '20%',
   },
   quantityCell: {
-    width: '35%',
-    fontSize: '10px'
+    width: '10%',
+    fontSize: '10px',
+    textAlign: 'center',
   },
   updateCell: {
     width: '5%',
-    fontSize: '10px'
+    fontSize: '10px',
   },
   removeCell: {
     width: '5%',
-    textAlign: 'right'
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: '40%',
-    height: 'auto'
+    width: 'auto',
+    height: 'auto',
+  },
+  icon: {
+    padding: 0,
+    margin: 0
+  },
+  submit: {
+    padding: 0,
+    margin: 0
   }
 })
 
@@ -96,22 +107,21 @@ class CartCard extends Component {
             value={this.state.quantity}
             onChange={this.handleChange}
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
           />
         </TableCell>
         <TableCell className={classes.updateCell}>
-          <Button
-            type="button"
-            className={classes.submit}
-            onClick={this.handleUpdate}
-          >
-            Update
+          <Button type="button" className={classes.submit}>
+            <UpdateIcon
+              className={classes.icon}
+              onClick={this.handleUpdate}
+            />
           </Button>
         </TableCell>
         <TableCell className={classes.removeCell}>
           <Button type="button" className={classes.submit}>
             <DeleteIcon
-              className={classes.rightIcon}
+              className={classes.icon}
               onClick={() => this.props.deleteFromCart(order.productId)}
             />
           </Button>
