@@ -16,8 +16,7 @@ import AppIcon from '@material-ui/icons/Apps'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import Button from '@material-ui/core/Button';
-
+import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
   root: {
@@ -37,8 +36,7 @@ const styles = theme => ({
       display: 'block'
     },
     fontWeight: 300,
-    letterSpacing: theme.spacing.unit * 1/4
-
+    letterSpacing: theme.spacing.unit * 1 / 4
   },
   search: {
     position: 'relative',
@@ -81,7 +79,7 @@ const styles = theme => ({
   },
   navLinks: {
     color: 'inherit',
-    fontWeight: 300,
+    fontWeight: 300
   },
   icon: {
     marginLeft: '15px'
@@ -93,8 +91,7 @@ const styles = theme => ({
   navLinkText: {
     fontWeight: 300,
     color: 'inherit',
-    letterSpacing: theme.spacing.unit * 1/4
-
+    letterSpacing: theme.spacing.unit * 1 / 4
   }
 })
 
@@ -151,9 +148,9 @@ class Navbar extends Component {
               </IconButton>
             </Link>
             <Link to="/products" className={classes.navLinks}>
-                  <IconButton color="inherit" className={classes.icon}>
-                    <AppIcon />
-                  </IconButton>
+              <IconButton color="inherit" className={classes.icon}>
+                <AppIcon />
+              </IconButton>
             </Link>
             {isLoggedIn ? (
               <div>
@@ -163,16 +160,22 @@ class Navbar extends Component {
                   </IconButton>
                 </Link>
                 <a href="#" onClick={handleClick} className={classes.navLinks}>
-                  <Button color="inherit" className={classes.navLinkText}>Logout</Button>
+                  <Button color="inherit" className={classes.navLinkText}>
+                    Logout
+                  </Button>
                 </a>
               </div>
             ) : (
               <div>
                 <Link to="/login" className={classes.navLinks}>
-                  <Button color="inherit" className={classes.navLinkText}>Login</Button>
+                  <Button color="inherit" className={classes.navLinkText}>
+                    Login
+                  </Button>
                 </Link>
-                <Link to="/login" className={classes.navLinks}>
-                  <Button color="inherit" className={classes.navLinkText}>Sign Up</Button>
+                <Link to="/signup" className={classes.navLinks}>
+                  <Button color="inherit" className={classes.navLinkText}>
+                    Sign Up
+                  </Button>
                 </Link>
               </div>
             )}
@@ -182,7 +185,6 @@ class Navbar extends Component {
     )
   }
 }
-
 
 const mapState = state => {
   return {

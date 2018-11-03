@@ -24,13 +24,11 @@ const styles = theme => ({
     maxWidth: '100%'
   },
   imgCell: {
-    width: '25%',
-
+    width: '25%'
   },
   nameCell: {
     // width: '25%',
-    textAlign: 'right',
-
+    textAlign: 'right'
   },
   priceCell: {
     // width: '20%',
@@ -38,20 +36,20 @@ const styles = theme => ({
   quantityCell: {
     width: '10%',
     fontSize: '10px',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   updateCell: {
     width: '5%',
-    fontSize: '10px',
+    fontSize: '10px'
   },
   removeCell: {
-    width: '5%',
+    width: '5%'
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 'auto',
-    height: 'auto',
+    height: 'auto'
   },
   icon: {
     padding: 0,
@@ -81,9 +79,6 @@ class CartCard extends Component {
     }
   }
   render() {
-    // if (this.state.quantity !== this.props.order.quantity) {
-    //   this.setState({quantity: this.props.order.quantity})
-    // }
     const {classes, order} = this.props
     const {product} = order
     const {imgUrl, name, price, quantity} = product
@@ -93,7 +88,7 @@ class CartCard extends Component {
           <img src={imgUrl} className={classes.productImg} />
         </TableCell>
         <TableCell className={classes.nameCell}>
-          <Link to={`/products/productId/${product.id}`}>
+          <Link to={`/products/${product.id}`}>
             <Typography variant="subtitle1">{name}</Typography>
           </Link>
         </TableCell>
@@ -112,10 +107,7 @@ class CartCard extends Component {
         </TableCell>
         <TableCell className={classes.updateCell}>
           <Button type="button" className={classes.submit}>
-            <UpdateIcon
-              className={classes.icon}
-              onClick={this.handleUpdate}
-            />
+            <UpdateIcon className={classes.icon} onClick={this.handleUpdate} />
           </Button>
         </TableCell>
         <TableCell className={classes.removeCell}>

@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Loading} from '../utils/Loading'
-import {fetchCart} from '../../store'
+import {fetchCart, deleteAllFromCart} from '../../store'
 import CartCard from './CartCard'
-const numeral = require('numeral');
-
+const numeral = require('numeral')
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -57,6 +56,7 @@ class CartView extends Component {
       totalQuantity: 0,
       totalPrice: 0
     }
+    this.handleClearCart = this.handleClearCart.bind(this)
   }
   componentDidMount() {
     this.props.fetchCart()
@@ -74,6 +74,10 @@ class CartView extends Component {
     if (previousState.totalQuantity !== totalQuantity) {
       this.setState({totalQuantity, totalPrice})
     }
+  }
+
+  handleClearCart() {
+    this.props.deleteAllFromCart()
   }
 
   render() {
@@ -110,10 +114,14 @@ class CartView extends Component {
                   <TableCell />
                   <TableCell />
                   <TableCell numeric>
-                    <Typography variant="h6">{this.state.totalPrice}</Typography>
+                    <Typography variant="h6">
+                      {this.state.totalPrice}
+                    </Typography>
                   </TableCell>
                   <TableCell className={classes.center}>
-                    <Typography variant="h6">{this.state.totalQuantity}</Typography>
+                    <Typography variant="h6">
+                      {this.state.totalQuantity}
+                    </Typography>
                   </TableCell>
                   <TableCell />
                   <TableCell />
@@ -121,6 +129,15 @@ class CartView extends Component {
               </TableFooter>
             </Table>
           </Paper>
+          <Button
+            type="button"
+            variant="contained"
+            color="secondary"
+            className={classes.submit}
+            onClick={this.handleClearCart}
+          >
+            CLEAR CART
+          </Button>
           <Button
             type="button"
             variant="contained"
@@ -147,6 +164,9 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: () => {
       return dispatch(fetchCart())
+    },
+    deleteAllFromCart: () => {
+      return dispatch(deleteAllFromCart())
     }
   }
 }
