@@ -34,6 +34,7 @@ class SingleProduct extends Component {
   }
 
   render() {
+    console.log('REVIEWS --->', this.props.reviews)
     const {product, reviews, classes} = this.props
     if (!product.id) {
       return <Loading />

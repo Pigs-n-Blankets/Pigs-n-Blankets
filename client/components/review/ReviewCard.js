@@ -18,22 +18,27 @@ const styles = theme => ({
     // maxWidth: 600,
     // minWidth: 600,
     backgroundColor: theme.palette.background.paper
+  },
+  avatarImg: {
+    width: '200%'
   }
 })
 
 const ReviewCard = props => {
   const {classes, id, rating, description, user} = props
   const primary = `${user.firstName} ${user.lastName} ${rating} Stars`
+  console.log('USER ---->', user)
   return (
+    user.id ? (
     <div className={classes.root}>
       <Divider />
       <ListItem>
         <Avatar>
-          <img src={user.imgUrl} />
+          <img className={classes.avatarImg} src={user.imageUrl} />
         </Avatar>
         <ListItemText primary={primary} secondary={description} />
       </ListItem>
-    </div>
+    </div>) : (<div/>)
   )
 }
 

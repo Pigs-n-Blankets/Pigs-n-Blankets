@@ -19,3 +19,28 @@ router.get('/:productId', async (req, res, next) => {
     next(err)
   }
 })
+
+
+router.post('/:productId', async(req, res, next) => {
+  const productId = req.params.productId
+  const {rating, description} = req.body
+  const userId = req.user.dataValues.id
+
+  try {
+    const newReviewBody = {rating, description}
+    const newReview = await Review.create(newReviewBody)
+    await newReview.setUser(userId)
+    await newReview.setProduct(productId)
+    const reviewWithUser = await Review.findOne({
+      where: {
+        id: newReview.id
+      },
+      include: [{
+        model: User
+      }]
+    })
+    res.json(reviewWithUser)
+  } catch (err) {
+    next(err)
+  }
+})

@@ -45,7 +45,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route path="/user" component={UserAccount} />
-            <Route path="/review" component={ReviewForm} />
+            <Route path="/review/:productId" component={ReviewForm} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
