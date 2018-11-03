@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import SingleProductCard from '../product/SingleProductCard'
+// import SingleProductCard from '../product/SingleProductCard'
+import {fetchSingleProduct, postReview} from '../../store'
 
 // MATERIAL UI IMPORTS
 import PropTypes from 'prop-types'
@@ -18,13 +19,13 @@ const styles = {
   root: {
     display: 'flex',
     justifyContent: 'center',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)'
+    // position: 'absolute',
+    // top: '50%',
+    // left: '50%',
+    // transform: 'translate(-50%, -50%)'
   },
   card: {
-    width: '50vw',
+    width: 'auto',
     boxShadow: 'none',
     border: '1px solid #D8DEE2',
     height: 'auto'
@@ -32,7 +33,7 @@ const styles = {
   cardActionArea: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   media: {
     width: '100%',
@@ -40,56 +41,110 @@ const styles = {
   },
   cardActions: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'flex-end',
   }
 }
 
 class ReviewForm extends React.Component {
+  state = {
+    rating: 1,
+    review: ''
+  }
+
+  handleRating = (event) => {
+    this.setState({rating: event.target.value})
+  }
+
+  handleReview = (event) => {
+    this.setState({review: event.target.value})
+  }
+
+  handleSubmit = (event, productId) => {
+    const newReview = {
+      rating: this.state.rating,
+      description: this.state.review
+    }
+    this.props.postReview(productId, newReview)
+  }
+
+  componentDidMount() {
+    this.props.fetchSingleProduct(this.props.match.params.productId)
+  }
+
   render() {
     const {classes, product} = this.props
-    const {imgUrl} = product
+    const {imgUrl, id} = product
 
-    return (
-      // <div className={classes.root}>
-      //   <SingleProductCard type="review" product={product} />
-      // </div>
+    return this.props.product.id ? (
       <div className={classes.root}>
         <Card className={classes.card}>
           <CardActionArea className={classes.cardActionArea}>
-            <CardMedia
-              className={classes.media}
-              image={imgUrl}
-            />
+            <CardMedia className={classes.media} image={imgUrl} />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
                 Leave a Review
               </Typography>
               <Typography component="p">
-                We value customer feedback. Let us know what you think
+                We value customer feedback. Let us know what you think!
               </Typography>
             </CardContent>
           </CardActionArea>
 
           <CardContent className={classes.form}>
             <TextField
+              select
+              className={classes.textField}
+              onChange={(event) => {this.handleRating(event)}}
+              value={this.state.rating}
+              variant="outlined"
+              SelectProps={{
+                native: true,
+                MenuProps: {
+                  className: classes.menu
+                }
+              }}
+              helperText="Please rate this product"
+              margin="normal"
+            >
+              {[1, 2, 3, 4, 5].map(option => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </TextField>
+
+            <TextField
+              fullWidth
               id="outlined-multiline-static"
               label="Comments"
               multiline
-              rows="4"
-              defaultValue="Leave a review here"
+              rows="2"
               className={classes.textField}
               margin="normal"
               variant="outlined"
+              onChange = {(event) => {this.handleReview(event)}}
+              value={this.state.review}
             />
           </CardContent>
 
-          <CardActions>
-            <Button size="small" color="primary">
+          <CardActions className={classes.cardActions}>
+            <Button
+            // size="small"
+            type="button"
+            // color="primary"
+            // className={classes.submit}
+            onClick={() => {
+              this.handleSubmit(event, id)
+            }
+            }
+            >
               Submit
             </Button>
           </CardActions>
         </Card>
       </div>
+    ) : (
+      <div />
     )
   }
 }
@@ -101,7 +156,14 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => {
-  return {}
+  return {
+    fetchSingleProduct: productId => {
+      dispatch(fetchSingleProduct(productId))
+    },
+    postReview: (productId, newReview) => {
+      dispatch(postReview(productId, newReview))
+    }
+  }
 }
 
 ReviewForm.propTypes = {

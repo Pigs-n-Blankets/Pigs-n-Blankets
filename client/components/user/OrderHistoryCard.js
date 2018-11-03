@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {deleteFromCart, fetchSingleProduct} from '../../store'
+import {deleteFromCart} from '../../store'
 import {Link} from 'react-router-dom'
 var dateFormat = require('dateformat')
 
@@ -63,7 +63,6 @@ class OrderHistoryCard extends Component {
   render() {
     const {classes, order} = this.props
     const {product, quantity, subtotal, orderStatus} = order
-    console.log(order)
     const {id, imgUrl, name, price, updatedAt} = product
     const {anchorEl} = this.state
 
@@ -107,14 +106,8 @@ class OrderHistoryCard extends Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            <MenuItem
-              onClick={
-                () => {
-                  this.props.fetchSingleProduct(id)
-                }
-              }
-            >
-              <Link to="/review" className={classes.link}>
+            <MenuItem>
+              <Link to={`/review/${id}`}className={classes.link}>
                 Review
               </Link>
             </MenuItem>
@@ -140,9 +133,6 @@ const mapDispatch = dispatch => {
   return {
     deleteFromCart: productId => {
       return dispatch(deleteFromCart(productId))
-    },
-    fetchSingleProduct: productId => {
-      dispatch(fetchSingleProduct(productId))
     }
   }
 }

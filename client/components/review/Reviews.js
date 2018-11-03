@@ -47,14 +47,8 @@ const Reviews = props => {
   if (!reviews[0]) {
     return <div>There are no current reviews for this product!</div>
   }
-  console.log(reviews[0].user)
+  console.log('user --->', reviews[0].user)
   return (
-    // <GridList
-    //   cellHeight="auto"
-    //   className={classes.gridList}
-    //   cols={3}
-    //   spacing={15}
-    // >
     <div>
       <Typography gutterBottom variant="h3" component="h2">
         Product Reviews
@@ -71,7 +65,6 @@ const Reviews = props => {
         ))}
       </List>
     </div>
-    // </GridList>
   )
 }
 
