@@ -39,6 +39,9 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: '40%',
     height: 'auto'
+  },
+  link: {
+    color: 'inherit'
   }
 })
 
@@ -100,14 +103,14 @@ class OrderHistoryCard extends Component {
             onClose={this.handleClose}
           >
             <MenuItem
-            // onClick={this.handleClose}
+            onClick={this.handleClose}
             >
-              Review
+              <Link to='/review 'className={classes.link}>Review</Link>
             </MenuItem>
             <MenuItem
-            // onClick={this.handleClose}
+            onClick={this.handleClose}
             >
-              Buy Again
+              <Link to={`products/${id}`} className={classes.link}>Buy Again</Link>
             </MenuItem>
           </Menu>
         </TableCell>

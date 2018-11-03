@@ -51,7 +51,6 @@ class OrderHistory extends React.Component {
   }
 
   render() {
-    console.log('order history', this.props.orderHistory)
     const {classes} = this.props
     return (
       <div className={classes.wrapper}>
