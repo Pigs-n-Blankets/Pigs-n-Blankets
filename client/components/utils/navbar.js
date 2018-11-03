@@ -36,7 +36,9 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block'
     },
-    fontWeight: 300
+    fontWeight: 300,
+    letterSpacing: theme.spacing.unit * 1/4
+
   },
   search: {
     position: 'relative',
@@ -80,7 +82,6 @@ const styles = theme => ({
   navLinks: {
     color: 'inherit',
     fontWeight: 300,
-    // paddingLeft: '5px'
   },
   icon: {
     marginLeft: '15px'
@@ -91,7 +92,9 @@ const styles = theme => ({
   },
   navLinkText: {
     fontWeight: 300,
-    color: 'inherit'
+    color: 'inherit',
+    letterSpacing: theme.spacing.unit * 1/4
+
   }
 })
 
@@ -124,7 +127,7 @@ class Navbar extends Component {
                 color="inherit"
                 noWrap
               >
-                Pigs 'n Blankets
+                PIGS 'n BLANKETS
               </Typography>
             </Link>
             <div className={classes.search}>
