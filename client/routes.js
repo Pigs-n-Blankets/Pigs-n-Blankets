@@ -11,7 +11,8 @@ import {
   SingleProduct,
   AddProduct,
   CartView,
-  Home
+  Home,
+  OrderHistory
 } from './components'
 import {me} from './store'
 
