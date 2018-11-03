@@ -35,31 +35,62 @@ export const deleteFromCart = productId => async dispatch => {
     console.err(err)
   }
 }
+
+export const deleteAllFromCart = () => async dispatch => {
+  try {
+    await axios.delete(`/api/cart/`)
+    const {data: cart} = await axios.get(`/api/cart/`)
+    dispatch(getCart(cart))
+  } catch (err) {
+    console.err(err)
+  }
+}
+
 export const postCart = (productId, quantity) => async dispatch => {
-  await axios.post('/api/cart/', {productId, quantity})
-  const {data: cart} = await axios.get(`/api/cart/`)
-  dispatch(getCart(cart))
+  try {
+    await axios.post('/api/cart/', {productId, quantity})
+    const {data: cart} = await axios.get(`/api/cart/`)
+    dispatch(getCart(cart))
+  } catch (err) {
+    console.err(err)
+  }
 }
 export const putCartUser = () => async dispatch => {
-  await axios.put('/api/cart')
-  const {data: cart} = await axios.get(`/api/cart/`)
-  dispatch(getCart(cart))
+  try {
+    await axios.put('/api/cart')
+    const {data: cart} = await axios.get(`/api/cart/`)
+    dispatch(getCart(cart))
+  } catch (err) {
+    console.err(err)
+  }
 }
 export const putCartQuantity = (productId, quantity) => async dispatch => {
-  await axios.put(`/api/cart/quantity/${productId}`, {quantity})
-  const {data: cart} = await axios.get(`/api/cart/`)
-  dispatch(getCart(cart))
+  try {
+    await axios.put(`/api/cart/quantity/${productId}`, {quantity})
+    const {data: cart} = await axios.get(`/api/cart/`)
+    dispatch(getCart(cart))
+  } catch (err) {
+    console.err(err)
+  }
 }
-export const fetchOrderHistory = (userId) => async dispatch => {
-  const {data: orders} = await axios.get(`/api/cart/${userId}`)
-  console.log(orders)
-  dispatch(getOrderHistory(orders))
+export const fetchOrderHistory = userId => async dispatch => {
+  try {
+    const {data: orders} = await axios.get(`/api/cart/${userId}`)
+    console.log(orders)
+    dispatch(getOrderHistory(orders))
+  } catch (err) {
+    console.err(err)
+  }
 }
 
 export const replaceCartQuantity = (orderId, quantity) => async dispatch => {
-  await axios.put(`/api/cart/quantity/update/${orderId}`, {quantity})
-  const {data: cart} = await axios.get(`/api/cart/`)
-  dispatch(getCart(cart))
+  try {
+    await axios.put(`/api/cart/quantity/update/${orderId}`, {quantity})
+    const {data: cart} = await axios.get(`/api/cart/`)
+    dispatch(getCart(cart))
+  } catch (err) {
+    console.err(err)
+  }
 }
 
 // HANDLERS

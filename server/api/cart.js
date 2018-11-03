@@ -3,7 +3,6 @@ const {Order, Product} = require('../db/models')
 module.exports = router
 const Sequelize = require('sequelize')
 
-
 const idFinder = req => {
   let id
   let idType
@@ -38,9 +37,9 @@ router.get('/', async (req, res, next) => {
 })
 
 // ORDER HISTORY ROUTE
-router.get('/:userId', async(req, res, next) => {
-  const userId = req.params.userId;
-  const Op = Sequelize.Op;
+router.get('/:userId', async (req, res, next) => {
+  const userId = req.params.userId
+  const Op = Sequelize.Op
   try {
     const orderHistory = await Order.findAll({
       include: [
@@ -81,6 +80,27 @@ router.post('/', async (req, res, next) => {
     const order = await Order.create(myOrder)
     await order.setProduct(product)
     res.json(order)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/', async (req, res, next) => {
+  const {id, idType} = idFinder(req)
+
+  try {
+    await Order.destroy({
+      include: [
+        {
+          model: Product
+        }
+      ],
+      where: {
+        [idType]: id,
+        orderStatus: 'inCart'
+      }
+    })
+    res.status(204).end()
   } catch (err) {
     next(err)
   }
