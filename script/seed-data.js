@@ -1,3 +1,14 @@
+const categoryData = [
+  {name: 'dogs'},
+  {name: 'cats'},
+  {name: 'pigs'},
+  {name: 'horses'},
+  {name: 'guinea pigs'},
+  {name: 'birds'},
+  {name: 'bunnies'},
+  {name: 'turtles'}
+]
+
 const productData = [
   {
     name: 'Doggy Snowman',
@@ -292,12 +303,7 @@ const reviewData = [
   },
 ]
 
-const categoryData = [
-  {name: 'dogs'},
-  {name: 'cats'},
-  {name: 'pigs'},
-  {name: 'horses'},
-]
+
 
 
 module.exports = {
