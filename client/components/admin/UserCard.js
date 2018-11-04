@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {postCart, putCartQuantity} from '../../store/cart'
+import {deleteUser} from '../../store'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -15,7 +15,6 @@ import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 import AdminIcon from '@material-ui/icons/AssignmentInd'
 import PasswordIcon from '@material-ui/icons/LockOpen'
-import {putProduct, deleteProduct} from '../../store'
 
 const styles = theme => ({
   card: {
@@ -68,7 +67,7 @@ const UserCard = props => {
       </Link>
       <CardActions className={classes.cardActions}>
         <Button
-          // onClick={() => deleteThisProduct(id)}
+          onClick={() => props.deleteUser(id)}
           size="small"
           color="primary"
         >
@@ -102,7 +101,11 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    deleteUser: (userId) => {
+      return dispatch(deleteUser(userId))
+    }
+  }
 }
 
 export default withStyles(styles)(

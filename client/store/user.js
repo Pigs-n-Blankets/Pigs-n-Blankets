@@ -5,6 +5,7 @@ import history from '../history'
 const GET_USER = 'GET_USER'
 const GET_ALL_USERS = 'GET_ALL_USERS'
 const REMOVE_USER = 'REMOVE_USER'
+const ADMIN_REMOVE_USER = 'ADMIN_REMOVE_USER'
 
 // INITIAL STATE
 const defaultState = {
@@ -16,6 +17,7 @@ const defaultState = {
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const getAllUsers = users => ({type: GET_ALL_USERS, users})
+const adminRemoveUser = userId => ({type: ADMIN_REMOVE_USER, userId})
 
 // THUNKS
 export const me = () => async dispatch => {
@@ -65,6 +67,14 @@ export const fetchUsers = () => async dispatch => {
     console.error(err)
   }
 }
+export const deleteUser = (userId) => async dispatch => {
+  try {
+    await axios.delete(`/api/users/${userId}`)
+    dispatch(adminRemoveUser(userId))
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 // HANDLERS
 const handler = {
@@ -76,6 +86,10 @@ const handler = {
   },
   [REMOVE_USER]: (state, action) => {
     return {...state, currentUser: {}}
+  },
+  [ADMIN_REMOVE_USER]: (state, action) => {
+    const updatedUsers = state.allUsers.filter((user) => user.id !== action.userId)
+    return {...state, allUsers: updatedUsers}
   }
 }
 
