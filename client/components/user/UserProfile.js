@@ -63,7 +63,7 @@ function UserProfile(props) {
 
 const mapState = (state) => {
   return {
-    user: state.user
+    user: state.user.currentUser
   }
 }
 

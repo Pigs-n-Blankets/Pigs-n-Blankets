@@ -14,7 +14,8 @@ import {
   Home,
   ReviewForm,
   Dashboard,
-  Orders
+  Orders,
+  AllUsers
 } from './components'
 import {me} from './store'
 
@@ -48,6 +49,10 @@ class Routes extends Component {
             <Route path="/review/:productId" component={ReviewForm} />
             <Route path="/admin/orders" component={Orders} />
             <Route path="/admin" component={Dashboard} />
+      
+            {/* move to isAdmin */}
+            <Route path="/allUsers" component={AllUsers} />
+
           </Switch>
         )}
         {/* {isAdmin === true && (
@@ -70,7 +75,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.currentUser.id
     isAdmin: state.user.isAdmin
   }
 }
