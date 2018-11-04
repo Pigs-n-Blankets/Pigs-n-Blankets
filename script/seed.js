@@ -73,6 +73,53 @@ async function seed() {
   await seedOrders();
 
 
+  async function seedCategories() {
+    // console.log('PRODUCT', products[0].get({plain: true}))
+    // console.log('CATEGORY', categories[0].get({plain: true}))
+
+    const dogs = products.filter((product) => ['Doggy Snowman', 'Dapper Pup', "It's a Fiesta!"].includes(product.name))
+
+    const cats = products.filter((product) => ['Super Cat', 'Sassy Kitty', "It's a Fiesta!"].includes(product.name))
+
+    const pigs = products.filter((product) => ['Cowboy Piglet', 'Piglet Booties', 'Identity Crisis'].includes(product.name))
+
+    const horses = products.filter((product) => ['Sea Horse'].includes(product.name))
+
+    const guineaPigs = products.filter((product) => ['Pumpkin', 'Which Witch!?', 'Guinea Up!'].includes(product.name))
+
+    const birds = products.filter((product) => ['Rocker Chick'].includes(product.name))
+
+    const bunnies = products.filter((product) => ['Super Bunny'].includes(product.name))
+
+    const turtles = products.filter((product) => ["Teacher's Pet"].includes(product.name))
+
+    for (let i = 0; i < dogs.length; i++) {
+      await dogs[i].setCategories(categories[0])
+    }
+    for (let i = 0; i < cats.length; i++) {
+      await cats[i].setCategories(categories[1])
+    }
+    for (let i = 0; i < pigs.length; i++) {
+      await pigs[i].setCategories(categories[2])
+    }
+    for (let i = 0; i < horses.length; i++) {
+      await horses[i].setCategories(categories[3])
+    }
+    for (let i = 0; i < guineaPigs.length; i++) {
+      await guineaPigs[i].setCategories(categories[4])
+    }
+    for (let i = 0; i < birds.length; i++) {
+      await birds[i].setCategories(categories[5])
+    }
+    for (let i = 0; i < bunnies.length; i++) {
+      await bunnies[i].setCategories(categories[6])
+    }
+    for (let i = 0; i < turtles.length; i++) {
+      await turtles[i].setCategories(categories[7])
+    }
+  }
+  await seedCategories();
+
   console.log(`seeded successfully`);
 }
 
