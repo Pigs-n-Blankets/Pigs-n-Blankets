@@ -3,6 +3,7 @@ import history from '../history'
 
 // ACTION TYPES
 const GET_USER = 'GET_USER'
+const GET_ALL_USERS = 'GET_ALL_USERS'
 const REMOVE_USER = 'REMOVE_USER'
 
 // INITIAL STATE
@@ -14,6 +15,7 @@ const defaultState = {
 // ACTION CREATORS
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const getAllUsers = users => ({type: GET_ALL_USERS, users})
 
 // THUNKS
 export const me = () => async dispatch => {
@@ -55,11 +57,22 @@ export const updateMe = userData => async dispatch => {
     console.error(err)
   }
 }
+export const fetchUsers = () => async dispatch => {
+  try {
+    const { data: users } = axios.get('/api/users')
+    dispatch(getAllUsers(users))
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 // HANDLERS
 const handler = {
   [GET_USER]: (state, action) => {
     return {...state, currentUser: action.user}
+  },
+  [GET_ALL_USERS]: (state, action) => {
+    return {...state, allUsers: action.users}
   },
   [REMOVE_USER]: (state, action) => {
     return {...state, currentUser: {}}
