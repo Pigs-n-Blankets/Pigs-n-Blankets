@@ -12,7 +12,8 @@ import {
   AddProduct,
   CartView,
   Home,
-  ReviewForm
+  ReviewForm,
+  Dashboard
 } from './components'
 import {me} from './store'
 
@@ -46,6 +47,8 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             <Route path="/user" component={UserAccount} />
             <Route path="/review/:productId" component={ReviewForm} />
+            <Route path="/admin" component={Dashboard} />
+
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
