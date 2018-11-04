@@ -61,7 +61,7 @@ class OrderHistoryCard extends Component {
   // };
 
   render() {
-    const {classes, order} = this.props
+    const {classes, order, isAdmin} = this.props
     const {product, quantity, subtotal, orderStatus} = order
     const {id, imgUrl, name, price, updatedAt} = product
     const {anchorEl} = this.state
@@ -69,9 +69,15 @@ class OrderHistoryCard extends Component {
     return (
       <TableRow>
         <TableCell className={classes.imgCell}>
-          <Link to={`products/${id}`}>
-            <img src={imgUrl} className={classes.productImg} />
-          </Link>
+          {isAdmin ? (
+            <Link to={`../products/${id}`}>
+              <img src={imgUrl} className={classes.productImg} />
+            </Link>
+          ) : (
+            <Link to={`products/${id}`}>
+              <img src={imgUrl} className={classes.productImg} />
+            </Link>
+          )}
         </TableCell>
         <TableCell className={classes.nameCell}>
           <Typography variant="caption">{name}</Typography>
@@ -88,10 +94,15 @@ class OrderHistoryCard extends Component {
           </Typography>
         </TableCell>
         <TableCell numeric className={classes.statusCell}>
-          <Typography variant="caption">
-            {orderStatus}
-          </Typography>
+          <Typography variant="caption">{orderStatus}</Typography>
         </TableCell>
+        {isAdmin ? (
+          <TableCell numeric className={classes.statusCell}>
+            <Typography variant="caption">{order.userId}</Typography>
+          </TableCell>
+        ) : (
+          <div />
+        )}
         <TableCell numeric className={classes.optinsCell}>
           <Button
             aria-owns={anchorEl ? 'simple-menu' : undefined}
@@ -106,18 +117,25 @@ class OrderHistoryCard extends Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            <MenuItem>
-              <Link to={`/review/${id}`}className={classes.link}>
-                Review
-              </Link>
-            </MenuItem>
-            <MenuItem
-              onClick={this.handleClose}
-            >
-              <Link to={`products/${id}`} className={classes.link}>
-                Buy Again
-              </Link>
-            </MenuItem>
+            {isAdmin ? (
+              <div>
+                <MenuItem onClick={this.handleClose}>Cancel Order</MenuItem>
+                <MenuItem onClick={this.handleClose}>Complete Order</MenuItem>
+              </div>
+            ) : (
+              <div>
+                <MenuItem>
+                  <Link to={`/review/${id}`} className={classes.link}>
+                    Review
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={this.handleClose}>
+                  <Link to={`products/${id}`} className={classes.link}>
+                    Buy Again
+                  </Link>
+                </MenuItem>
+              </div>
+            )}
           </Menu>
         </TableCell>
       </TableRow>

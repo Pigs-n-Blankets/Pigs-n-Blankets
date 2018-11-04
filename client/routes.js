@@ -13,7 +13,8 @@ import {
   CartView,
   Home,
   ReviewForm,
-  Dashboard
+  Dashboard,
+  Orders
 } from './components'
 import {me} from './store'
 
@@ -26,7 +27,8 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
+    console.log(isAdmin)
 
     return (
       <Switch>
@@ -34,10 +36,7 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route
-          path="/products/:productId"
-          component={SingleProduct}
-        />
+        <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/products/add-product" component={AddProduct} />
         <Route path="/products" component={AllProducts} />
         <Route path="/cart" component={CartView} />
@@ -47,10 +46,16 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             <Route path="/user" component={UserAccount} />
             <Route path="/review/:productId" component={ReviewForm} />
+            <Route path="/admin/orders" component={Orders} />
             <Route path="/admin" component={Dashboard} />
-
           </Switch>
         )}
+        {/* {isAdmin === true && (
+          <Switch>
+            <Route path="/admin" component={Dashboard} />
+            <Route path="/admin/orders" component={Orders} />
+          </Switch>
+        )} */}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
@@ -65,7 +70,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 

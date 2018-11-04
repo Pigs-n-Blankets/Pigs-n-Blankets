@@ -17,6 +17,4 @@ export {default as OrderHistory} from './user/OrderHistory'
 export {default as Home} from './utils/Home'
 export {default as ReviewForm} from './review/ReviewForm'
 export {default as Dashboard} from './admin/Dashboard'
-
-
-
+export {default as Orders} from './admin/Orders'
