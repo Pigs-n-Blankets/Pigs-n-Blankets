@@ -72,7 +72,7 @@ const UserCard = props => {
           <DeleteIcon />
         </Button>
         <Button
-          onClick={() => props.putUser(id, {isAdmin: true})}
+          onClick={() => props.putUser(id, {isAdmin: !isAdmin})}
           size="small"
           color="primary"
         >
