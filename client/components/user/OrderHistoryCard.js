@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {deleteFromCart} from '../../store'
+import {deleteFromCart, updateOrderStatus} from '../../store'
 import {Link} from 'react-router-dom'
 var dateFormat = require('dateformat')
 
@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import MoreIcon from '@material-ui/icons/MoreVert'
+import {tmpdir} from 'os'
 
 const styles = theme => ({
   root: {
@@ -55,13 +56,24 @@ class OrderHistoryCard extends Component {
     this.setState({anchorEl: null})
   }
 
+  handleCancel = () => {
+    this.props.updateOrderStatus(this.props.order.id, 'cancelled')
+    this.handleClose()
+  }
+
+  handleComplete = () => {
+    this.props.updateOrderStatus(this.props.order.id, 'completed')
+    this.setState({currentOrder: this.props.currentOrder})
+    this.handleClose()
+  }
+
   // setProduct = () => {
   //   this.setState({ anchorEl: null });
   //   this.props.fetchSingleProduct()
   // };
 
   render() {
-    const {classes, order, isAdmin} = this.props
+    const {classes, isAdmin, order} = this.props
     const {product, quantity, subtotal, orderStatus} = order
     const {id, imgUrl, name, price, updatedAt} = product
     const {anchorEl} = this.state
@@ -101,7 +113,7 @@ class OrderHistoryCard extends Component {
             <Typography variant="caption">{order.userId}</Typography>
           </TableCell>
         ) : (
-          <div />
+          <td />
         )}
         <TableCell numeric className={classes.optinsCell}>
           <Button
@@ -119,8 +131,10 @@ class OrderHistoryCard extends Component {
           >
             {isAdmin ? (
               <div>
-                <MenuItem onClick={this.handleClose}>Cancel Order</MenuItem>
-                <MenuItem onClick={this.handleClose}>Complete Order</MenuItem>
+                <MenuItem onClick={this.handleCancel}>Cancel Order</MenuItem>
+                <MenuItem onClick={this.handleComplete}>
+                  Complete Order
+                </MenuItem>
               </div>
             ) : (
               <div>
@@ -151,8 +165,19 @@ const mapDispatch = dispatch => {
   return {
     deleteFromCart: productId => {
       return dispatch(deleteFromCart(productId))
+    },
+    updateOrderStatus: (orderId, orderStatus) => {
+      return dispatch(updateOrderStatus(orderId, orderStatus))
     }
   }
 }
 
-export default withStyles(styles)(connect(null, mapDispatch)(OrderHistoryCard))
+const mapState = state => {
+  return {
+    currentOrder: state.orders.currentOrder
+  }
+}
+
+export default withStyles(styles)(
+  connect(mapState, mapDispatch)(OrderHistoryCard)
+)

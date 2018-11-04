@@ -51,7 +51,6 @@ class UpdateProduct extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange(event) {
-    console.log('change')
     this.setState({
       [event.target.name]: event.target.value
     })

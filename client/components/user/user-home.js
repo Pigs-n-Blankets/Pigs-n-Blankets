@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 class UserHome extends Component {
   componentDidMount() {
     if (this.props.isLoggedIn) {
-      console.log('in the if statement!')
       this.props.putCartUser()
     }
   }
@@ -36,7 +35,6 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(UserHome)
-
 
 UserHome.propTypes = {
   email: PropTypes.string
