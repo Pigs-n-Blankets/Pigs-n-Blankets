@@ -74,9 +74,6 @@ async function seed() {
 
 
   async function seedCategories() {
-    // console.log('PRODUCT', products[0].get({plain: true}))
-    // console.log('CATEGORY', categories[0].get({plain: true}))
-
     const dogs = products.filter((product) => ['Doggy Snowman', 'Dapper Pup', "It's a Fiesta!"].includes(product.name))
 
     const cats = products.filter((product) => ['Super Cat', 'Sassy Kitty', "It's a Fiesta!"].includes(product.name))
