@@ -17,6 +17,16 @@ import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import Button from '@material-ui/core/Button'
+import MenuIcon from '@material-ui/icons/Menu'
+
+// DRAWER FOR ADMIN
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider'
+import { mainListItems, secondaryListItems } from '../admin/DashboardList';
+
+
+const drawerWidth = 240
 
 const styles = theme => ({
   root: {
@@ -92,6 +102,55 @@ const styles = theme => ({
     fontWeight: 300,
     color: 'inherit',
     letterSpacing: theme.spacing.unit * 1 / 4
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  hide: {
+    display: 'none'
+  },
+  drawerPaper: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    width: theme.spacing.unit * 7,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing.unit * 9
+    }
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3
   }
 })
 
@@ -105,14 +164,26 @@ class Navbar extends Component {
   componentDidMount() {
     this.props.fetchCart()
   }
+
+  state = {
+    right: false,
+  };
+
+  toggleDrawer = (side, open) => () => {
+    this.setState({
+      [side]: open,
+    });
+  };
+
   render() {
     const classes = this.props.classes
     const handleClick = this.props.handleClick
     const isLoggedIn = this.props.isLoggedIn
+    const isAdmin = this.props.user.isAdmin
     const cart = this.props.cart
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <Link to="/" className={classes.navLinks}>
               <img className={classes.logo} src="pigLogo.png" />
@@ -140,30 +211,51 @@ class Navbar extends Component {
               />
             </div>
             <div className={classes.grow} />
-            <Link to="/cart" className={classes.navLinks}>
-              <IconButton color="inherit">
-                <Badge badgeContent={cart.length} color="secondary">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
-            </Link>
-            <Link to="/products" className={classes.navLinks}>
-              <IconButton color="inherit" className={classes.icon}>
-                <AppIcon />
-              </IconButton>
-            </Link>
-            {isLoggedIn ? (
-              <div>
-                <Link to="/user" className={classes.navLinks}>
-                  <IconButton color="inherit" className={classes.icon}>
-                    <AccountCircle />
+            {!isAdmin ? (
+              <React.Fragment>
+                <Link to="/cart" className={classes.navLinks}>
+                  <IconButton color="inherit">
+                    <Badge badgeContent={cart.length} color="secondary">
+                      <ShoppingCartIcon />
+                    </Badge>
                   </IconButton>
                 </Link>
+                <Link to="/products" className={classes.navLinks}>
+                  <IconButton color="inherit" className={classes.icon}>
+                    <AppIcon />
+                  </IconButton>
+                </Link>
+              </React.Fragment>
+            ) : (
+              <div />
+            )}
+            {isLoggedIn ? (
+              <div>
+                {!isAdmin ? (
+                  <Link to="/user" className={classes.navLinks}>
+                    <IconButton color="inherit" className={classes.icon}>
+                      <AccountCircle />
+                    </IconButton>
+                  </Link>
+                ) : (
+                  <div />
+                )}
                 <a href="#" onClick={handleClick} className={classes.navLinks}>
                   <Button color="inherit" className={classes.navLinkText}>
                     Logout
                   </Button>
                 </a>
+                {isAdmin ? (
+                  <IconButton
+                    color="inherit"
+                    aria-label="Open drawer"
+                    onClick={this.toggleDrawer('right', true)}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                ) : (
+                  <div />
+                )}
               </div>
             ) : (
               <div>
@@ -181,6 +273,27 @@ class Navbar extends Component {
             )}
           </Toolbar>
         </AppBar>
+
+        {isAdmin ? (
+          <Drawer
+            anchor="right"
+            open={this.state.right}
+            onClose={this.toggleDrawer('right', false)}
+          >
+            <div
+              tabIndex={0}
+              role="button"
+              onClick={this.toggleDrawer('right', false)}
+              onKeyDown={this.toggleDrawer('right', false)}
+            >
+            <List>{mainListItems}</List>
+            <Divider />
+            <List>{secondaryListItems}</List>
+            </div>
+          </Drawer>
+        ) : (
+          <div />
+        )}
       </div>
     )
   }
@@ -189,7 +302,8 @@ class Navbar extends Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    cart: state.cart.cart
+    cart: state.cart.cart,
+    user: state.user
   }
 }
 
@@ -205,9 +319,6 @@ const mapDispatch = dispatch => {
 }
 
 export default withStyles(styles)(connect(mapState, mapDispatch)(Navbar))
-/**
- * PROP TYPES
- */
 
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
