@@ -18,6 +18,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
+import CartIcon from '@material-ui/icons/ShoppingCart'
 import TextField from '@material-ui/core/TextField'
 
 const styles = theme => ({
@@ -157,15 +158,15 @@ class SingleProductCard extends Component {
             <div>
               <TextField
                 id="standard-number"
-                label="Quantity"
                 value={this.state.quantity}
                 onChange={this.handleChange}
                 type="number"
-                className={classes.textField}
+                className={`${classes.textField} ${classes.quantity}`}
                 InputLabelProps={{
                   shrink: true
                 }}
                 margin="normal"
+                helperText="quantity"
               />
               <Button
                 type="button"
@@ -175,6 +176,7 @@ class SingleProductCard extends Component {
                 onClick={this.handleAddToCart}
               >
                 ADD TO CART
+                <CartIcon className={classes.rightIcon} />
               </Button>
             </div>
           )}

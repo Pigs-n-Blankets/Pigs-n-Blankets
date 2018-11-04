@@ -9,10 +9,8 @@ import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
 
 const styles = theme => ({
   container: {
@@ -40,7 +38,7 @@ class Settings extends Component {
       firstName: props.user.firstName,
       lastName: props.user.lastName,
       email: props.user.email,
-      imgUrl: props.user.imgUrl,
+      imageUrl: props.user.imageUrl,
       address: props.user.address
     }
     this.handleChange = this.handleChange.bind(this)
@@ -63,13 +61,11 @@ class Settings extends Component {
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
-          <CardActionArea className={classes.cardActionArea}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
                 Update User Settings
               </Typography>
             </CardContent>
-          </CardActionArea>
           <CardContent className={classes.form}>
             <GridList
               cellHeight="auto"
@@ -109,12 +105,12 @@ class Settings extends Component {
                 variant="outlined"
               />
               <TextField
-                name="imgUrl"
+                name="imageUrl"
                 id="filled-multiline-flexible"
                 label="Profile Picture URL"
                 multiline
                 className={classes.textField}
-                value={this.state.imgUrl}
+                value={this.state.imageUrl}
                 onChange={this.handleChange}
                 margin="normal"
                 variant="outlined"

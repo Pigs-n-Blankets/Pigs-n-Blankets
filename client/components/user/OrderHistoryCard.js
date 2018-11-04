@@ -84,7 +84,7 @@ class OrderHistoryCard extends Component {
         </TableCell>
         <TableCell numeric className={classes.dateCell}>
           <Typography variant="caption">
-            {dateFormat(updatedAt, 'mm-dd-yyyy')}
+            {dateFormat(updatedAt, 'mm/dd/yy')}
           </Typography>
         </TableCell>
         <TableCell numeric className={classes.statusCell}>
