@@ -6,6 +6,7 @@ const GET_USER = 'GET_USER'
 const GET_ALL_USERS = 'GET_ALL_USERS'
 const REMOVE_USER = 'REMOVE_USER'
 const ADMIN_REMOVE_USER = 'ADMIN_REMOVE_USER'
+const ADMIN_UPDATE_USER = 'ADMIN_UPDATE_USER'
 
 // INITIAL STATE
 const defaultState = {
@@ -18,6 +19,7 @@ const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const getAllUsers = users => ({type: GET_ALL_USERS, users})
 const adminRemoveUser = userId => ({type: ADMIN_REMOVE_USER, userId})
+const adminUpdateUser = updatedUser => ({type: ADMIN_UPDATE_USER, updatedUser})
 
 // THUNKS
 export const me = () => async dispatch => {
@@ -75,6 +77,17 @@ export const deleteUser = (userId) => async dispatch => {
     console.error(err)
   }
 }
+export const putUser = (userId, updatedUserBody) => async dispatch => {
+  try {
+    console.log('userId', userId);
+    console.log('updated body', updatedUserBody)
+    const {data: updatedUser} = await axios.put(`/api/users/${userId}`, updatedUserBody)
+    console.log('UPDATED USER', updatedUser)
+    dispatch(adminUpdateUser(updatedUser))
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 // HANDLERS
 const handler = {
@@ -89,6 +102,15 @@ const handler = {
   },
   [ADMIN_REMOVE_USER]: (state, action) => {
     const updatedUsers = state.allUsers.filter((user) => user.id !== action.userId)
+    return {...state, allUsers: updatedUsers}
+  },
+  [ADMIN_UPDATE_USER]: (state, action) => {
+    const updatedUsers = state.allUsers.map((user) => {
+      if (user.id === action.updatedUser.id) {
+        user = action.updatedUser
+      }
+      return user
+    })
     return {...state, allUsers: updatedUsers}
   }
 }

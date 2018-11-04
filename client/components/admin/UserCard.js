@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {deleteUser} from '../../store'
+import {deleteUser, putUser} from '../../store'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -45,8 +45,6 @@ const styles = theme => ({
 const UserCard = props => {
   const {classes, user} = props
   const {id, firstName, lastName, email, address, imageUrl, isAdmin} = user
-
-  console.log('USERS FROM CARD -> ', user)
   return (
     <Card className={classes.card}>
       <Link to={`/products/${id}`} className={classes.link}>
@@ -74,7 +72,7 @@ const UserCard = props => {
           <DeleteIcon />
         </Button>
         <Button
-          // onClick={() => deleteThisProduct(id)}
+          onClick={() => props.putUser(id, {isAdmin: true})}
           size="small"
           color="primary"
         >
@@ -104,6 +102,9 @@ const mapDispatchToProps = dispatch => {
   return {
     deleteUser: (userId) => {
       return dispatch(deleteUser(userId))
+    },
+    putUser: (userId, updatedUserBody) => {
+      return dispatch(putUser(userId, updatedUserBody))
     }
   }
 }
