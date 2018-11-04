@@ -84,8 +84,8 @@ class OrderHistory extends React.Component {
 const mapState = state => {
   return {
     orderHistory: state.cart.orderHistory,
-    user: state.user,
-    isLoggedIn: !!state.user.id,
+    user: state.user.currentUser,
+    isLoggedIn: !!state.user.currentUser.id,
   }
 }
 const mapDispatch = dispatch => {

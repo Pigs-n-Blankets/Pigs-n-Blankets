@@ -170,8 +170,8 @@ class CartView extends Component {
 const mapState = state => {
   return {
     cart: state.cart.cart,
-    isLoggedIn: !!state.user.id,
-    user: state.user
+    isLoggedIn: !!state.user.currentUser.id,
+    user: state.user.currentUser
   }
 }
 

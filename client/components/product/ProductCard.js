@@ -116,7 +116,7 @@ const ProductCard = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
+    user: state.user.currentUser,
     cart: state.cart.cart
   }
 }

@@ -22,8 +22,8 @@ class UserHome extends Component {
 
 const mapState = state => {
   return {
-    email: state.user.email,
-    isLoggedIn: !!state.user.id
+    email: state.user.currentUser.email,
+    isLoggedIn: !!state.user.currentUser.id
   }
 }
 

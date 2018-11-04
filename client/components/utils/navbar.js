@@ -301,9 +301,9 @@ class Navbar extends Component {
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.currentUser.id,
     cart: state.cart.cart,
-    user: state.user
+    user: state.user.currentUser
   }
 }
 
