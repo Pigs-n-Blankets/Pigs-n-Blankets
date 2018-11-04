@@ -56,6 +56,15 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const updateMe = userData => async dispatch => {
+  try {
+    const user = await axios.put('/api/users', userData)
+    dispatch(getUser(user.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */

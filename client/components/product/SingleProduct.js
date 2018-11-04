@@ -22,7 +22,7 @@ const styles = theme => ({
     display: 'flex'
   },
   gridContent: {
-    justifyContent: 'center',
+    justifyContent: 'center'
   }
 })
 
@@ -41,15 +41,13 @@ class SingleProduct extends Component {
     }
     return (
       <div className={classes.wrapper}>
-        <Grid
-          container
-          className={classes.grid}
-          spacing={40}
-        >
-          <Grid item xs={12} className={`${classes.gridItem} ${classes.gridContent}`}>
-            <SingleProductCard
-              product={product}
-            />
+        <Grid container className={classes.grid} spacing={40}>
+          <Grid
+            item
+            xs={12}
+            className={`${classes.gridItem} ${classes.gridContent}`}
+          >
+            <SingleProductCard product={product} />
           </Grid>
 
           <Grid item xs={12}>
@@ -60,13 +58,10 @@ class SingleProduct extends Component {
             <UpdateProduct product={product} productId={product.id} />
           </Grid>
         </Grid>
-
-
       </div>
     )
   }
 }
-
 
 const mapDispatchToProps = dispatch => {
   return {

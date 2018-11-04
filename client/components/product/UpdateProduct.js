@@ -8,24 +8,35 @@ import {connect} from 'react-redux'
 import {putProduct} from '../../store/product'
 import Button from '@material-ui/core/Button'
 
-const styles = theme => ({
-  container: {
+const styles = {
+  root: {
     display: 'flex',
-    flexWrap: 'wrap',
-    height: 100
+    justifyContent: 'center'
+    // position: 'absolute',
+    // top: '50%',
+    // left: '50%',
+    // transform: 'translate(-50%, -50%)'
   },
-  textField: {
-    paddingBottom: 0,
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
+  card: {
+    width: 'auto',
+    boxShadow: 'none',
+    border: '1px solid #D8DEE2',
+    height: 'auto'
   },
-  dense: {
-    marginTop: 0
+  cardActionArea: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
-  menu: {
-    width: 200
+  media: {
+    width: '100%',
+    height: 280
+  },
+  cardActions: {
+    display: 'flex',
+    justifyContent: 'flex-end'
   }
-})
+}
 
 class UpdateProduct extends Component {
   constructor(props) {

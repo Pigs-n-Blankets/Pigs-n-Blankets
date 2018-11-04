@@ -10,7 +10,18 @@ router.get('/', async (req, res, next) => {
       // send everything to anyone who asks!
       attributes: ['id', 'email', 'address', 'imageUrl']
     })
+    console.log('user data', users)
     res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.dataValues.id)
+    const updatedUser = user.update(req.body)
+    res.json(updatedUser)
   } catch (err) {
     next(err)
   }

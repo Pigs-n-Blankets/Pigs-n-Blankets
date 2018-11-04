@@ -2,8 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import UserProfile from './UserProfile'
 import OrderHistory from './OrderHistory'
+import Settings from './Settings'
 import {Link} from 'react-router-dom'
-
 
 // MATERIAL UI IMPORTS
 import PropTypes from 'prop-types'
@@ -32,13 +32,12 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper
   },
   content: {
     width: '70%',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-
+    backgroundColor: theme.palette.background.paper
   },
   appBar: {
     backgroundColor: theme.palette.background.paper,
@@ -77,22 +76,21 @@ class UserAccount extends React.Component {
               <Tab label="Settings" />
             </Tabs>
           </AppBar>
-          {value === 0 &&
+          {value === 0 && (
             <TabContainer>
               <UserProfile />
             </TabContainer>
-          }
-          {value === 1 &&
+          )}
+          {value === 1 && (
             <TabContainer>
               <OrderHistory />
             </TabContainer>
-          }
-          {value === 2 &&
+          )}
+          {value === 2 && (
             <TabContainer>
-              Profile
-              {/* add settings component here */}
+              <Settings />
             </TabContainer>
-          }
+          )}
         </div>
       </div>
     )
