@@ -23,13 +23,13 @@ const styles = theme => ({
     maxWidth: 345,
     boxShadow: 'none',
     border: '1px solid #D8DEE2',
-    height: '400px'
+    height: '450'
   },
   media: {
     height: 250
   },
   description: {
-    height: 30
+    height: 40
   },
   icon: {
     margin: theme.spacing.unit,

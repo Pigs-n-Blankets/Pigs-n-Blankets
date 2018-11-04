@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import SingleProductCard from '../product/SingleProductCard'
 import {fetchSingleProduct, postReview} from '../../store'
+import {Link} from 'react-router-dom'
+
 
 // MATERIAL UI IMPORTS
 import PropTypes from 'prop-types'
@@ -128,18 +129,15 @@ class ReviewForm extends React.Component {
           </CardContent>
 
           <CardActions className={classes.cardActions}>
-            <Button
-            // size="small"
+            <Link to="/products"><Button
             type="button"
-            // color="primary"
-            // className={classes.submit}
             onClick={() => {
               this.handleSubmit(event, id)
             }
             }
             >
               Submit
-            </Button>
+            </Button></Link>
           </CardActions>
         </Card>
       </div>

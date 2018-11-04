@@ -16,6 +16,9 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import DeleteIcon from '@material-ui/icons/Delete';
+import CheckoutIcon from '@material-ui/icons/Payment';
+
 
 const style = theme => ({
   wrapper: {
@@ -45,7 +48,15 @@ const style = theme => ({
   },
   center: {
     textAlign: 'center'
-  }
+  },
+  cartButtons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignSelf: 'flex-end'
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
 })
 
 class CartView extends Component {
@@ -129,23 +140,27 @@ class CartView extends Component {
               </TableFooter>
             </Table>
           </Paper>
-          <Button
-            type="button"
-            variant="contained"
-            color="secondary"
-            className={classes.submit}
-            onClick={this.handleClearCart}
-          >
-            CLEAR CART
-          </Button>
-          <Button
-            type="button"
-            variant="contained"
-            color="secondary"
-            className={classes.submit}
-          >
-            CHECKOUT
-          </Button>
+          <div className={classes.cartButtons}>
+            <Button
+              type="button"
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+              onClick={this.handleClearCart}
+            >
+              CLEAR CART
+              <DeleteIcon className={classes.rightIcon} />
+            </Button>
+            <Button
+              type="button"
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+            >
+              CHECKOUT
+              <CheckoutIcon className={classes.rightIcon} />
+            </Button>
+          </div>
         </div>
       </div>
     )
