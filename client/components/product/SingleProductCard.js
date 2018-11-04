@@ -188,7 +188,7 @@ class SingleProductCard extends Component {
 
 const mapState = state => {
   return {
-    user: state.user,
+    user: state.user.currentUser,
     cart: state.cart.cart
   }
 }
