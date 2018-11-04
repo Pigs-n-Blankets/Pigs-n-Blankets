@@ -59,7 +59,7 @@ export const updateMe = userData => async dispatch => {
 }
 export const fetchUsers = () => async dispatch => {
   try {
-    const { data: users } = axios.get('/api/users')
+    const { data: users } = await axios.get('/api/users')
     dispatch(getAllUsers(users))
   } catch (err) {
     console.error(err)

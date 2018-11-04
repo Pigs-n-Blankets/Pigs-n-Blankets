@@ -13,7 +13,8 @@ import {
   CartView,
   Home,
   ReviewForm,
-  Dashboard
+  Dashboard,
+  AllUsers
 } from './components'
 import {me} from './store'
 
@@ -48,6 +49,9 @@ class Routes extends Component {
             <Route path="/user" component={UserAccount} />
             <Route path="/review/:productId" component={ReviewForm} />
             <Route path="/admin" component={Dashboard} />
+
+            {/* move to isAdmin */}
+            <Route path="/allUsers" component={AllUsers} />
 
           </Switch>
         )}

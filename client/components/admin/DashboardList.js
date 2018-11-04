@@ -1,14 +1,17 @@
-import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import AppIcon from '@material-ui/icons/Apps';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import React from 'react'
+import {Link} from 'react-router-dom'
+
+// MATERIAL UI IMPORTS
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListSubheader from '@material-ui/core/ListSubheader'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import PeopleIcon from '@material-ui/icons/People'
+import BarChartIcon from '@material-ui/icons/BarChart'
+import AppIcon from '@material-ui/icons/Apps'
+import AssignmentIcon from '@material-ui/icons/Assignment'
 
 export const mainListItems = (
   <div>
@@ -30,12 +33,14 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Orders" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItem>
+    <Link to="/allUsers">
+      <ListItem button>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Users" />
+      </ListItem>
+    </Link>
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
@@ -43,7 +48,7 @@ export const mainListItems = (
       <ListItemText primary="Reports" />
     </ListItem>
   </div>
-);
+)
 
 export const secondaryListItems = (
   <div>
@@ -67,4 +72,4 @@ export const secondaryListItems = (
       <ListItemText primary="Year-end sale" />
     </ListItem>
   </div>
-);
+)
