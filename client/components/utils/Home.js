@@ -16,9 +16,8 @@ const styles = theme => ({
 class Home extends Component {
 
   render() {
-
     return (
-      <div>HOME PAGE</div>
+      <div id='home'/>
     )
   }
 }
