@@ -19,7 +19,29 @@ router.get('/admin', isAdmin, async (req, res, next) => {
           model: Product,
           User
         }
-      ]
+      ],
+      order: [['purchaseDate', 'DESC']]
+    })
+    res.json(orders)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/admin/:orderStatus', isAdmin, async (req, res, next) => {
+  const orderStatus = req.params.orderStatus
+  try {
+    const orders = await Order.findAll({
+      include: [
+        {
+          model: Product,
+          User
+        }
+      ],
+      where: {
+        orderStatus: orderStatus
+      },
+      order: [['purchaseDate', 'DESC']]
     })
     res.json(orders)
   } catch (err) {

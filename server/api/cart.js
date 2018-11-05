@@ -52,7 +52,8 @@ router.get('/:userId', async (req, res, next) => {
         orderStatus: {
           [Op.or]: ['created', 'processing', 'cancelled', 'completed']
         }
-      }
+      },
+      order: [['purchaseDate', 'DESC']]
     })
     res.json(orderHistory)
   } catch (err) {
