@@ -53,7 +53,7 @@ class Settings extends Component {
   handleSubmit(event) {
     event.preventDefault()
     this.props.updateMe(this.state)
-    window.location.reload()
+    // window.location.reload()
   }
 
   render() {

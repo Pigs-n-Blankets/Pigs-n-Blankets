@@ -30,6 +30,7 @@ class Routes extends Component {
   render() {
     const {isLoggedIn, isAdmin} = this.props
 
+    // note: when two switches are inside of a switch, only the first is considered
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
