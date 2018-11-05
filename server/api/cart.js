@@ -65,7 +65,6 @@ router.post('/', async (req, res, next) => {
   const {id, idType} = idFinder(req)
   try {
     const product = await Product.findById(req.body.productId)
-    console.log(product)
     const price = product.price
     const quantity = req.body.quantity
     const subtotal = quantity * price

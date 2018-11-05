@@ -44,8 +44,7 @@ const styles = theme => ({
 
 class OrderHistory extends React.Component {
   componentDidMount() {
-    if(this.props.isLoggedIn){
-      console.log(this.props.user.id)
+    if (this.props.isLoggedIn) {
       this.props.fetchOrderHistory(this.props.user.id)
     }
   }
@@ -85,7 +84,7 @@ const mapState = state => {
   return {
     orderHistory: state.cart.orderHistory,
     user: state.user.currentUser,
-    isLoggedIn: !!state.user.currentUser.id,
+    isLoggedIn: !!state.user.currentUser.id
   }
 }
 const mapDispatch = dispatch => {

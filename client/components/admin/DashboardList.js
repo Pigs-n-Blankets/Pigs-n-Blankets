@@ -15,12 +15,14 @@ import AssignmentIcon from '@material-ui/icons/Assignment'
 
 export const mainListItems = (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
+    <Link to="/admin">
+      <ListItem button>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+    </Link>
     <Link to='/products'>
     <ListItem button>
       <ListItemIcon>

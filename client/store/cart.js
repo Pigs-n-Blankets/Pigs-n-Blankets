@@ -76,7 +76,6 @@ export const putCartQuantity = (productId, quantity) => async dispatch => {
 export const fetchOrderHistory = userId => async dispatch => {
   try {
     const {data: orders} = await axios.get(`/api/cart/${userId}`)
-    console.log(orders)
     dispatch(getOrderHistory(orders))
   } catch (err) {
     console.err(err)

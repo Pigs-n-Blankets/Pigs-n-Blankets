@@ -26,3 +26,21 @@ router.get('/admin', isAdmin, async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/admin/:orderId', isAdmin, async (req, res, next) => {
+  //req.body = {orderStaus: orderStatus}
+  try {
+    const order = await Order.findById(req.params.orderId, {
+      include: [
+        {
+          model: Product,
+          User
+        }
+      ]
+    })
+    await order.update(req.body)
+    res.json(order)
+  } catch (err) {
+    next(err)
+  }
+})

@@ -34,7 +34,6 @@ const mapDispatch = dispatch => {
 
 export default connect(mapState, mapDispatch)(UserHome)
 
-
 UserHome.propTypes = {
   email: PropTypes.string
 }
