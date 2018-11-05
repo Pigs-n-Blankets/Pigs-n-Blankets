@@ -16,7 +16,7 @@ const styles = theme => ({
     justifyContent: 'center'
   },
   grid: {
-    width: '70%'
+    width: '80%'
   },
   gridItem: {
     display: 'flex'

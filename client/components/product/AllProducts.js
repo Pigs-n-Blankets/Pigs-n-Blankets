@@ -22,8 +22,8 @@ const styles = theme => ({
     alignItems: 'center'
   },
   content: {
-    width: '70%',
-    overflow: 'hidden',
+    width: '80%',
+    overflow: 'hidden'
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'

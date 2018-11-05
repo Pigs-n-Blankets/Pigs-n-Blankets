@@ -74,7 +74,7 @@ class OrderHistoryCard extends Component {
 
   render() {
     const {classes, isAdmin, order} = this.props
-    const {product, quantity, subtotal, orderStatus} = order
+    const {product, quantity, subtotal, orderStatus, purchaseDate} = order
     const {id, imgUrl, name, price, updatedAt} = product
     const {anchorEl} = this.state
 
@@ -102,7 +102,7 @@ class OrderHistoryCard extends Component {
         </TableCell>
         <TableCell numeric className={classes.dateCell}>
           <Typography variant="caption">
-            {dateFormat(updatedAt, 'mm/dd/yy')}
+            {dateFormat(purchaseDate, 'mm/dd/yy')}
           </Typography>
         </TableCell>
         <TableCell numeric className={classes.statusCell}>
@@ -113,7 +113,7 @@ class OrderHistoryCard extends Component {
             <Typography variant="caption">{order.userId}</Typography>
           </TableCell>
         ) : (
-          <td />
+          <TableCell numeric className={classes.statusCell} />
         )}
         <TableCell numeric className={classes.optinsCell}>
           <Button

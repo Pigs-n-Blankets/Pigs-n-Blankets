@@ -18,8 +18,8 @@ const styles = theme => ({
     alignItems: 'center'
   },
   content: {
-    width: '70%',
-    overflow: 'hidden',
+    width: '80%',
+    overflow: 'hidden'
   },
   gridList: {
     width: '60%',

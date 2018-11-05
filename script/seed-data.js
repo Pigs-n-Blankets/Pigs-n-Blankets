@@ -16,7 +16,7 @@ const productData = [
     description: 'dress your dog up as a snowman this holiday season!',
     rating: 4.7,
     imgUrl:
-      'https://www.rover.com/blog/wp-content/uploads/2017/12/snowmandog.jpg',
+      'https://www.rover.com/blog/wp-content/uploads/2017/12/snowmandog.jpg'
   },
   {
     name: 'Dapper Pup',
@@ -58,7 +58,7 @@ const productData = [
       'http://slummysinglemummy.files.wordpress.com/2012/03/pig-in-wellies.jpg'
   },
   {
-    name: "Pumpkin",
+    name: 'Pumpkin',
     price: 9.95,
     rating: 1.3,
     description:
@@ -79,24 +79,22 @@ const productData = [
     name: "Teacher's Pet",
     price: 14.95,
     rating: 4,
-    description:
-      'Keep your turtle warm this winter season',
+    description: 'Keep your turtle warm this winter season',
     imgUrl:
       'https://s-i.huffpost.com/gadgets/slideshows/326347/slide_326347_3139345_free.jpg'
   },
   {
-    name: "Which Witch!?",
+    name: 'Which Witch!?',
     price: 12.49,
     rating: 2.3,
     imgUrl:
       'https://mms.businesswire.com/media/20130905005372/en/381196/5/Guinea_Pig_Witch_Costume.jpg?download=1'
   },
   {
-    name: "Guinea Up!",
+    name: 'Guinea Up!',
     price: 29.95,
     rating: 5,
-    description:
-      'ride into the wild west with this number',
+    description: 'ride into the wild west with this number',
     imgUrl:
       'https://i.dailymail.co.uk/i/pix/2016/01/14/11/302852A100000578-0-image-a-56_1452772150655.jpg'
   },
@@ -110,170 +108,185 @@ const productData = [
       'https://i.dailymail.co.uk/i/pix/2014/09/26/1411729138384_Image_galleryImage_PIC_FROM_CATERS_NEWS_PICT.JPG'
   },
   {
-    name: "Super Bunny",
+    name: 'Super Bunny',
     price: 10.38,
     rating: 4.1,
-    description:
-      "It's a bird, it's a plane, it's superbunny!!",
-    imgUrl:
-      'https://i.ytimg.com/vi/oy1UjKiXlQA/maxresdefault.jpg'
+    description: "It's a bird, it's a plane, it's superbunny!!",
+    imgUrl: 'https://i.ytimg.com/vi/oy1UjKiXlQA/maxresdefault.jpg'
   },
   {
-    name: "Rocker Chick",
+    name: 'Rocker Chick',
     price: 8.75,
     rating: 4.4,
-    description:
-      "Feel the beat",
-    imgUrl:
-      'http://www.freakingnews.com/pictures/11000/Punk-Parrot--11484.jpg'
+    description: 'Feel the beat',
+    imgUrl: 'http://www.freakingnews.com/pictures/11000/Punk-Parrot--11484.jpg'
   },
   {
-    name: "Sea Horse",
+    name: 'Sea Horse',
     price: 31.25,
     rating: 3.9,
-    description:
-      "Put on that scuba gear and head to the beach!",
+    description: 'Put on that scuba gear and head to the beach!',
     imgUrl:
       'https://www.queencreek.org/Home/ShowImage?id=13309&t=636106594413600000'
-  },
-
-
-
+  }
 ]
 
 const userData = [
   {
-    firstName: "user",
-    lastName: "user",
-    email: "user@user.com",
+    firstName: 'user',
+    lastName: 'user',
+    email: 'user@user.com',
     address: '415 W Erie St. chicago, IL',
     isAdmin: false,
-    password: '189a54153c10f2cc925f20a7de251a7cd5ba45010fb6a51c6eabdb0072ef3499',
+    password:
+      '189a54153c10f2cc925f20a7de251a7cd5ba45010fb6a51c6eabdb0072ef3499',
     salt: 'jXo5hEtiF/v8D4WtkAW2gg==',
-    imageUrl: 'http://dy5jipgyozh6.cloudfront.net/wp-content/uploads/2017/01/03212027/dogs-liking-people.jpg'
+    imageUrl:
+      'http://dy5jipgyozh6.cloudfront.net/wp-content/uploads/2017/01/03212027/dogs-liking-people.jpg'
   },
   {
-    firstName: "admin",
-    lastName: "admin",
-    email: "admin@admin.com",
+    firstName: 'admin',
+    lastName: 'admin',
+    email: 'admin@admin.com',
     address: '415 W Superior St. chicago, IL',
     isAdmin: true,
-    password: '6a1bddc659db6a92893e8de82bf0617b923f9bc7b20ae38c15d5f74c7badee57',
+    password:
+      '6a1bddc659db6a92893e8de82bf0617b923f9bc7b20ae38c15d5f74c7badee57',
     salt: 'uTV7+Lrpnkz3SBQq8YsPJg==',
-    imageUrl: 'https://www.usnews.com/dims4/USNEWS/31a9441/2147483647/thumbnail/970x647/quality/85/?url=http%3A%2F%2Fmedia.beam.usnews.com%2Fdc%2F81%2F792744d24cb3a89642c491d9507b%2F160525-goldenretriever-stock.jpg'
+    imageUrl:
+      'https://www.usnews.com/dims4/USNEWS/31a9441/2147483647/thumbnail/970x647/quality/85/?url=http%3A%2F%2Fmedia.beam.usnews.com%2Fdc%2F81%2F792744d24cb3a89642c491d9507b%2F160525-goldenretriever-stock.jpg'
   },
   {
-    firstName: "Sarah",
-    lastName: "Doe",
-    email: "sarahDoe@email.com",
-    address: "848 Somerset Avenue Saint Albans, NY 11412",
+    firstName: 'Sarah',
+    lastName: 'Doe',
+    email: 'sarahDoe@email.com',
+    address: '848 Somerset Avenue Saint Albans, NY 11412',
     isAdmin: false,
     password: '123',
-    imageUrl: 'https://i.dailymail.co.uk/i/pix/2016/04/21/17/0058BD5300000258-0-image-a-2_1461257354380.jpg'
+    imageUrl:
+      'https://i.dailymail.co.uk/i/pix/2016/04/21/17/0058BD5300000258-0-image-a-2_1461257354380.jpg'
   },
   {
-    firstName: "Marci",
-    lastName: "Attridge",
-    email: "marci@email.com",
-    address: "49 Johnson Street Chardon, OH 44024",
+    firstName: 'Marci',
+    lastName: 'Attridge',
+    email: 'marci@email.com',
+    address: '49 Johnson Street Chardon, OH 44024',
     isAdmin: false,
     password: '123',
-    imageUrl: 'https://trudog.com/wp-content/uploads/2017/12/shutterstock_511107457.jpg'
+    imageUrl:
+      'https://trudog.com/wp-content/uploads/2017/12/shutterstock_511107457.jpg'
   },
   {
-    firstName: "Scott",
-    lastName: "Klebenow",
-    email: "scott@email.com",
-    address: "342 Cedar Swamp Dr. Wheaton, IL 60187",
+    firstName: 'Scott',
+    lastName: 'Klebenow',
+    email: 'scott@email.com',
+    address: '342 Cedar Swamp Dr. Wheaton, IL 60187',
     isAdmin: false,
     password: '123',
-    imageUrl: 'https://barkpost.com/wp-content/uploads/2015/05/old-dog-with-a-old-man.jpg'
+    imageUrl:
+      'https://barkpost.com/wp-content/uploads/2015/05/old-dog-with-a-old-man.jpg'
   },
   {
-    firstName: "Finn",
-    lastName: "Terdal",
-    email: "finn@email.com",
-    address: "65 Hamilton St. Daphne, AL 36526",
+    firstName: 'Finn',
+    lastName: 'Terdal',
+    email: 'finn@email.com',
+    address: '65 Hamilton St. Daphne, AL 36526',
     isAdmin: false,
-    password: 'ba1556e4734542d41e8104a4cb1930f6aff6ba949e3284df97cfb356328cd63d',
+    password:
+      'ba1556e4734542d41e8104a4cb1930f6aff6ba949e3284df97cfb356328cd63d',
     salt: 'zaKPoqKsGJv6u58tR0J33Q==',
-    imageUrl: 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/cat_people_vs_dog_people_slideshow/photolibrary_rm_photo_of_older_man_with_cat.jpg'
+    imageUrl:
+      'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/cat_people_vs_dog_people_slideshow/photolibrary_rm_photo_of_older_man_with_cat.jpg'
   },
   {
-    firstName: "Jimmy",
-    lastName: "Johnson",
-    email: "jimmy@email.com",
-    address: "77 Mill Pond Street Hobart, IN 46342",
+    firstName: 'Jimmy',
+    lastName: 'Johnson',
+    email: 'jimmy@email.com',
+    address: '77 Mill Pond Street Hobart, IN 46342',
     isAdmin: false,
     password: '123',
-    imageUrl: 'https://cdn.images.express.co.uk/img/dynamic/130/590x/secondary/Cheating-wife-husband-1027750.jpg'
+    imageUrl:
+      'https://cdn.images.express.co.uk/img/dynamic/130/590x/secondary/Cheating-wife-husband-1027750.jpg'
   },
   {
-    firstName: "Katherine",
-    lastName: "Pearson",
-    email: "kat@email.com",
-    address: "8419 Hillcrest St. Greenfield, IN 46140",
+    firstName: 'Katherine',
+    lastName: 'Pearson',
+    email: 'kat@email.com',
+    address: '8419 Hillcrest St. Greenfield, IN 46140',
     isAdmin: false,
     password: '123',
-    imageUrl: 'http://donoteatpigs.org/wp-content/uploads/2017/05/Teacup-Pigs-in-Arkansas.jpg'
+    imageUrl:
+      'http://donoteatpigs.org/wp-content/uploads/2017/05/Teacup-Pigs-in-Arkansas.jpg'
   },
   {
-    firstName: "Billy",
-    lastName: "Bob",
-    email: "billybob@email.com",
-    address: "333 Maiden Drive Ambler, PA 19002",
+    firstName: 'Billy',
+    lastName: 'Bob',
+    email: 'billybob@email.com',
+    address: '333 Maiden Drive Ambler, PA 19002',
     isAdmin: false,
     password: '123',
-    imageUrl: 'https://www.irishtimes.com/polopoly_fs/1.2573791.1458044443!/image/image.jpg_gen/derivatives/box_620_330/image.jpg'
+    imageUrl:
+      'https://www.irishtimes.com/polopoly_fs/1.2573791.1458044443!/image/image.jpg_gen/derivatives/box_620_330/image.jpg'
   }
 ]
 
-
 const orderData = [
   {
-    orderStatus: 'inCart',
+    orderStatus: 'inCart'
   },
   {
-    orderStatus: 'inCart',
+    orderStatus: 'inCart'
   },
   {
-    orderStatus: 'inCart',
-  },
-  {
-    orderStatus: 'created',
+    orderStatus: 'inCart'
   },
   {
     orderStatus: 'created',
+    purchaseDate: '2018-1-2'
   },
   {
     orderStatus: 'created',
+    purchaseDate: '2018-6-2'
+  },
+  {
+    orderStatus: 'created',
+    purchaseDate: '2018-7-21'
   },
   {
     orderStatus: 'processing',
+    purchaseDate: '2018-3-8'
   },
   {
     orderStatus: 'processing',
+    purchaseDate: '2018-1-20'
   },
   {
     orderStatus: 'processing',
+    purchaseDate: '2018-9-30'
   },
   {
     orderStatus: 'completed',
+    purchaseDate: '2018-11-2'
   },
   {
     orderStatus: 'completed',
+    purchaseDate: '2018-3-12'
   },
   {
     orderStatus: 'completed',
+    purchaseDate: '2018-4-22'
   },
   {
     orderStatus: 'cancelled',
+    purchaseDate: '2018-2-21'
   },
   {
     orderStatus: 'cancelled',
+    purchaseDate: '2018-1-4'
   },
   {
     orderStatus: 'cancelled',
+    purchaseDate: '2018-2-2'
   }
 ]
 
@@ -301,16 +314,13 @@ const reviewData = [
   {
     rating: 5,
     description: 'wow!'
-  },
+  }
 ]
-
-
-
 
 module.exports = {
   productData,
   userData,
   reviewData,
   categoryData,
-  orderData,
-};
+  orderData
+}

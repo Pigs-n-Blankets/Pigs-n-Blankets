@@ -16,9 +16,8 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import DeleteIcon from '@material-ui/icons/Delete';
-import CheckoutIcon from '@material-ui/icons/Payment';
-
+import DeleteIcon from '@material-ui/icons/Delete'
+import CheckoutIcon from '@material-ui/icons/Payment'
 
 const style = theme => ({
   wrapper: {
@@ -27,7 +26,7 @@ const style = theme => ({
     justifyContent: 'center'
   },
   content: {
-    width: '70%',
+    width: '80%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -55,8 +54,8 @@ const style = theme => ({
     alignSelf: 'flex-end'
   },
   rightIcon: {
-    marginLeft: theme.spacing.unit,
-  },
+    marginLeft: theme.spacing.unit
+  }
 })
 
 class CartView extends Component {

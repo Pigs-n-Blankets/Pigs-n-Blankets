@@ -51,6 +51,7 @@ class OrderHistory extends React.Component {
 
   render() {
     const {classes} = this.props
+    const orderHistory = this.props.orderHistory
     return (
       <div className={classes.wrapper}>
         <div className={classes.content}>
@@ -64,11 +65,12 @@ class OrderHistory extends React.Component {
                   <TableCell numeric>QUANTITY</TableCell>
                   <TableCell numeric>DATE</TableCell>
                   <TableCell numeric>STATUS</TableCell>
+                  <TableCell numeric />
                   <TableCell numeric>OPTIONS</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.props.orderHistory.map(order => {
+                {orderHistory.map(order => {
                   return <OrderHistoryCard key={order.id} order={order} />
                 })}
               </TableBody>
