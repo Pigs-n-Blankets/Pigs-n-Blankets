@@ -16,7 +16,8 @@ const productData = [
     description: 'dress your dog up as a snowman this holiday season!',
     rating: 4.7,
     imgUrl:
-      'https://www.rover.com/blog/wp-content/uploads/2017/12/snowmandog.jpg'
+      'https://www.rover.com/blog/wp-content/uploads/2017/12/snowmandog.jpg',
+    inventory: 10
   },
   {
     name: 'Dapper Pup',
@@ -24,7 +25,8 @@ const productData = [
     description: 'have the most dapper pup with this puppy tuxedo!',
     rating: 3.4,
     imgUrl:
-      'https://image.dhgate.com/0x0/f2/albu/g4/M00/81/F0/rBVaEFds4Z-AaBqjAAams5cUse8326.jpg'
+      'https://image.dhgate.com/0x0/f2/albu/g4/M00/81/F0/rBVaEFds4Z-AaBqjAAams5cUse8326.jpg',
+    inventory: 10
   },
   {
     name: 'Super Cat',
@@ -32,14 +34,16 @@ const productData = [
     description: 'We all know cats are the SUPERior species',
     rating: 4.9,
     imgUrl:
-      'http://cutecatsinhats.com/wp-content/uploads/2016/03/Gaorui-Puppy-lovely-Superman-Pet-Dog-Clothes-Halloween-apparel-Costumes-Cute-Jumpsuit-0-1024x1024.jpg'
+      'http://cutecatsinhats.com/wp-content/uploads/2016/03/Gaorui-Puppy-lovely-Superman-Pet-Dog-Clothes-Halloween-apparel-Costumes-Cute-Jumpsuit-0-1024x1024.jpg',
+    inventory: 10
   },
   {
     name: 'Sassy Kitty',
     price: 13.99,
     rating: 2.3,
     imgUrl:
-      'https://ae01.alicdn.com/kf/HTB1xAzFNpXXXXbMXpXXq6xXFXXX9/Pet-Supplies-Cat-Clothes-Cats-Wear-Pet-Coats-Hoopet-Clothing-For-Domestic-Cats-Blouse-Jackets-Dogs.jpg'
+      'https://ae01.alicdn.com/kf/HTB1xAzFNpXXXXbMXpXXq6xXFXXX9/Pet-Supplies-Cat-Clothes-Cats-Wear-Pet-Coats-Hoopet-Clothing-For-Domestic-Cats-Blouse-Jackets-Dogs.jpg',
+    inventory: 10
   },
   {
     name: 'Cowboy Piglet',
@@ -47,7 +51,8 @@ const productData = [
     rating: 5,
     description: 'I mean, how can you resist...?',
     imgUrl:
-      'http://thefw.com/files/2012/09/tumblr_m0edolFcz51rr5f7co1_500-e1348601887820.jpg?w=630&h=630&q=75'
+      'http://thefw.com/files/2012/09/tumblr_m0edolFcz51rr5f7co1_500-e1348601887820.jpg?w=630&h=630&q=75',
+    inventory: 10
   },
   {
     name: 'Piglet Booties',
@@ -55,7 +60,8 @@ const productData = [
     rating: 2.7,
     description: 'keep your piglets hooves dry in its pen',
     imgUrl:
-      'http://slummysinglemummy.files.wordpress.com/2012/03/pig-in-wellies.jpg'
+      'http://slummysinglemummy.files.wordpress.com/2012/03/pig-in-wellies.jpg',
+    inventory: 10
   },
   {
     name: 'Pumpkin',
@@ -64,7 +70,8 @@ const productData = [
     description:
       'For when your guinea pig feels left out during pumpkin spice latte season',
     imgUrl:
-      'https://i.pinimg.com/originals/bd/c7/43/bdc74309e7aa9b91e860d0e4585b43f3.jpg'
+      'https://i.pinimg.com/originals/bd/c7/43/bdc74309e7aa9b91e860d0e4585b43f3.jpg',
+    inventory: 10
   },
   {
     name: "It's a Fiesta!",
@@ -73,7 +80,8 @@ const productData = [
     description:
       'want a hat...what about a hat with fruit, or one with red pom poms? This is your one-stop-shop!',
     imgUrl:
-      'https://lakewood.advocatemag.com/wp-content/uploads/2012/02/164.jpg'
+      'https://lakewood.advocatemag.com/wp-content/uploads/2012/02/164.jpg',
+    inventory: 10
   },
   {
     name: "Teacher's Pet",
@@ -81,14 +89,16 @@ const productData = [
     rating: 4,
     description: 'Keep your turtle warm this winter season',
     imgUrl:
-      'https://s-i.huffpost.com/gadgets/slideshows/326347/slide_326347_3139345_free.jpg'
+      'https://s-i.huffpost.com/gadgets/slideshows/326347/slide_326347_3139345_free.jpg',
+    inventory: 10
   },
   {
     name: 'Which Witch!?',
     price: 12.49,
     rating: 2.3,
     imgUrl:
-      'https://mms.businesswire.com/media/20130905005372/en/381196/5/Guinea_Pig_Witch_Costume.jpg?download=1'
+      'https://mms.businesswire.com/media/20130905005372/en/381196/5/Guinea_Pig_Witch_Costume.jpg?download=1',
+    inventory: 10
   },
   {
     name: 'Guinea Up!',
@@ -96,7 +106,8 @@ const productData = [
     rating: 5,
     description: 'ride into the wild west with this number',
     imgUrl:
-      'https://i.dailymail.co.uk/i/pix/2016/01/14/11/302852A100000578-0-image-a-56_1452772150655.jpg'
+      'https://i.dailymail.co.uk/i/pix/2016/01/14/11/302852A100000578-0-image-a-56_1452772150655.jpg',
+    inventory: 10
   },
   {
     name: 'Identity Crisis',
@@ -105,21 +116,24 @@ const productData = [
     description:
       'Do you have a pig who thinks he is a unicorn? This is the perfect compromise',
     imgUrl:
-      'https://i.dailymail.co.uk/i/pix/2014/09/26/1411729138384_Image_galleryImage_PIC_FROM_CATERS_NEWS_PICT.JPG'
+      'https://i.dailymail.co.uk/i/pix/2014/09/26/1411729138384_Image_galleryImage_PIC_FROM_CATERS_NEWS_PICT.JPG',
+    inventory: 10
   },
   {
     name: 'Super Bunny',
     price: 10.38,
     rating: 4.1,
     description: "It's a bird, it's a plane, it's superbunny!!",
-    imgUrl: 'https://i.ytimg.com/vi/oy1UjKiXlQA/maxresdefault.jpg'
+    imgUrl: 'https://i.ytimg.com/vi/oy1UjKiXlQA/maxresdefault.jpg',
+    inventory: 10
   },
   {
     name: 'Rocker Chick',
     price: 8.75,
     rating: 4.4,
     description: 'Feel the beat',
-    imgUrl: 'http://www.freakingnews.com/pictures/11000/Punk-Parrot--11484.jpg'
+    imgUrl: 'http://www.freakingnews.com/pictures/11000/Punk-Parrot--11484.jpg',
+    inventory: 10
   },
   {
     name: 'Sea Horse',
@@ -127,7 +141,8 @@ const productData = [
     rating: 3.9,
     description: 'Put on that scuba gear and head to the beach!',
     imgUrl:
-      'https://www.queencreek.org/Home/ShowImage?id=13309&t=636106594413600000'
+      'https://www.queencreek.org/Home/ShowImage?id=13309&t=636106594413600000',
+    inventory: 10
   }
 ]
 

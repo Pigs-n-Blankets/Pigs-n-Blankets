@@ -51,6 +51,28 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
+router.put('/quantity/:productId', async (req, res, next) => {
+  try {
+    const id = req.params.productId
+    const product = await Product.findById(id, {
+      include: [
+        {
+          model: Category
+        }
+      ]
+    })
+    const inventory = {inventory: product.inventory - req.body.quantity}
+    await Product.update(inventory, {
+      where: {
+        id
+      }
+    })
+    res.json(product)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/:productId', isAdmin, async (req, res, next) => {
   try {
     const id = req.params.productId
