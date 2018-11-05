@@ -2,8 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Stars from '../review/Stars'
-import {postCart, putCartQuantity} from '../../store/cart'
-import {putProduct, deleteProduct, putProductQuantity} from '../../store'
+import {postCart, putCartQuantity, putProduct, deleteProduct, putProductQuantity} from '../../store'
+
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -105,13 +105,13 @@ const ProductCard = props => {
             >
               <DeleteIcon />
             </Button>
-            <Button
-              onClick={() => console.log('edit clicked')}
-              size="small"
-              color="primary"
+            <Link to={`/products/update/${id}`}><Button
+            // onClick={() => props.fetchSingleProduct(id)}
+            size="small"
+            color="primary"
             >
               <EditIcon />
-            </Button>
+            </Button></Link>
           </React.Fragment>
         ) : (
           <div>

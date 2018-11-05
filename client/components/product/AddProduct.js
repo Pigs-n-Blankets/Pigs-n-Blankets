@@ -71,7 +71,15 @@ class AddProduct extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.postProduct(this.state)
+    const newProduct = {
+      name: this.state.name,
+      price: this.state.price,
+      description: this.state.description,
+      rating: this.state.rating,
+      imgUrl: this.state.imgUrl ? this.state.imgUrl : undefined,
+      inventory: this.state.inventory
+    }
+    this.props.postProduct(newProduct)
     this.setState({
       name: '',
       price: '',
@@ -178,7 +186,7 @@ class AddProduct extends Component {
               type="button"
               onClick={this.handleSubmit}
             >
-              <Link to="/products">Add Product</Link>
+              Add Product
             </Button>
           </CardActions>
         </Card>
@@ -187,10 +195,14 @@ class AddProduct extends Component {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, ownProps) => {
+  const history = ownProps.history
+
   return {
     postProduct: product => {
-      dispatch(postProduct(product))
+      dispatch(postProduct(product)).then(() => {
+        history.push('/products')
+      })
     }
   }
 }
