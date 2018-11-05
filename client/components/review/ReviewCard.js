@@ -17,7 +17,6 @@ const styles = theme => ({
     width: '100%',
     // maxWidth: 600,
     // minWidth: 600,
-    backgroundColor: theme.palette.background.paper
   },
   avatarImg: {
     width: '200%'

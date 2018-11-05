@@ -32,15 +32,15 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    // backgroundColor: theme.palette.background.paper
   },
   content: {
     width: '70%',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper
+    // backgroundColor: theme.palette.background.paper
   },
   appBar: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'transparent',
     boxShadow: 'none',
     borderBottom: '1px solid #D8DEE2',
     marginBottom: '2%'

@@ -2,20 +2,17 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {putCartUser} from '../../store'
 import {connect} from 'react-redux'
+import Home from '../utils/Home'
 
 class UserHome extends Component {
   componentDidMount() {
     if (this.props.isLoggedIn) {
-      console.log('in the if statement!')
       this.props.putCartUser()
     }
   }
   render() {
-    const {email} = this.props
     return (
-      <div>
-        <h3>Welcome, {email}</h3>
-      </div>
+      <Home />
     )
   }
 }
