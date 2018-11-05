@@ -7,7 +7,6 @@ import Home from '../utils/Home'
 class UserHome extends Component {
   componentDidMount() {
     if (this.props.isLoggedIn) {
-      console.log('in the if statement!')
       this.props.putCartUser()
     }
   }
