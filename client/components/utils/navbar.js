@@ -95,7 +95,7 @@ const styles = theme => ({
     marginLeft: '15px'
   },
   logo: {
-    width: '40px',
+    width: '60px',
     paddingRight: '15px'
   },
   navLinkText: {
