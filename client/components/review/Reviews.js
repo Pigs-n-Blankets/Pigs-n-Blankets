@@ -49,7 +49,7 @@ const Reviews = props => {
   console.log('user --->', reviews[0].user)
   return (
     <div>
-      <Typography gutterBottom variant="h3" component="h2">
+      <Typography gutterBottom variant="h5">
         Product Reviews
       </Typography>
       <List>

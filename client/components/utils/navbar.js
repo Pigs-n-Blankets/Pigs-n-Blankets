@@ -186,7 +186,7 @@ class Navbar extends Component {
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <Link to="/" className={classes.navLinks}>
-              <img className={classes.logo} src="pigLogo.png" />
+              <img className={classes.logo} src="/pigLogo.png" />
             </Link>
             <Link to="/" className={classes.navLinks}>
               <Typography

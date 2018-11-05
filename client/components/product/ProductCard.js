@@ -102,7 +102,11 @@ const ProductCard = props => {
             >
               <DeleteIcon />
             </Button>
-            <Button size="small" color="primary">
+            <Button
+            onClick={() => console.log('edit clicked')}
+            size="small"
+            color="primary"
+            >
               <EditIcon />
             </Button>
           </React.Fragment>
