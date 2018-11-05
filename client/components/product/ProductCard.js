@@ -88,9 +88,11 @@ const ProductCard = props => {
       </Link>
       <CardActions className={classes.cardActions}>
         <Typography variant="h6">{`$${price}`}</Typography>
+        {!props.user.isAdmin ? (
         <Button size="small" color="primary" onClick={handleAddToCart}>
           <AddShoppingCartIcon />
         </Button>
+        ): (<div/>)}
         {props.user.isAdmin ? (
           <React.Fragment>
             <Button
