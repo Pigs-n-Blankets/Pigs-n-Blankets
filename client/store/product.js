@@ -57,6 +57,11 @@ export const putProduct = (product, productId) => async dispatch => {
   const {data} = await axios.put(`/api/products/${productId}`, product)
   dispatch(updateProduct(data))
 }
+export const putProductQuantity = (quantity, productId) => async dispatch => {
+  await axios.put(`/api/products/quantity/${productId}`, {quantity})
+  const res = await axios.get('/api/products')
+  dispatch(getProducts(res.data || defaultState))
+}
 
 export const deleteProduct = productId => async dispatch => {
   await axios.delete(`/api/products/${productId}`)

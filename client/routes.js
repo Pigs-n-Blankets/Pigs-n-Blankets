@@ -16,7 +16,8 @@ import {
   ReviewForm,
   Dashboard,
   Orders,
-  AllUsers
+  AllUsers,
+  Checkout
 } from './components'
 import {me} from './store'
 
@@ -43,6 +44,7 @@ class Routes extends Component {
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/products" component={AllProducts} />
         <Route path="/cart" component={CartView} />
+        <Route path="/checkout" component={Checkout} />
         {isAdmin &&
           isLoggedIn && (
             <Switch>

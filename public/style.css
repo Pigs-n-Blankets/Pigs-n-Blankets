@@ -1,7 +1,7 @@
-@import "node_modules/react-image-gallery/styles/css/image-gallery.css";
+@import 'node_modules/react-image-gallery/styles/css/image-gallery.css';
 
 body {
-  font-family:  sans-serif;
+  font-family: sans-serif;
   padding-bottom: 5%;
 }
 

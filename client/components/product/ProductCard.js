@@ -2,7 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Stars from '../review/Stars'
-import {postCart, putCartQuantity, putProduct, deleteProduct} from '../../store'
+import {postCart, putCartQuantity, putProduct, deleteProduct, putProductQuantity} from '../../store'
+
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -68,6 +69,7 @@ const ProductCard = props => {
     } else {
       props.putCartQuantity(id, 1)
     }
+    props.putProductQuantity(1, id)
   }
 
   return (
@@ -88,10 +90,12 @@ const ProductCard = props => {
       <CardActions className={classes.cardActions}>
         <Typography variant="h6">{`$${price}`}</Typography>
         {!props.user.isAdmin ? (
-        <Button size="small" color="primary" onClick={handleAddToCart}>
-          <AddShoppingCartIcon />
-        </Button>
-        ): (<div/>)}
+          <Button size="small" color="primary" onClick={handleAddToCart}>
+            <AddShoppingCartIcon />
+          </Button>
+        ) : (
+          <div />
+        )}
         {props.user.isAdmin ? (
           <React.Fragment>
             <Button
@@ -139,6 +143,9 @@ const mapDispatchToProps = dispatch => {
     },
     putCartQuantity: (productId, quantity) => {
       dispatch(putCartQuantity(productId, quantity))
+    },
+    putProductQuantity: (quantity, productId) => {
+      dispatch(putProductQuantity(quantity, productId))
     }
   }
 }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {postCart, putCartQuantity} from '../../store/cart'
+import {putProductQuantity} from '../../store'
 
 // MATERIAL UI IMPORTS
 import Typography from '@material-ui/core/Typography'
@@ -81,25 +82,36 @@ class SingleProductCard extends Component {
     })
   }
   handleAddToCart() {
-    if (this.state.quantity >= 1) {
-      let found = false
-      this.props.cart.forEach(cart => {
-        if (cart.productId === this.props.product.id) {
-          found = true
-        }
-      })
-      if (!found) {
-        this.props.postCart(this.props.product.id, this.state.quantity)
-      } else {
-        this.props.putCartQuantity(this.props.product.id, this.state.quantity)
-      }
+    if (this.state.quantity > this.props.product.inventory) {
+      alert(
+        `We only have ${this.props.product.inventory} items remaining in stock`
+      )
     } else {
-      alert('Quantity must be greater than 0')
+      if (this.state.quantity >= 1) {
+        let found = false
+        this.props.cart.forEach(cart => {
+          if (cart.productId === this.props.product.id) {
+            found = true
+          }
+        })
+        if (!found) {
+          this.props.postCart(this.props.product.id, this.state.quantity)
+        } else {
+          this.props.putCartQuantity(this.props.product.id, this.state.quantity)
+        }
+        this.props.putProductQuantity(
+          this.state.quantity,
+          this.props.product.id
+        )
+      } else {
+        alert('Quantity must be greater than 0')
+      }
     }
   }
   render() {
     const {classes, product} = this.props
-    const {name, rating, imgUrl, description, price} = product
+    const {name, rating, imgUrl, description, price, inventory} = product
+    const inStock = inventory > 0
 
     return (
       <div className={classes.root}>
@@ -156,28 +168,34 @@ class SingleProductCard extends Component {
             </React.Fragment>
           ) : (
             <div>
-              <TextField
-                id="standard-number"
-                value={this.state.quantity}
-                onChange={this.handleChange}
-                type="number"
-                className={`${classes.textField} ${classes.quantity}`}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                margin="normal"
-                helperText="quantity"
-              />
-              <Button
-                type="button"
-                variant="contained"
-                color="secondary"
-                className={classes.submit}
-                onClick={this.handleAddToCart}
-              >
-                ADD TO CART
-                <CartIcon className={classes.rightIcon} />
-              </Button>
+              {inStock ? (
+                <div>
+                  <TextField
+                    id="standard-number"
+                    value={this.state.quantity}
+                    onChange={this.handleChange}
+                    type="number"
+                    className={`${classes.textField} ${classes.quantity}`}
+                    InputLabelProps={{
+                      shrink: true
+                    }}
+                    margin="normal"
+                    helperText="quantity"
+                  />
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="secondary"
+                    className={classes.submit}
+                    onClick={this.handleAddToCart}
+                  >
+                    ADD TO CART
+                    <CartIcon className={classes.rightIcon} />
+                  </Button>
+                </div>
+              ) : (
+                <div> Product is out of stock! </div>
+              )}
             </div>
           )}
         </CardActions>
@@ -200,6 +218,9 @@ const mapDispatch = dispatch => {
     },
     putCartQuantity: (productId, quantity) => {
       dispatch(putCartQuantity(productId, quantity))
+    },
+    putProductQuantity: (quantity, productId) => {
+      dispatch(putProductQuantity(quantity, productId))
     }
   }
 }

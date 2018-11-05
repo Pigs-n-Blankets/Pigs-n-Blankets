@@ -2,6 +2,18 @@ const router = require('express').Router()
 const {Order, Product} = require('../db/models')
 module.exports = router
 const Sequelize = require('sequelize')
+const stripe = require('stripe')('sk_test_zp0yxYiu03tYgbPRBZfKRpM6')
+const nodemailer = require('nodemailer')
+
+router.use(require('body-parser').text())
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'pigsnblankets1@gmail.com',
+    pass: 'blankets1!'
+  }
+})
 
 const idFinder = req => {
   let id
@@ -59,6 +71,35 @@ router.get('/:userId', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+})
+
+router.post('/checkout', async (req, res, next) => {
+  const {status} = await stripe.charges.create({
+    amount: req.body.amount,
+    currency: 'usd',
+    description: 'an example charge',
+    source: req.body.stripeToken
+  })
+  console.log('SOURCE', req.body)
+  console.log('CHECKOUT STATUS', {status})
+  const mailOptions = {
+    from: 'pigsnblankets1@gmail.com',
+    to: req.body.email,
+    subject: 'Thank you for your order!',
+    html: `<h1>Thank you for your order!</h1> <p> Hello ${req.body.firstName} ${
+      req.body.lastName
+    }! Your order has been completed and is being shipped to ${
+      req.body.address
+    }. The subtotal was $${req.body.amount / 1000}. Have a pawesome day!</p>`
+  }
+  transporter.sendMail(mailOptions, function(err, info) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(info)
+    }
+  })
+  res.json({status})
 })
 
 router.post('/', async (req, res, next) => {
