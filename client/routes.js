@@ -10,6 +10,7 @@ import {
   AllProducts,
   SingleProduct,
   AddProduct,
+  UpdateProduct,
   CartView,
   Home,
   ReviewForm,
@@ -38,6 +39,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/products/add" component={AddProduct} />
+        <Route path="/products/update/:productId" component={UpdateProduct} />
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/products" component={AllProducts} />
         <Route path="/cart" component={CartView} />
