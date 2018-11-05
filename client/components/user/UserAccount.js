@@ -31,12 +31,12 @@ const styles = theme => ({
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
-    flexGrow: 1,
+    flexGrow: 1
     // backgroundColor: theme.palette.background.paper
   },
   content: {
-    width: '70%',
-    overflow: 'hidden',
+    width: '80%',
+    overflow: 'hidden'
     // backgroundColor: theme.palette.background.paper
   },
   appBar: {
