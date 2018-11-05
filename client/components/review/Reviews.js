@@ -20,7 +20,6 @@ const styles = theme => ({
   content: {
     width: '70%',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper
   },
   gridList: {
     width: '60%',

@@ -195,7 +195,8 @@ const userData = [
     email: "finn@email.com",
     address: "65 Hamilton St. Daphne, AL 36526",
     isAdmin: false,
-    password: '123',
+    password: 'ba1556e4734542d41e8104a4cb1930f6aff6ba949e3284df97cfb356328cd63d',
+    salt: 'zaKPoqKsGJv6u58tR0J33Q==',
     imageUrl: 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/cat_people_vs_dog_people_slideshow/photolibrary_rm_photo_of_older_man_with_cat.jpg'
   },
   {

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {putCartUser} from '../../store'
 import {connect} from 'react-redux'
+import Home from '../utils/Home'
 
 class UserHome extends Component {
   componentDidMount() {
@@ -10,11 +11,8 @@ class UserHome extends Component {
     }
   }
   render() {
-    const {email} = this.props
     return (
-      <div>
-        <h3>Welcome, {email}</h3>
-      </div>
+      <Home />
     )
   }
 }
