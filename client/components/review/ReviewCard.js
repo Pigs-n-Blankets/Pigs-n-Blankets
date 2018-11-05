@@ -26,7 +26,6 @@ const styles = theme => ({
 const ReviewCard = props => {
   const {classes, id, rating, description, user} = props
   const primary = `${user.firstName} ${user.lastName} ${rating} Stars`
-  console.log('USER ---->', user)
   return (
     user.id ? (
     <div className={classes.root}>

@@ -54,9 +54,6 @@ class SingleProduct extends Component {
             <Reviews reviews={reviews} />
           </Grid>
 
-          <Grid item xs={12}>
-            <UpdateProduct product={product} productId={product.id} />
-          </Grid>
         </Grid>
       </div>
     )
