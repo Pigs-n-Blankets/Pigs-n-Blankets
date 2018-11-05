@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   try {
     const user = await User.findById(req.user.dataValues.id)
-    const updatedUser = user.update(req.body)
+    const updatedUser = await user.update(req.body)
     res.json(updatedUser)
   } catch (err) {
     next(err)
