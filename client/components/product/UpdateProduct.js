@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {postProduct, fetchSingleProduct} from '../../store'
+import {putProduct, fetchSingleProduct} from '../../store'
 import {Link} from 'react-router-dom'
 
 // MATERIAL UI IMPORTS
@@ -102,7 +102,7 @@ class EditProduct extends Component {
       imgUrl: this.state.imgUrl ? this.state.imgUrl : undefined,
       inventory: this.state.inventory
     }
-    this.props.postProduct(newProduct)
+    this.props.putProduct(newProduct, this.props.product.id)
     // this.setState({
     //   name: '',
     //   price: 0,
@@ -210,7 +210,7 @@ class EditProduct extends Component {
               type="button"
               onClick={this.handleSubmit}
             >
-              Add Product
+              Update Product
             </Button>
           </CardActions>
         </Card>
@@ -220,14 +220,6 @@ class EditProduct extends Component {
   }
 }
 
-
-// const mapDispatch = dispatch => {
-//   return {
-//     updateThisProduct: (product, productId) => {
-//       dispatch(putProduct(product, productId))
-//     }
-//   }
-// }
 const mapState = state => {
   return {
     product: state.product.selectedProduct
@@ -237,8 +229,8 @@ const mapDispatch = (dispatch, ownProps) => {
   const history = ownProps.history
 
   return {
-    postProduct: product => {
-      dispatch(postProduct(product)).then(() => {
+    putProduct: (product, productId) => {
+      dispatch(putProduct(product, productId)).then(() => {
         history.push('/products')
       })
     },
