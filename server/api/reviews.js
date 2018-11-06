@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Review, User} = require('../db/models')
+const {Review, User, Product} = require('../db/models')
 module.exports = router
 
 router.get('/:productId', async (req, res, next) => {
@@ -20,8 +20,7 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-
-router.post('/:productId', async(req, res, next) => {
+router.post('/:productId', async (req, res, next) => {
   const productId = req.params.productId
   const {rating, description} = req.body
   const userId = req.user.dataValues.id
@@ -35,10 +34,31 @@ router.post('/:productId', async(req, res, next) => {
       where: {
         id: newReview.id
       },
-      include: [{
-        model: User
-      }]
+      include: [
+        {
+          model: User
+        },
+        {
+          model: Product
+        }
+      ]
     })
+    const allReviews = await Review.findAll({
+      where: {
+        productId: reviewWithUser.productId
+      }
+    })
+
+    let reviewSum = 0
+
+    allReviews.forEach(review => {
+      reviewSum += review.rating
+    })
+
+    const newRating = Number((reviewSum / allReviews.length).toFixed(2))
+    console.log(newRating)
+    await reviewWithUser.product.update({rating: newRating})
+
     res.json(reviewWithUser)
   } catch (err) {
     next(err)
