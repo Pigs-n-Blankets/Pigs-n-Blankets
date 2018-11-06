@@ -64,6 +64,7 @@ async function seed() {
       const defaultUser = users.filter((user) => user.firstName==='user')[0]
       let productsCopy = [...products]
       const randomProduct = shuffle(productsCopy)[0]
+
       await orders[i].setUser(defaultUser)
       await orders[i].setProduct(randomProduct)
       await orders[i].update({price: randomProduct.price})
