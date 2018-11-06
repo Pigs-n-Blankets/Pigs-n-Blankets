@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleProduct, postReview} from '../../store'
+import {fetchSingleProduct, postReview, fetchProducts} from '../../store'
 import {Link} from 'react-router-dom'
-
 
 // MATERIAL UI IMPORTS
 import PropTypes from 'prop-types'
@@ -19,7 +18,7 @@ import TextField from '@material-ui/core/TextField'
 const styles = {
   root: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'center'
     // position: 'absolute',
     // top: '50%',
     // left: '50%',
@@ -42,7 +41,7 @@ const styles = {
   },
   cardActions: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   }
 }
 
@@ -52,11 +51,11 @@ class ReviewForm extends React.Component {
     review: ''
   }
 
-  handleRating = (event) => {
+  handleRating = event => {
     this.setState({rating: event.target.value})
   }
 
-  handleReview = (event) => {
+  handleReview = event => {
     this.setState({review: event.target.value})
   }
 
@@ -66,6 +65,7 @@ class ReviewForm extends React.Component {
       description: this.state.review
     }
     this.props.postReview(productId, newReview)
+    this.props.fetchProducts()
   }
 
   componentDidMount() {
@@ -95,7 +95,9 @@ class ReviewForm extends React.Component {
             <TextField
               select
               className={classes.textField}
-              onChange={(event) => {this.handleRating(event)}}
+              onChange={event => {
+                this.handleRating(event)
+              }}
               value={this.state.rating}
               variant="outlined"
               SelectProps={{
@@ -123,21 +125,24 @@ class ReviewForm extends React.Component {
               className={classes.textField}
               margin="normal"
               variant="outlined"
-              onChange = {(event) => {this.handleReview(event)}}
+              onChange={event => {
+                this.handleReview(event)
+              }}
               value={this.state.review}
             />
           </CardContent>
 
           <CardActions className={classes.cardActions}>
-            <Link to="/products"><Button
-            type="button"
-            onClick={() => {
-              this.handleSubmit(event, id)
-            }
-            }
-            >
-              Submit
-            </Button></Link>
+            <Link to="/products">
+              <Button
+                type="button"
+                onClick={() => {
+                  this.handleSubmit(event, id)
+                }}
+              >
+                Submit
+              </Button>
+            </Link>
           </CardActions>
         </Card>
       </div>
@@ -160,6 +165,9 @@ const mapDispatch = dispatch => {
     },
     postReview: (productId, newReview) => {
       dispatch(postReview(productId, newReview))
+    },
+    fetchProducts: () => {
+      dispatch(fetchProducts())
     }
   }
 }

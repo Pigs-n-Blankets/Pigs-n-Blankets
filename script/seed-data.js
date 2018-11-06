@@ -323,7 +323,7 @@ const reviewData = [
     description: 'its really really bad'
   },
   {
-    rating: 2.5,
+    rating: 2,
     description: 'its ehh'
   },
   {
