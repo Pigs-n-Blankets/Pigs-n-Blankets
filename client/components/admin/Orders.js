@@ -73,122 +73,127 @@ class Orders extends React.Component {
     this.props.fetchFilteredOrders('completed')
   }
 
-  filterOrderHistory(orderHistory) {
-    if (orderHistory.length) {
-      let prevUserId = orderHistory[0].userId
-      let filteredOrderHistory = []
+  filterOrders(orders) {
+    if(orders.length) {
+      let prevUserId = orders[0].userId
+      let filteredOrders = []
       let tempArr = []
 
-      orderHistory.forEach(order => {
-        if (order.userId === prevUserId) {
+      orders.forEach((order) => {
+        if(order.userId === prevUserId){
           tempArr.push(order)
         } else {
-          filteredOrderHistory.push(tempArr)
+          filteredOrders.push(tempArr)
           tempArr = []
           tempArr.push(order)
         }
         prevUserId = order.userId
       })
-      return filteredOrderHistory
+      filteredOrders.push(tempArr)
+      return filteredOrders
     } else {
-      return orderHistory
+      return orders
     }
   }
 
   render() {
     const {classes, orders} = this.props
-
-    return this.filterOrderHistory(orders).map((order, idx) => {
-      return (
-        <div key={idx} className={classes.wrapper}>
-          <div className={classes.content}>
-            <GridList
-              cellHeight="auto"
-              className={classes.gridList}
-              cols={4}
-              spacing={15}
-            >
-              <GridListTile className={classes.gridListTitle} cols={1}>
-                <Button
-                  size="small"
-                  color="primary"
-                  value="all"
-                  onClick={this.handleAll}
-                >
-                  All Orders
-                </Button>
-              </GridListTile>
-              <GridListTile className={classes.gridListTitle} cols={1}>
-                <Button
-                  size="small"
-                  color="primary"
-                  value="cancelled"
-                  onClick={this.handleCanceled}
-                >
-                  Cancelled
-                </Button>
-              </GridListTile>
-              <GridListTile className={classes.gridListTitle} cols={1}>
-                <Button
-                  size="small"
-                  color="primary"
-                  value="processing"
-                  onClick={this.handleProcessing}
-                >
-                  Processing
-                </Button>
-              </GridListTile>
-              <GridListTile
-                className={classes.gridListTitle}
-                cols={1}
-                onClick={this.handleCompleted}
+    return (
+      <div className={classes.wrapper}>
+        <div className={classes.content}>
+          <GridList
+            cellHeight="auto"
+            className={classes.gridList}
+            cols={4}
+            spacing={15}
+          >
+            <GridListTile className={classes.gridListTitle} cols={1}>
+              <Button
+                size="small"
+                color="primary"
+                value="all"
+                onClick={this.handleAll}
               >
-                <Button size="small" color="primary" value="completed">
-                  Completed
-                </Button>
-              </GridListTile>
-            </GridList>
-            <Paper className={classes.root}>
-              <Table className={classes.table}>
-                <TableHead>
-                  <TableRow>
-                    <TableCell />
-                    <TableCell numeric>PRODUCT</TableCell>
-                    <TableCell numeric>PRICE</TableCell>
-                    <TableCell numeric>QUANTITY</TableCell>
-                    <TableCell numeric>DATE</TableCell>
-                    <TableCell numeric>STATUS</TableCell>
-                    <TableCell numeric>USER</TableCell>
-                    <TableCell numeric>OPTIONS</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {this.props.orders.orders ? (
-                    order.map(item => {
-                      return (
-                        <OrderHistoryCard
-                          key={order.id}
-                          order={item}
-                          isAdmin={true}
-                        />
-                      )
-                    })
-                  ) : (
-                    <div />
-                  )}
-                </TableBody>
-              </Table>
-            </Paper>
-          </div>
+                All Orders
+              </Button>
+            </GridListTile>
+            <GridListTile className={classes.gridListTitle} cols={1}>
+              <Button
+                size="small"
+                color="primary"
+                value="cancelled"
+                onClick={this.handleCanceled}
+              >
+                Cancelled
+              </Button>
+            </GridListTile>
+            <GridListTile className={classes.gridListTitle} cols={1}>
+              <Button
+                size="small"
+                color="primary"
+                value="processing"
+                onClick={this.handleProcessing}
+              >
+                Processing
+              </Button>
+            </GridListTile>
+            <GridListTile
+              className={classes.gridListTitle}
+              cols={1}
+              onClick={this.handleCompleted}
+            >
+              <Button size="small" color="primary" value="completed">
+                Completed
+              </Button>
+            </GridListTile>
+          </GridList>
+
+          {this.filterOrders(orders).map((order, idx) => {
+            return (
+          <Paper className={classes.root} key={idx}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell />
+                  <TableCell numeric>PRODUCT</TableCell>
+                  <TableCell numeric>PRICE</TableCell>
+                  <TableCell numeric>QUANTITY</TableCell>
+                  <TableCell numeric>DATE</TableCell>
+                  <TableCell numeric>STATUS</TableCell>
+                  <TableCell numeric>USER</TableCell>
+                  <TableCell numeric>OPTIONS</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {order ? (
+                  order.map(item => {
+                    return (
+                      <OrderHistoryCard
+                        key={order.id}
+                        order={item}
+                        isAdmin={true}
+                      />
+                    )
+                  })
+                ) : (
+                  <div />
+                )}
+              </TableBody>
+            </Table>
+          </Paper>
+            )
+          })}
+
+
         </div>
-      )
-    })
+      </div>
+    )
   }
 }
 
 const mapState = state => {
   return {
-    orders: state.orders
+    orders: state.orders.orders
   }
 }
 const mapDispatch = dispatch => {

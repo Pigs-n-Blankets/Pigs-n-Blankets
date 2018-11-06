@@ -20,7 +20,7 @@ router.get('/admin', isAdmin, async (req, res, next) => {
           User
         }
       ],
-      order: [['purchaseDate', 'DESC']]
+      order: [['userId', 'DESC']]
     })
     res.json(orders)
   } catch (err) {
