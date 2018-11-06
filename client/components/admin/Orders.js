@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import OrderHistoryCard from '../user/OrderHistoryCard'
-import {fetchOrders, fetchFilteredOrders, fetchUsers} from '../../store'
+import {fetchOrders, fetchFilteredOrders, fetchUsers, fetchOrderHistory} from '../../store'
 import {Loading} from '../utils/Loading'
 
 // MATERIAL UI IMPORTS
@@ -58,6 +58,9 @@ const styles = theme => ({
 class Orders extends React.Component {
   constructor() {
     super()
+    this.state = {
+      user: ''
+    }
     this.handleAll = this.handleAll.bind(this)
     this.handleCanceled = this.handleCanceled.bind(this)
     this.handleProcessing = this.handleProcessing.bind(this)
@@ -83,6 +86,15 @@ class Orders extends React.Component {
   handleCompleted() {
     this.props.fetchFilteredOrders('completed')
   }
+
+  handleChange = event => {
+    this.setState({
+      user: event.target.value
+    })
+    // console.log('user id', this.state.user.id)
+    // this.props.fetchOrderHistory(Number(this.state.user.id))
+  }
+
 
   filterOrders(orders) {
     if (orders.length) {
@@ -122,8 +134,8 @@ class Orders extends React.Component {
               <TextField
                 select
                 className={classes.textField}
-                // onChange={this.handleChange}
-                // value={this.state.category}
+                onChange={this.handleChange}
+                value={this.state.name}
                 SelectProps={{
                   native: true,
                   MenuProps: {
@@ -238,6 +250,9 @@ const mapDispatch = dispatch => {
     },
     fetchUsers: () => {
       dispatch(fetchUsers())
+    },
+    fetchOrderHistory: userId => {
+      return dispatch(fetchOrderHistory(userId))
     }
   }
 }
