@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import OrderHistoryCard from '../user/OrderHistoryCard'
-import {fetchOrders, fetchFilteredOrders} from '../../store'
+import {fetchOrders, fetchFilteredOrders, fetchUsers} from '../../store'
 import {Loading} from '../utils/Loading'
 
 // MATERIAL UI IMPORTS
@@ -16,12 +16,22 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
+import TextField from '@material-ui/core/TextField'
 
 const styles = theme => ({
   wrapper: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center'
+  },
+  gridList: {
+    width: '70%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    // backgroundColor: theme.palette.secondary.main
+  },
+  gridListTitle: {
+    alignSelf: 'center',
   },
   content: {
     width: '80%',
@@ -55,6 +65,7 @@ class Orders extends React.Component {
   }
   componentDidMount() {
     this.props.fetchOrders()
+    this.props.fetchUsers()
   }
 
   handleAll() {
@@ -74,13 +85,13 @@ class Orders extends React.Component {
   }
 
   filterOrders(orders) {
-    if(orders.length) {
+    if (orders.length) {
       let prevUserId = orders[0].userId
       let filteredOrders = []
       let tempArr = []
 
-      orders.forEach((order) => {
-        if(order.userId === prevUserId){
+      orders.forEach(order => {
+        if (order.userId === prevUserId) {
           tempArr.push(order)
         } else {
           filteredOrders.push(tempArr)
@@ -104,9 +115,31 @@ class Orders extends React.Component {
           <GridList
             cellHeight="auto"
             className={classes.gridList}
-            cols={4}
+            cols={5}
             spacing={15}
           >
+            <GridListTile className={classes.gridListTitle} cols={1}>
+              <TextField
+                select
+                className={classes.textField}
+                // onChange={this.handleChange}
+                // value={this.state.category}
+                SelectProps={{
+                  native: true,
+                  MenuProps: {
+                    className: classes.menu
+                  }
+                }}
+                margin="normal"
+              >
+                <option>all</option>
+                {this.props.users.map(option => (
+                  <option key={option.id} value={option.firstName}>
+                    {`${option.firstName} ${option.lastName}`}
+                  </option>
+                ))}
+              </TextField>
+            </GridListTile>
             <GridListTile className={classes.gridListTitle} cols={1}>
               <Button
                 size="small"
@@ -150,41 +183,39 @@ class Orders extends React.Component {
 
           {this.filterOrders(orders).map((order, idx) => {
             return (
-          <Paper className={classes.root} key={idx}>
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <TableCell numeric>PRODUCT</TableCell>
-                  <TableCell numeric>PRICE</TableCell>
-                  <TableCell numeric>QUANTITY</TableCell>
-                  <TableCell numeric>DATE</TableCell>
-                  <TableCell numeric>STATUS</TableCell>
-                  <TableCell numeric>USER</TableCell>
-                  <TableCell numeric>OPTIONS</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {order ? (
-                  order.map(item => {
-                    return (
-                      <OrderHistoryCard
-                        key={order.id}
-                        order={item}
-                        isAdmin={true}
-                      />
-                    )
-                  })
-                ) : (
-                  <div />
-                )}
-              </TableBody>
-            </Table>
-          </Paper>
+              <Paper className={classes.root} key={idx}>
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell />
+                      <TableCell numeric>PRODUCT</TableCell>
+                      <TableCell numeric>PRICE</TableCell>
+                      <TableCell numeric>QUANTITY</TableCell>
+                      <TableCell numeric>DATE</TableCell>
+                      <TableCell numeric>STATUS</TableCell>
+                      <TableCell numeric>USER</TableCell>
+                      <TableCell numeric>OPTIONS</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {order ? (
+                      order.map(item => {
+                        return (
+                          <OrderHistoryCard
+                            key={order.id}
+                            order={item}
+                            isAdmin={true}
+                          />
+                        )
+                      })
+                    ) : (
+                      <div />
+                    )}
+                  </TableBody>
+                </Table>
+              </Paper>
             )
           })}
-
-
         </div>
       </div>
     )
@@ -193,7 +224,8 @@ class Orders extends React.Component {
 
 const mapState = state => {
   return {
-    orders: state.orders.orders
+    orders: state.orders.orders,
+    users: state.user.allUsers
   }
 }
 const mapDispatch = dispatch => {
@@ -203,6 +235,9 @@ const mapDispatch = dispatch => {
     },
     fetchFilteredOrders: orderStatus => {
       dispatch(fetchFilteredOrders(orderStatus))
+    },
+    fetchUsers: () => {
+      dispatch(fetchUsers())
     }
   }
 }
