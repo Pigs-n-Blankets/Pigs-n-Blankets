@@ -94,6 +94,7 @@ class Payment extends Component {
       stripeToken: token.id
     })
     console.log('IN SUBMIT AFTER AXIOS, RESPONSE -->', response)
+    //comment
 
     this.props.updateOrderOnCheckout(this.props.user.id)
 
