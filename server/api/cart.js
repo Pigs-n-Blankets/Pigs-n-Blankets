@@ -80,8 +80,6 @@ router.post('/checkout', async (req, res, next) => {
     description: 'an example charge',
     source: req.body.stripeToken
   })
-  console.log('SOURCE', req.body)
-  console.log('CHECKOUT STATUS', {status})
   const mailOptions = {
     from: 'pigsnblankets1@gmail.com',
     to: req.body.email,
