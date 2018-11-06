@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import OrderHistoryCard from './OrderHistoryCard'
 import {fetchOrderHistory} from '../../store'
+var dateFormat = require('dateformat')
+
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -30,10 +32,12 @@ const styles = theme => ({
     width: '100%',
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 2,
-    overflowX: 'auto'
+    overflowX: 'auto',
+    boxShadow: 'none',
+    border: '1px solid #D8DEE2',
   },
   table: {
-    width: '100%'
+    width: '100%',
   },
   submit: {
     marginTop: theme.spacing.unit,
@@ -49,35 +53,62 @@ class OrderHistory extends React.Component {
     }
   }
 
+  filterOrderHistory(orderHistory) {
+    if(orderHistory.length) {
+      let prevDate = dateFormat(orderHistory[0].purchaseDate, 'yyyy/mm/dd')
+      let filteredOrderHistory = []
+      let tempArr = []
+
+      orderHistory.forEach((order) => {
+        if(dateFormat(order.purchaseDate, 'yyyy/mm/dd') === prevDate){
+          tempArr.push(order)
+        } else {
+          filteredOrderHistory.push(tempArr)
+          tempArr = []
+          tempArr.push(order)
+        }
+        prevDate = dateFormat(order.purchaseDate, 'yyyy/mm/dd')
+      })
+      return filteredOrderHistory
+    } else {
+      return orderHistory
+    }
+  }
+
   render() {
     const {classes} = this.props
     const orderHistory = this.props.orderHistory
     return (
-      <div className={classes.wrapper}>
-        <div className={classes.content}>
-          <Paper className={classes.root}>
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <TableCell numeric>PRODUCT</TableCell>
-                  <TableCell numeric>PRICE</TableCell>
-                  <TableCell numeric>QUANTITY</TableCell>
-                  <TableCell numeric>DATE</TableCell>
-                  <TableCell numeric>STATUS</TableCell>
-                  <TableCell numeric />
-                  <TableCell numeric>OPTIONS</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {orderHistory.map(order => {
-                  return <OrderHistoryCard key={order.id} order={order} />
-                })}
-              </TableBody>
-            </Table>
-          </Paper>
-        </div>
-      </div>
+      this.filterOrderHistory(orderHistory).map((order, idx) => {
+        return (
+          <div key={idx} className={classes.wrapper}>
+            <div className={classes.content}>
+              <Paper className={classes.root}>
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell />
+                      <TableCell numeric>PRODUCT</TableCell>
+                      <TableCell numeric>PRICE</TableCell>
+                      <TableCell numeric>QUANTITY</TableCell>
+                      <TableCell numeric>DATE</TableCell>
+                      <TableCell numeric>STATUS</TableCell>
+                      <TableCell numeric />
+                      <TableCell numeric>OPTIONS</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {order.map(item => {
+                      return <OrderHistoryCard key={item.id} order={item} />
+                    })}
+                  </TableBody>
+                </Table>
+              </Paper>
+            </div>
+          </div>
+
+        )
+      })
     )
   }
 }

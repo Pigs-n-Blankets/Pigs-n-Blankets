@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {
   fetchProducts,
   fetchFilteredProducts,
-  fetchCategories
+  fetchCategories,
+  clearSearchedProducts
 } from '../../store'
 import {connect} from 'react-redux'
 import ProductCard from './ProductCard'
@@ -67,8 +68,18 @@ class AllProducts extends Component {
     this.props.fetchFilteredProducts(event.target.value)
   }
 
+  handleClear = () => {
+    this.props.clearSearchedProducts()
+  }
+
   render() {
-    const {classes, products, categories} = this.props
+    const {classes, categories} = this.props
+    let products
+    if (this.props.searchedProducts.length < 1) {
+      products = this.props.products
+    } else {
+      products = this.props.searchedProducts
+    }
     return (
       <div className={classes.root}>
         <div className={classes.content}>
@@ -94,6 +105,19 @@ class AllProducts extends Component {
                 </option>
               ))}
             </TextField>
+            {this.props.searchedProducts.length > 0 ? (
+              <Button
+                type="button"
+                variant="contained"
+                color="secondary"
+                onClick={this.handleClear}
+                className={classes.submit}
+              >
+                Clear Filter
+              </Button>
+            ) : (
+              <div />
+            )}
             <Link to="/products/add">
               <Button
                 type="button"
@@ -145,6 +169,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchFilteredProducts: categoryName => {
       dispatch(fetchFilteredProducts(categoryName))
+    },
+    clearSearchedProducts: () => {
+      dispatch(clearSearchedProducts())
     }
   }
 }
@@ -152,7 +179,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     products: state.product.allProducts,
-    categories: state.product.categories
+    categories: state.product.categories,
+    searchedProducts: state.product.searchedProducts
   }
 }
 
