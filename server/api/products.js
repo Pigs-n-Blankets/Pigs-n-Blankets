@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product, Category} = require('../db/models')
+const Sequelize = require('sequelize')
 module.exports = router
 
 const isAdmin = (req, res, next) => {
@@ -20,6 +21,25 @@ router.get('/', async (req, res, next) => {
           model: Category
         }
       ]
+    })
+    res.json(products)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/search/:search', async (req, res, next) => {
+  const Op = Sequelize.Op
+  try {
+    const products = await Product.findAll({
+      include: [
+        {
+          model: Category
+        }
+      ],
+      where: {
+        name: {[Op.iLike]: `%${req.params.search}%`}
+      }
     })
     res.json(products)
   } catch (err) {

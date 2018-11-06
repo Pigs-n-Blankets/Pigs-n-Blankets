@@ -9,16 +9,23 @@ const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
 const GET_FILTERED_PRODUCTS = 'GET_FILTERED_PRODUCTS'
 const GET_PRODUCT_CATEGORIES = 'GET_PRODUCT_CATEGORIES'
+const GET_SEARCHED_PRODUCTS = 'GET_SEARCHED_PRODUCTS'
+const CLEAR_SEARCHED_PRODUCTS = 'CLEAR_SEARCHED_PRODUCTS'
 
 // INITIAL STATE
 const defaultState = {
   allProducts: [],
   selectedProduct: {},
-  categories: []
+  categories: [],
+  searchedProducts: []
 }
 
 // ACTION CREATORS
 const getProducts = products => ({type: GET_PRODUCTS, products})
+const getSearchedProducts = products => ({
+  type: GET_SEARCHED_PRODUCTS,
+  products
+})
 const getSingleProduct = product => ({type: GET_SINGLE_PRODUCT, product})
 const addProduct = product => ({type: ADD_PRODUCT, product})
 const updateProduct = product => ({type: UPDATE_PRODUCT, product})
@@ -30,6 +37,9 @@ const getFilteredProducts = products => ({
 const getProductCategories = categories => ({
   type: GET_PRODUCT_CATEGORIES,
   categories
+})
+export const clearSearchedProducts = () => ({
+  type: CLEAR_SEARCHED_PRODUCTS
 })
 
 // THUNK CREATORS
@@ -49,6 +59,16 @@ export const fetchSingleProduct = productId => async dispatch => {
     console.error(err)
   }
 }
+
+export const fetchSearchedProducts = search => async dispatch => {
+  try {
+    const res = await axios.get(`/api/products/search/${search}`)
+    dispatch(getSearchedProducts(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const postProduct = product => async dispatch => {
   const {data} = await axios.post('/api/products/', product)
   dispatch(addProduct(data))
@@ -115,6 +135,12 @@ const handler = {
   },
   [GET_PRODUCT_CATEGORIES]: (state, action) => {
     return {...state, categories: action.categories}
+  },
+  [GET_SEARCHED_PRODUCTS]: (state, action) => {
+    return {...state, searchedProducts: action.products}
+  },
+  [CLEAR_SEARCHED_PRODUCTS]: (state, action) => {
+    return {...state, searchedProducts: []}
   }
 }
 
