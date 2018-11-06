@@ -118,16 +118,20 @@ class AllProducts extends Component {
             ) : (
               <div />
             )}
-            <Link to="/products/add">
-              <Button
-                type="button"
-                variant="contained"
-                color="secondary"
-                className={classes.submit}
-              >
-                Add Product
-              </Button>
-            </Link>
+            {this.props.user.isAdmin ? (
+              <Link to="/products/add">
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="secondary"
+                  className={classes.submit}
+                >
+                  Add Product
+                </Button>
+              </Link>
+            ) : (
+              <div />
+            )}
           </div>
           <GridList
             cellHeight="auto"
@@ -180,7 +184,8 @@ const mapStateToProps = state => {
   return {
     products: state.product.allProducts,
     categories: state.product.categories,
-    searchedProducts: state.product.searchedProducts
+    searchedProducts: state.product.searchedProducts,
+    user: state.user.currentUser
   }
 }
 
