@@ -33,7 +33,6 @@ const styles = theme => ({
     width: '70%',
     display: 'flex',
     justifyContent: 'space-between'
-    // backgroundColor: theme.palette.secondary.main
   },
   gridListTitle: {
     alignSelf: 'center'

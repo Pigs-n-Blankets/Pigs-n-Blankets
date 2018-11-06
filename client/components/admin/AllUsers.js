@@ -19,7 +19,6 @@ const styles = theme => ({
   content: {
     width: '80%',
     overflow: 'hidden'
-    // backgroundColor: theme.palette.background.paper
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'
