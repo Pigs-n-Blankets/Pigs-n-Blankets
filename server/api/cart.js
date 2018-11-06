@@ -74,7 +74,7 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 // UPDATE STATUS AND PURCHASE DATE WHEN ORDER IS SUBMITTED
-router.put('/:userId', async(req, res, next) => {
+router.put('/:userId', async (req, res, next) => {
   const userId = req.params.userId
 
   try {
@@ -101,8 +101,9 @@ router.put('/:userId', async(req, res, next) => {
 })
 
 router.post('/checkout', async (req, res, next) => {
+  const amount = Math.round(req.body.amount)
   const {status} = await stripe.charges.create({
-    amount: req.body.amount,
+    amount: amount,
     currency: 'usd',
     description: 'an example charge',
     source: req.body.stripeToken
