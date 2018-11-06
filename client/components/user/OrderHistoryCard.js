@@ -67,15 +67,10 @@ class OrderHistoryCard extends Component {
     this.handleClose()
   }
 
-  // setProduct = () => {
-  //   this.setState({ anchorEl: null });
-  //   this.props.fetchSingleProduct()
-  // };
-
   render() {
     const {classes, isAdmin, order} = this.props
-    const {product, quantity, subtotal, orderStatus, purchaseDate} = order
-    const {id, imgUrl, name, price, updatedAt} = product
+    const {product, quantity, orderStatus, purchaseDate} = order
+    const {id, imgUrl, name, price} = product
     const {anchorEl} = this.state
 
     return (
