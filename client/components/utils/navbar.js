@@ -207,6 +207,7 @@ class Navbar extends Component {
     const isAdmin = this.props.user.isAdmin
     const cart = this.props.cart
     //test
+    //test 2
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
