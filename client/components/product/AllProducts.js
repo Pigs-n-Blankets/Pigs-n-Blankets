@@ -94,16 +94,20 @@ class AllProducts extends Component {
                 </option>
               ))}
             </TextField>
-            <Link to="/products/add">
-              <Button
-                type="button"
-                variant="contained"
-                color="secondary"
-                className={classes.submit}
-              >
-                Add Product
-              </Button>
-            </Link>
+            {this.props.user.isAdmin ? (
+              <Link to="/products/add">
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="secondary"
+                  className={classes.submit}
+                >
+                  Add Product
+                </Button>
+              </Link>
+            ) : (
+              <div />
+            )}
           </div>
           <GridList
             cellHeight="auto"
@@ -152,7 +156,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     products: state.product.allProducts,
-    categories: state.product.categories
+    categories: state.product.categories,
+    user: state.user.currentUser
   }
 }
 
