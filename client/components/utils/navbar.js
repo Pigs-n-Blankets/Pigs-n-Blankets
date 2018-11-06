@@ -63,15 +63,15 @@ const styles = theme => ({
       width: 'auto'
     }
   },
-  // searchIcon: {
-  //   width: theme.spacing.unit * 9,
-  //   height: '100%',
-  //   position: 'absolute',
-  //   pointerEvents: 'none',
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'center'
-  // },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   inputRoot: {
     color: 'inherit',
     width: '100%'
@@ -224,15 +224,9 @@ class Navbar extends Component {
               </Typography>
             </Link>
             <div className={classes.search}>
-              {/* <div className={classes.searchIcon}>
-                <button
-                  type="button"
-                  onClick={this.handleSubmit}
-                  className={classes.searchButton}
-                >
-                  <SearchIcon />
-                </button>
-              </div> */}
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
               <form onSubmit={this.handleSubmit}>
                 <InputBase
                   placeholder="Search…"
@@ -244,15 +238,6 @@ class Navbar extends Component {
                   onChange={this.handleChange}
                 />
               </form>
-            </div>
-            <div className={classes.searchIcon}>
-              <button
-                type="button"
-                onClick={this.handleSubmit}
-                className={classes.searchButton}
-              >
-                <SearchIcon />
-              </button>
             </div>
             <div className={classes.grow} />
             {!isAdmin ? (
