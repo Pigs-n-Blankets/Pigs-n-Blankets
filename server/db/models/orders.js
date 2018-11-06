@@ -25,7 +25,16 @@ const Order = db.define('order', {
   },
   purchaseDate: {
     type: Sequelize.DATE
+  },
+  orderId: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
+
+// INSTANCE METHOD: increment orderID
+Order.prototype.incrementOrderId = function () {
+  this.orderId += 1;
+}
 
 module.exports = Order
