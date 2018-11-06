@@ -75,13 +75,21 @@ router.put('/quantity/:productId', async (req, res, next) => {
 
 router.put('/:productId', isAdmin, async (req, res, next) => {
   try {
-    const id = req.params.productId
-    await Product.update(req.body, {
+    const productId = req.params.productId
+    const updatedProduct = {
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      rating: req.body.rating,
+      imgUrl: req.body.imgUrl,
+      inventory: req.body.inventory
+    }
+    await Product.update(updatedProduct, {
       where: {
-        id
+        id: productId
       }
     })
-    const product = await Product.findById(id, {
+    const product = await Product.findById(productId, {
       include: [
         {
           model: Category
