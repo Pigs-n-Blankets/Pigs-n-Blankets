@@ -46,7 +46,6 @@ const Reviews = props => {
   if (!reviews[0]) {
     return <div>There are no current reviews for this product!</div>
   }
-  console.log('user --->', reviews[0].user)
   return (
     <div>
       <Typography gutterBottom variant="h5">

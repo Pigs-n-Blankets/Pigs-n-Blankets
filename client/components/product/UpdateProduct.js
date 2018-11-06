@@ -65,7 +65,6 @@ class EditProduct extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.product !== this.props.product) {
-      console.log('updated')
       this.setState({
         name: this.props.product.name,
         price: this.props.product.price,
@@ -88,9 +87,9 @@ class EditProduct extends Component {
   }
 
   //   handleSubmit(event) {
-//     event.preventDefault()
-//     this.props.updateThisProduct(this.state, this.props.productId)
-//   }
+  //     event.preventDefault()
+  //     this.props.updateThisProduct(this.state, this.props.productId)
+  //   }
 
   handleSubmit(event) {
     event.preventDefault()
@@ -115,9 +114,8 @@ class EditProduct extends Component {
 
   render() {
     const {classes} = this.props
-    return (
-      Object.keys(this.props.product).length ? (
-        <div className={classes.root}>
+    return Object.keys(this.props.product).length ? (
+      <div className={classes.root}>
         <Card className={classes.card}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
@@ -206,16 +204,14 @@ class EditProduct extends Component {
             </GridList>
           </CardContent>
           <CardActions className={classes.cardActions}>
-          <Button
-              type="button"
-              onClick={this.handleSubmit}
-            >
+            <Button type="button" onClick={this.handleSubmit}>
               Update Product
             </Button>
           </CardActions>
         </Card>
       </div>
-      ) : (<div/>)
+    ) : (
+      <div />
     )
   }
 }
@@ -236,17 +232,11 @@ const mapDispatch = (dispatch, ownProps) => {
     },
     fetchSingleProduct: productId => {
       dispatch(fetchSingleProduct(productId))
-    },
+    }
   }
 }
 
 export default withStyles(styles)(connect(mapState, mapDispatch)(EditProduct))
-
-
-
-
-
-
 
 // import React, {Component} from 'react'
 // import PropTypes from 'prop-types'

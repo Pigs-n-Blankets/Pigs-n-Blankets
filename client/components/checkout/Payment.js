@@ -70,7 +70,6 @@ class Payment extends Component {
   }
   componentDidMount() {
     let totalPrice = 0
-    console.log(this.props.cart)
     this.props.cart.forEach(order => {
       totalPrice += order.price * order.quantity
     })
@@ -80,11 +79,9 @@ class Payment extends Component {
 
   async submit(ev) {
     ev.preventDefault()
-    console.log('IN SUBMIT, EVENT -->', ev)
     let {token} = await this.props.stripe.createToken({
       email: this.state.email
     })
-    console.log('IN SUBMIT, TOKEN --->', token)
     let response = await axios.post('/api/cart/checkout', {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -93,7 +90,6 @@ class Payment extends Component {
       address: this.state.address,
       stripeToken: token.id
     })
-    console.log('IN SUBMIT AFTER AXIOS, RESPONSE -->', response)
 
     this.props.updateOrderOnCheckout(this.props.user.id)
 
@@ -108,7 +104,6 @@ class Payment extends Component {
 
   render() {
     const {classes} = this.props
-    console.log(this.state.totalPrice)
     return (
       <div className={classes.root}>
         <Card className={classes.card}>

@@ -63,13 +63,13 @@ export const updateMe = userData => async dispatch => {
 }
 export const fetchUsers = () => async dispatch => {
   try {
-    const { data: users } = await axios.get('/api/users')
+    const {data: users} = await axios.get('/api/users')
     dispatch(getAllUsers(users))
   } catch (err) {
     console.error(err)
   }
 }
-export const deleteUser = (userId) => async dispatch => {
+export const deleteUser = userId => async dispatch => {
   try {
     await axios.delete(`/api/users/${userId}`)
     dispatch(adminRemoveUser(userId))
@@ -79,10 +79,10 @@ export const deleteUser = (userId) => async dispatch => {
 }
 export const putUser = (userId, updatedUserBody) => async dispatch => {
   try {
-    console.log('userId', userId);
-    console.log('updated body', updatedUserBody)
-    const {data: updatedUser} = await axios.put(`/api/users/${userId}`, updatedUserBody)
-    console.log('UPDATED USER', updatedUser)
+    const {data: updatedUser} = await axios.put(
+      `/api/users/${userId}`,
+      updatedUserBody
+    )
     dispatch(adminUpdateUser(updatedUser))
   } catch (err) {
     console.error(err)
@@ -101,11 +101,13 @@ const handler = {
     return {...state, currentUser: {}}
   },
   [ADMIN_REMOVE_USER]: (state, action) => {
-    const updatedUsers = state.allUsers.filter((user) => user.id !== action.userId)
+    const updatedUsers = state.allUsers.filter(
+      user => user.id !== action.userId
+    )
     return {...state, allUsers: updatedUsers}
   },
   [ADMIN_UPDATE_USER]: (state, action) => {
-    const updatedUsers = state.allUsers.map((user) => {
+    const updatedUsers = state.allUsers.map(user => {
       if (user.id === action.updatedUser.id) {
         user = action.updatedUser
       }
@@ -116,8 +118,8 @@ const handler = {
 }
 
 // REDUCER
-export default function (state = defaultState, action) {
-  if(!handler.hasOwnProperty(action.type)) {
+export default function(state = defaultState, action) {
+  if (!handler.hasOwnProperty(action.type)) {
     return state
   } else {
     return handler[action.type](state, action)

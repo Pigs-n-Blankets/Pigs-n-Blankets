@@ -1,7 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import OrderHistoryCard from '../user/OrderHistoryCard'
-import {fetchOrders, fetchFilteredOrders, fetchUsers, fetchOrderHistory} from '../../store'
+import {
+  fetchOrders,
+  fetchFilteredOrders,
+  fetchUsers,
+  fetchOrderHistory
+} from '../../store'
 import {Loading} from '../utils/Loading'
 
 // MATERIAL UI IMPORTS
@@ -27,11 +32,11 @@ const styles = theme => ({
   gridList: {
     width: '70%',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
     // backgroundColor: theme.palette.secondary.main
   },
   gridListTitle: {
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   content: {
     width: '80%',
@@ -91,10 +96,7 @@ class Orders extends React.Component {
     this.setState({
       user: event.target.value
     })
-    // console.log('user id', this.state.user.id)
-    // this.props.fetchOrderHistory(Number(this.state.user.id))
   }
-
 
   filterOrders(orders) {
     if (orders.length) {
