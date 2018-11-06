@@ -16,7 +16,9 @@ describe('Product routes', () => {
 
     beforeEach(() => {
       return Product.create({
-        name: productName
+        name: productName,
+        inventory: 1,
+        categoryId: 1
       })
     })
 
@@ -28,5 +30,5 @@ describe('Product routes', () => {
       expect(res.body).to.be.an('array')
       expect(res.body[0].name).to.be.equal(productName)
     })
-  }) // end describe('/api/users')
-}) // end describe('User routes')
+  })
+})

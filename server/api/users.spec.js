@@ -17,7 +17,7 @@ describe('User routes', () => {
     beforeEach(() => {
       return User.create({
         email: codysEmail
-      })
+      }).then(User.create({email: codysEmail}))
     })
 
     it('GET /api/users', async () => {
@@ -27,6 +27,12 @@ describe('User routes', () => {
 
       expect(res.body).to.be.an('array')
       expect(res.body[0].email).to.be.equal(codysEmail)
+    })
+    it('DELETE /api/users/:userId', async () => {
+      await request(app).delete(`/api/users/1`)
+      const res = await request(app).get('/api/users')
+
+      expect(res.body.length).to.be.equal(1)
     })
   }) // end describe('/api/users')
 }) // end describe('User routes')
