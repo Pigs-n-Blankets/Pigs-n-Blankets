@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {CardElement, injectStripe} from 'react-stripe-elements'
+import {deleteAllFromCart} from '../../store'
 import axios from 'axios'
 import {connect} from 'react-redux'
 const numeral = require('numeral')
@@ -53,7 +54,11 @@ class Payment extends Component {
       stripeToken: token.id
     })
 
-    if (response.ok) console.log('Purchase Complete!')
+    this.props.deleteAllFromCart()
+
+    if (response.ok) {
+      console.log('Purchase Complete!')
+    }
   }
 
   handleChange = event => {
@@ -123,32 +128,14 @@ const mapState = state => {
   }
 }
 
-export default withStyles(styles)(injectStripe(connect(mapState)(Payment)))
+const mapDispatch = dispatch => {
+  return {
+    deleteAllFromCart: () => {
+      return dispatch(deleteAllFromCart())
+    }
+  }
+}
 
-// const onSubmit = async event => {
-//   await axios.post('/api/cart/checkout', {
-//     amount: event.target.data - amount,
-//     name: event.target.data - name,
-//     description: event.target.data - description,
-//     receipt_email: 'danieleimer1@gmail.com'
-//   })
-// }
-
-// const Payment = () => {
-//   return (
-//     <div>
-//       <form action="/api/cart/checkout" method="POST">
-//         <script
-//           src="https://checkout.stripe.com/checkout.js"
-//           className="stripe-button"
-//           data-key="pk_test_ZJtjuVa3cfeO5sxWZ0s5x5lf"
-//           data-amount="999"
-//           data-name="Github"
-//           data-description="Example charge"
-//           data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-//           data-locale="auto"
-//         />
-//       </form>
-//     </div>
-//   )
-// }
+export default withStyles(styles)(
+  injectStripe(connect(mapState, mapDispatch)(Payment))
+)

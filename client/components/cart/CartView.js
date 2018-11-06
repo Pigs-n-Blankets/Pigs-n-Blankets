@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Loading} from '../utils/Loading'
 import {fetchCart, deleteAllFromCart} from '../../store'
 import CartCard from './CartCard'
+import {Link} from 'react-router-dom'
 const numeral = require('numeral')
 
 // MATERIAL UI IMPORTS
@@ -150,15 +151,17 @@ class CartView extends Component {
               CLEAR CART
               <DeleteIcon className={classes.rightIcon} />
             </Button>
-            <Button
-              type="button"
-              variant="contained"
-              color="secondary"
-              className={classes.submit}
-            >
-              CHECKOUT
-              <CheckoutIcon className={classes.rightIcon} />
-            </Button>
+            <Link to="/checkout">
+              <Button
+                type="button"
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
+                CHECKOUT
+                <CheckoutIcon className={classes.rightIcon} />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
