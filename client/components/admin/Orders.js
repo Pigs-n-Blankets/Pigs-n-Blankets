@@ -73,9 +73,32 @@ class Orders extends React.Component {
     this.props.fetchFilteredOrders('completed')
   }
 
+  filterOrderHistory(orderHistory) {
+    if(orderHistory.length) {
+      let prevUserId = orderHistory[0].userId
+      let filteredOrderHistory = []
+      let tempArr = []
+
+      orderHistory.forEach((order) => {
+        if(order.userId === prevUserId){
+          tempArr.push(order)
+        } else {
+          filteredOrderHistory.push(tempArr)
+          tempArr = []
+          tempArr.push(order)
+        }
+        prevUserId = order.userId
+      })
+      return filteredOrderHistory
+    } else {
+      return orderHistory
+    }
+  }
+
   render() {
     const {classes} = this.props
     return (
+      // orderHistory.
       <div className={classes.wrapper}>
         <div className={classes.content}>
           <GridList
