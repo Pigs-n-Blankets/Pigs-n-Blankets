@@ -246,6 +246,70 @@ const userData = [
 ]
 
 const orderData = [
+  // ASSIGNED DEFAULT USER AND RANDOM PRODUCT
+  {
+    orderStatus: 'inCart'
+  },
+  {
+    orderStatus: 'inCart'
+  },
+  {
+    orderStatus: 'inCart'
+  },
+  {
+    orderStatus: 'created',
+    purchaseDate: '2018-10-2',
+  },
+  {
+    orderStatus: 'created',
+    purchaseDate: '2018-10-2',
+  },
+  {
+    orderStatus: 'created',
+    purchaseDate: '2018-10-2',
+  },
+  {
+    orderStatus: 'created',
+    purchaseDate: '2018-9-21',
+  },
+  {
+    orderStatus: 'created',
+    purchaseDate: '2018-9-21',
+  },
+  {
+    orderStatus: 'processing',
+    purchaseDate: '2018-8-30',
+  },
+  {
+    orderStatus: 'processing',
+    purchaseDate: '2018-8-30',
+  },
+  {
+    orderStatus: 'processing',
+    purchaseDate: '2018-8-30',
+  },
+  {
+    orderStatus: 'processing',
+    purchaseDate: '2018-9-2',
+  },
+  {
+    orderStatus: 'completed',
+    purchaseDate: '2018-1-2',
+  },
+  {
+    orderStatus: 'completed',
+    purchaseDate: '2018-1-12',
+  },
+  {
+    orderStatus: 'completed',
+    purchaseDate: '2018-1-12',
+  },
+  {
+    orderStatus: 'completed',
+    purchaseDate: '2018-4-22',
+  },
+
+  // RANDOMLY ASSIGNED USER AND PRODUCT
   {
     orderStatus: 'inCart'
   },

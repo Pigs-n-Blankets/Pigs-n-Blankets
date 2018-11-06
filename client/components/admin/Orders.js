@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import OrderHistoryCard from '../user/OrderHistoryCard'
-import {fetchOrders, fetchFilteredOrders} from '../../store'
+import {fetchOrders, fetchFilteredOrders, fetchUsers, fetchOrderHistory} from '../../store'
 import {Loading} from '../utils/Loading'
 
 // MATERIAL UI IMPORTS
@@ -16,6 +16,7 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
+import TextField from '@material-ui/core/TextField'
 
 const styles = theme => ({
   wrapper: {
@@ -23,8 +24,17 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center'
   },
+  gridList: {
+    width: '70%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    // backgroundColor: theme.palette.secondary.main
+  },
+  gridListTitle: {
+    alignSelf: 'center',
+  },
   content: {
-    width: '100%',
+    width: '80%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -48,6 +58,9 @@ const styles = theme => ({
 class Orders extends React.Component {
   constructor() {
     super()
+    this.state = {
+      user: ''
+    }
     this.handleAll = this.handleAll.bind(this)
     this.handleCanceled = this.handleCanceled.bind(this)
     this.handleProcessing = this.handleProcessing.bind(this)
@@ -55,6 +68,7 @@ class Orders extends React.Component {
   }
   componentDidMount() {
     this.props.fetchOrders()
+    this.props.fetchUsers()
   }
 
   handleAll() {
@@ -73,17 +87,71 @@ class Orders extends React.Component {
     this.props.fetchFilteredOrders('completed')
   }
 
+  handleChange = event => {
+    this.setState({
+      user: event.target.value
+    })
+    // console.log('user id', this.state.user.id)
+    // this.props.fetchOrderHistory(Number(this.state.user.id))
+  }
+
+
+  filterOrders(orders) {
+    if (orders.length) {
+      let prevUserId = orders[0].userId
+      let filteredOrders = []
+      let tempArr = []
+
+      orders.forEach(order => {
+        if (order.userId === prevUserId) {
+          tempArr.push(order)
+        } else {
+          filteredOrders.push(tempArr)
+          tempArr = []
+          tempArr.push(order)
+        }
+        prevUserId = order.userId
+      })
+      filteredOrders.push(tempArr)
+      return filteredOrders
+    } else {
+      return orders
+    }
+  }
+
   render() {
-    const {classes} = this.props
+    const {classes, orders} = this.props
     return (
       <div className={classes.wrapper}>
         <div className={classes.content}>
           <GridList
             cellHeight="auto"
             className={classes.gridList}
-            cols={4}
+            cols={5}
             spacing={15}
           >
+            <GridListTile className={classes.gridListTitle} cols={1}>
+              <TextField
+                select
+                className={classes.textField}
+                onChange={this.handleChange}
+                value={this.state.name}
+                SelectProps={{
+                  native: true,
+                  MenuProps: {
+                    className: classes.menu
+                  }
+                }}
+                margin="normal"
+              >
+                <option>all</option>
+                {this.props.users.map(option => (
+                  <option key={option.id} value={option.firstName}>
+                    {`${option.firstName} ${option.lastName}`}
+                  </option>
+                ))}
+              </TextField>
+            </GridListTile>
             <GridListTile className={classes.gridListTitle} cols={1}>
               <Button
                 size="small"
@@ -124,37 +192,42 @@ class Orders extends React.Component {
               </Button>
             </GridListTile>
           </GridList>
-          <Paper className={classes.root}>
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <TableCell numeric>PRODUCT</TableCell>
-                  <TableCell numeric>PRICE</TableCell>
-                  <TableCell numeric>QUANTITY</TableCell>
-                  <TableCell numeric>DATE</TableCell>
-                  <TableCell numeric>STATUS</TableCell>
-                  <TableCell numeric>USER</TableCell>
-                  <TableCell numeric>OPTIONS</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {this.props.orders.orders ? (
-                  this.props.orders.orders.map(order => {
-                    return (
-                      <OrderHistoryCard
-                        key={order.id}
-                        order={order}
-                        isAdmin={true}
-                      />
-                    )
-                  })
-                ) : (
-                  <div />
-                )}
-              </TableBody>
-            </Table>
-          </Paper>
+
+          {this.filterOrders(orders).map((order, idx) => {
+            return (
+              <Paper className={classes.root} key={idx}>
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell />
+                      <TableCell numeric>PRODUCT</TableCell>
+                      <TableCell numeric>PRICE</TableCell>
+                      <TableCell numeric>QUANTITY</TableCell>
+                      <TableCell numeric>DATE</TableCell>
+                      <TableCell numeric>STATUS</TableCell>
+                      <TableCell numeric>USER</TableCell>
+                      <TableCell numeric>OPTIONS</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {order ? (
+                      order.map(item => {
+                        return (
+                          <OrderHistoryCard
+                            key={order.id}
+                            order={item}
+                            isAdmin={true}
+                          />
+                        )
+                      })
+                    ) : (
+                      <div />
+                    )}
+                  </TableBody>
+                </Table>
+              </Paper>
+            )
+          })}
         </div>
       </div>
     )
@@ -163,7 +236,8 @@ class Orders extends React.Component {
 
 const mapState = state => {
   return {
-    orders: state.orders
+    orders: state.orders.orders,
+    users: state.user.allUsers
   }
 }
 const mapDispatch = dispatch => {
@@ -173,6 +247,12 @@ const mapDispatch = dispatch => {
     },
     fetchFilteredOrders: orderStatus => {
       dispatch(fetchFilteredOrders(orderStatus))
+    },
+    fetchUsers: () => {
+      dispatch(fetchUsers())
+    },
+    fetchOrderHistory: userId => {
+      return dispatch(fetchOrderHistory(userId))
     }
   }
 }
