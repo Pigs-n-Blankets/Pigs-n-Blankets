@@ -23,7 +23,6 @@ export const fetchOrders = () => async dispatch => {
     console.error(err)
   }
 }
-
 export const updateOrderStatus = (orderId, orderStatus) => async dispatch => {
   try {
     await axios.put(`/api/orders/admin/${orderId}`, {
@@ -35,7 +34,6 @@ export const updateOrderStatus = (orderId, orderStatus) => async dispatch => {
     console.error(err)
   }
 }
-
 export const fetchFilteredOrders = orderStatus => async dispatch => {
   try {
     const route =

@@ -257,51 +257,55 @@ const orderData = [
   },
   {
     orderStatus: 'created',
-    purchaseDate: '2018-1-2'
+    purchaseDate: '2018-10-2',
   },
   {
     orderStatus: 'created',
-    purchaseDate: '2018-6-2'
+    purchaseDate: '2018-10-2',
   },
   {
     orderStatus: 'created',
-    purchaseDate: '2018-7-21'
+    purchaseDate: '2018-10-2',
+  },
+  {
+    orderStatus: 'created',
+    purchaseDate: '2018-9-21',
+  },
+  {
+    orderStatus: 'created',
+    purchaseDate: '2018-9-21',
   },
   {
     orderStatus: 'processing',
-    purchaseDate: '2018-3-8'
+    purchaseDate: '2018-8-30',
   },
   {
     orderStatus: 'processing',
-    purchaseDate: '2018-1-20'
+    purchaseDate: '2018-8-30',
   },
   {
     orderStatus: 'processing',
-    purchaseDate: '2018-9-30'
+    purchaseDate: '2018-8-30',
+  },
+  {
+    orderStatus: 'processing',
+    purchaseDate: '2018-9-2',
   },
   {
     orderStatus: 'completed',
-    purchaseDate: '2018-11-2'
+    purchaseDate: '2018-1-2',
   },
   {
     orderStatus: 'completed',
-    purchaseDate: '2018-3-12'
+    purchaseDate: '2018-1-12',
   },
   {
     orderStatus: 'completed',
-    purchaseDate: '2018-4-22'
+    purchaseDate: '2018-1-12',
   },
   {
-    orderStatus: 'cancelled',
-    purchaseDate: '2018-2-21'
-  },
-  {
-    orderStatus: 'cancelled',
-    purchaseDate: '2018-1-4'
-  },
-  {
-    orderStatus: 'cancelled',
-    purchaseDate: '2018-2-2'
+    orderStatus: 'completed',
+    purchaseDate: '2018-4-22',
   }
 ]
 
