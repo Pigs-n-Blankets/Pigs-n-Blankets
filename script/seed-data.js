@@ -258,67 +258,54 @@ const orderData = [
   {
     orderStatus: 'created',
     purchaseDate: '2018-10-2',
-    orderId: 6
   },
   {
     orderStatus: 'created',
     purchaseDate: '2018-10-2',
-    orderId: 6
   },
   {
     orderStatus: 'created',
     purchaseDate: '2018-10-2',
-    orderId: 6
   },
   {
     orderStatus: 'created',
     purchaseDate: '2018-9-21',
-    orderId: 5
   },
   {
     orderStatus: 'created',
     purchaseDate: '2018-9-21',
-    orderId: 5
   },
   {
     orderStatus: 'processing',
     purchaseDate: '2018-8-30',
-    orderId: 4
   },
   {
     orderStatus: 'processing',
     purchaseDate: '2018-8-30',
-    orderId: 4
   },
   {
     orderStatus: 'processing',
     purchaseDate: '2018-8-30',
-    orderId: 4
   },
   {
     orderStatus: 'processing',
     purchaseDate: '2018-9-2',
-    orderId: 3
   },
   {
     orderStatus: 'completed',
     purchaseDate: '2018-1-2',
-    orderId: 2
   },
   {
     orderStatus: 'completed',
     purchaseDate: '2018-1-12',
-    orderId: 2
   },
   {
     orderStatus: 'completed',
     purchaseDate: '2018-1-12',
-    orderId: 2
   },
   {
     orderStatus: 'completed',
     purchaseDate: '2018-4-22',
-    orderId: 1
   }
 ]
 

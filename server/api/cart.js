@@ -198,6 +198,29 @@ router.put('/', async (req, res, next) => {
   }
 })
 
+// update status and purchaseDate when order is submitted
+router.put('/checkout', async(req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      include: [{model: Product}],
+      where: {
+        orderStatus: 'inCart'
+      }
+    })
+    Promise.all(
+      orders.forEach(order => {
+        const updatedOrder = {
+          orderStatus: 'processing',
+          purchaseDate: new Date()
+        }
+        order.update(updatedOrder)
+      })
+    )
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.put('/quantity/:productId', async (req, res, next) => {
   // req.body = {quantity}
   try {
