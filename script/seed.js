@@ -61,13 +61,21 @@ async function seed() {
 
   async function seedOrders() {
     for(let i = 0; i < orders.length; i++){
-      const defaultUser = users.filter((user) => user.firstName==='user')[0]
-      let productsCopy = [...products]
-      const randomProduct = shuffle(productsCopy)[0]
-      await orders[i].setUser(defaultUser)
-      await orders[i].setProduct(randomProduct)
-      await orders[i].update({price: randomProduct.price})
-      productsCopy = productsCopy.filter((product) => product!==randomProduct)
+      if (i <= orders.length/2) {
+        const defaultUser = users.filter((user) => user.firstName==='user')[0]
+        let productsCopy = [...products]
+        const randomProduct = shuffle(productsCopy)[0]
+        await orders[i].setUser(defaultUser)
+        await orders[i].setProduct(randomProduct)
+        await orders[i].update({price: randomProduct.price})
+        productsCopy = productsCopy.filter((product) => product!==randomProduct)
+      } else {
+        const randomProduct = shuffle(products)[0]
+        const randomUser = shuffle(users)[0]
+        await orders[i].setUser(randomUser)
+        await orders[i].setProduct(randomProduct)
+        await orders[i].update({price: randomProduct.price})
+      }
     }
     return orders;
   }

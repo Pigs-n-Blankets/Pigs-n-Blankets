@@ -24,7 +24,7 @@ const styles = theme => ({
     justifyContent: 'center'
   },
   content: {
-    width: '100%',
+    width: '80%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
