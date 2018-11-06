@@ -102,7 +102,6 @@ class CartCard extends Component {
             value={this.state.quantity}
             onChange={this.handleChange}
             margin="normal"
-            // variant="outlined"
           />
         </TableCell>
         <TableCell className={classes.updateCell}>
