@@ -2,8 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Stars from '../review/Stars'
-import {postCart, putCartQuantity, putProduct, deleteProduct, putProductQuantity} from '../../store'
-
+import {
+  postCart,
+  putCartQuantity,
+  putProduct,
+  deleteProduct,
+  putProductQuantity
+} from '../../store'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -53,6 +58,7 @@ const ProductCard = props => {
     rating,
     description,
     price,
+    inventory,
     deleteThisProduct,
     updateThisProduct
   } = props
@@ -90,9 +96,13 @@ const ProductCard = props => {
       <CardActions className={classes.cardActions}>
         <Typography variant="h6">{`$${price}`}</Typography>
         {!props.user.isAdmin ? (
-          <Button size="small" color="primary" onClick={handleAddToCart}>
-            <AddShoppingCartIcon />
-          </Button>
+          inventory ? (
+            <Button size="small" color="primary" onClick={handleAddToCart}>
+              <AddShoppingCartIcon />
+            </Button>
+          ) : (
+            <div>Out</div>
+          )
         ) : (
           <div />
         )}
@@ -105,13 +115,15 @@ const ProductCard = props => {
             >
               <DeleteIcon />
             </Button>
-            <Link to={`/products/update/${id}`}><Button
-            // onClick={() => props.fetchSingleProduct(id)}
-            size="small"
-            color="primary"
-            >
-              <EditIcon />
-            </Button></Link>
+            <Link to={`/products/update/${id}`}>
+              <Button
+                // onClick={() => props.fetchSingleProduct(id)}
+                size="small"
+                color="primary"
+              >
+                <EditIcon />
+              </Button>
+            </Link>
           </React.Fragment>
         ) : (
           <div>

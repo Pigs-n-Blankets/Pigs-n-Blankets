@@ -32,7 +32,7 @@ const styles = theme => ({
   },
   textField: {
     paddingBottom: theme.spacing.unit * 6,
-    width: 200,
+    width: 200
   },
   menu: {
     width: 200
@@ -40,7 +40,7 @@ const styles = theme => ({
   top: {
     display: 'flex',
     width: 'auto',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   submit: {
     marginTop: theme.spacing.unit,
@@ -94,14 +94,16 @@ class AllProducts extends Component {
                 </option>
               ))}
             </TextField>
-            <Link to="/products/add"><Button
-              type="button"
-              variant="contained"
-              color="secondary"
-              className={classes.submit}
-            >
-              Add Product
-            </Button></Link>
+            <Link to="/products/add">
+              <Button
+                type="button"
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
+                Add Product
+              </Button>
+            </Link>
           </div>
           <GridList
             cellHeight="auto"
@@ -122,6 +124,7 @@ class AllProducts extends Component {
                   rating={product.rating}
                   description={product.description}
                   price={product.price}
+                  inventory={product.inventory}
                 />
               </GridListTile>
             ))}
