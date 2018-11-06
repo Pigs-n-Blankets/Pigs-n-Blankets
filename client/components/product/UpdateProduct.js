@@ -48,12 +48,12 @@ class EditProduct extends Component {
   constructor(props) {
     super()
     this.state = {
-      name: props.product.name,
-      price: props.product.price,
-      description: props.product.description,
-      rating: props.product.rating,
-      imgUrl: props.product.imgUrl,
-      inventory: props.product.inventory
+      name: '',
+      price: 0,
+      description: '',
+      rating: 1,
+      imgUrl: '',
+      inventory: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -61,6 +61,20 @@ class EditProduct extends Component {
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.product !== this.props.product) {
+      console.log('updated')
+      this.setState({
+        name: this.props.product.name,
+        price: this.props.product.price,
+        description: this.props.product.description,
+        rating: this.props.product.rating,
+        imgUrl: this.props.product.imgUrl,
+        inventory: this.props.product.inventory
+      })
+    }
   }
 
   handleChange(event) {
@@ -72,6 +86,11 @@ class EditProduct extends Component {
   handleRating = event => {
     this.setState({rating: event.target.value})
   }
+
+  //   handleSubmit(event) {
+//     event.preventDefault()
+//     this.props.updateThisProduct(this.state, this.props.productId)
+//   }
 
   handleSubmit(event) {
     event.preventDefault()
@@ -85,14 +104,20 @@ class EditProduct extends Component {
     }
     this.props.postProduct(newProduct)
     // this.setState({
-
+    //   name: '',
+    //   price: 0,
+    //   description: '',
+    //   rating: 1,
+    //   imgUrl: '',
+    //   inventory: 0
     // })
   }
 
   render() {
     const {classes} = this.props
     return (
-      <div className={classes.root}>
+      Object.keys(this.props.product).length ? (
+        <div className={classes.root}>
         <Card className={classes.card}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
@@ -190,6 +215,7 @@ class EditProduct extends Component {
           </CardActions>
         </Card>
       </div>
+      ) : (<div/>)
     )
   }
 }
