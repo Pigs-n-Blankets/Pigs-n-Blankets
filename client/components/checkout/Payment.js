@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {CardElement, injectStripe} from 'react-stripe-elements'
-import {deleteAllFromCart} from '../../store'
+import {fetchCart, updateOrderOnCheckout} from '../../store'
 import axios from 'axios'
 import {connect} from 'react-redux'
 const numeral = require('numeral')
@@ -54,7 +54,7 @@ class Payment extends Component {
       stripeToken: token.id
     })
 
-    this.props.deleteAllFromCart()
+    this.props.updateOrderOnCheckout(this.props.user.id)
 
     if (response.ok) {
       console.log('Purchase Complete!')
@@ -130,8 +130,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteAllFromCart: () => {
-      return dispatch(deleteAllFromCart())
+    updateOrderOnCheckout: (userId) => {
+      return dispatch(updateOrderOnCheckout(userId))
     }
   }
 }

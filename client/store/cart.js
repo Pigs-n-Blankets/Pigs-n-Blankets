@@ -7,6 +7,7 @@ const GET_CART = 'GET_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const GET_ORDER_HISTORY = 'GET_ORDER_HISTORY'
 
+
 // INITIAL STATE:
 const defaultState = {
   cart: [],
@@ -17,6 +18,7 @@ const defaultState = {
 const getCart = cart => ({type: GET_CART, cart})
 const removeFromCart = productId => ({type: REMOVE_FROM_CART, productId})
 const getOrderHistory = orders => ({type: GET_ORDER_HISTORY, orders})
+
 
 // THUNK CREATORS
 export const fetchCart = () => async dispatch => {
@@ -73,6 +75,15 @@ export const putCartQuantity = (productId, quantity) => async dispatch => {
     console.err(err)
   }
 }
+export const replaceCartQuantity = (orderId, quantity) => async dispatch => {
+  try {
+    await axios.put(`/api/cart/quantity/update/${orderId}`, {quantity})
+    const {data: cart} = await axios.get(`/api/cart/`)
+    dispatch(getCart(cart))
+  } catch (err) {
+    console.err(err)
+  }
+}
 export const fetchOrderHistory = userId => async dispatch => {
   try {
     const {data: orders} = await axios.get(`/api/cart/${userId}`)
@@ -81,14 +92,14 @@ export const fetchOrderHistory = userId => async dispatch => {
     console.err(err)
   }
 }
-
-export const replaceCartQuantity = (orderId, quantity) => async dispatch => {
+export const updateOrderOnCheckout = (userId) => async dispatch => {
   try {
-    await axios.put(`/api/cart/quantity/update/${orderId}`, {quantity})
+    console.log('IN UPDATE ORDER ON CHECKOUT')
+    await axios.put(`/api/cart/${userId}`)
     const {data: cart} = await axios.get(`/api/cart/`)
     dispatch(getCart(cart))
   } catch (err) {
-    console.err(err)
+    console.error(err)
   }
 }
 

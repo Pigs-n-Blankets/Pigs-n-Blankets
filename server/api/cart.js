@@ -73,6 +73,33 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+// UPDATE STATUS AND PURCHASE DATE WHEN ORDER IS SUBMITTED
+router.put('/:userId', async(req, res, next) => {
+  const userId = req.params.userId
+
+  try {
+    const orders = await Order.findAll({
+      include: [{model: Product}],
+      where: {
+        userId: userId,
+        orderStatus: 'inCart'
+      }
+    })
+    Promise.all(
+      orders.forEach(order => {
+        const updatedOrder = {
+          orderStatus: 'processing',
+          purchaseDate: new Date()
+        }
+        order.update(updatedOrder)
+      })
+    )
+    res.json(orders)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/checkout', async (req, res, next) => {
   const {status} = await stripe.charges.create({
     amount: req.body.amount,
@@ -195,29 +222,6 @@ router.put('/', async (req, res, next) => {
     res.status(204).end()
   } catch (err) {
     next(err)
-  }
-})
-
-// update status and purchaseDate when order is submitted
-router.put('/checkout', async(req, res, next) => {
-  try {
-    const orders = await Order.findAll({
-      include: [{model: Product}],
-      where: {
-        orderStatus: 'inCart'
-      }
-    })
-    Promise.all(
-      orders.forEach(order => {
-        const updatedOrder = {
-          orderStatus: 'processing',
-          purchaseDate: new Date()
-        }
-        order.update(updatedOrder)
-      })
-    )
-  } catch (error) {
-    next(error)
   }
 })
 
