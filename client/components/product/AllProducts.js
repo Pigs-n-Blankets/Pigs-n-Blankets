@@ -42,7 +42,7 @@ const styles = theme => ({
   top: {
     display: 'flex',
     width: 'auto',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   submit: {
     marginTop: theme.spacing.unit,
