@@ -21,7 +21,7 @@ const styles = theme => ({
     overflowX: 'auto'
   },
   productImg: {
-    maxWidth: '100%',
+    maxWidth: '75%',
   },
   imgCell: {
     width: '25%'

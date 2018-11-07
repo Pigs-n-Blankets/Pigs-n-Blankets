@@ -79,6 +79,8 @@ class AllProducts extends Component {
 
   render() {
     const {classes, categories} = this.props
+    const isAdmin = this.props.user.isAdmin
+
     let products
     if (this.props.searchedProducts.length < 1) {
       products = this.props.products
@@ -124,7 +126,8 @@ class AllProducts extends Component {
               ) : (
                 <div />
               )}
-              <Button
+              {isAdmin ? (
+                <Button
                 type="button"
                 onClick={this.handleAddProduct}
                 variant="contained"
@@ -133,6 +136,7 @@ class AllProducts extends Component {
               >
                 Add Product
               </Button>
+              ) : (<div />)}
             </div>
           </div>
           <GridList
@@ -186,7 +190,8 @@ const mapStateToProps = state => {
   return {
     products: state.product.allProducts,
     categories: state.product.categories,
-    searchedProducts: state.product.searchedProducts
+    searchedProducts: state.product.searchedProducts,
+    user: state.user.currentUser,
   }
 }
 
