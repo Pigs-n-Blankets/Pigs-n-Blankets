@@ -5,7 +5,8 @@ import {
   fetchOrders,
   fetchFilteredOrders,
   fetchUsers,
-  fetchOrderHistory
+  fetchOrderHistory,
+  fetchFilteredByUserOrders
 } from '../../store'
 import {Loading} from '../utils/Loading'
 
@@ -32,7 +33,7 @@ const styles = theme => ({
   gridList: {
     width: '70%',
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   gridListTitle: {
     alignSelf: 'center'
@@ -51,11 +52,6 @@ const styles = theme => ({
   },
   table: {
     width: '100%'
-  },
-  submit: {
-    marginTop: theme.spacing.unit,
-    marginLeft: theme.spacing.unit * 2,
-    alignSelf: 'flex-end'
   }
 })
 
@@ -63,7 +59,7 @@ class Orders extends React.Component {
   constructor() {
     super()
     this.state = {
-      user: ''
+      user: 0
     }
     this.handleAll = this.handleAll.bind(this)
     this.handleCanceled = this.handleCanceled.bind(this)
@@ -95,6 +91,7 @@ class Orders extends React.Component {
     this.setState({
       user: event.target.value
     })
+    this.props.fetchFilteredOrders(event.target.value)
   }
 
   filterOrders(orders) {
@@ -131,28 +128,6 @@ class Orders extends React.Component {
             cols={5}
             spacing={15}
           >
-            <GridListTile className={classes.gridListTitle} cols={1}>
-              <TextField
-                select
-                className={classes.textField}
-                onChange={this.handleChange}
-                value={this.state.name}
-                SelectProps={{
-                  native: true,
-                  MenuProps: {
-                    className: classes.menu
-                  }
-                }}
-                margin="normal"
-              >
-                <option>all</option>
-                {this.props.users.map(option => (
-                  <option key={option.id} value={option.firstName}>
-                    {`${option.firstName} ${option.lastName}`}
-                  </option>
-                ))}
-              </TextField>
-            </GridListTile>
             <GridListTile className={classes.gridListTitle} cols={1}>
               <Button
                 size="small"
@@ -192,6 +167,25 @@ class Orders extends React.Component {
                 Completed
               </Button>
             </GridListTile>
+            <TextField
+              select
+              className={classes.gridListTile}
+              onChange={this.handleChange}
+              value={this.state.name}
+              SelectProps={{
+                native: true,
+                MenuProps: {
+                  className: classes.menu
+                }
+              }}
+            >
+              <option>all</option>
+              {this.props.users.map((option, idx) => (
+                <option key={idx} value={option.id}>
+                  {`${option.firstName} ${option.lastName}`}
+                </option>
+              ))}
+            </TextField>
           </GridList>
 
           {this.filterOrders(orders).map((order, idx) => {
@@ -212,10 +206,10 @@ class Orders extends React.Component {
                   </TableHead>
                   <TableBody>
                     {order ? (
-                      order.map(item => {
+                      order.map((item, idx) => {
                         return (
                           <OrderHistoryCard
-                            key={order.id}
+                            key={idx}
                             order={item}
                             isAdmin={true}
                           />
@@ -246,8 +240,8 @@ const mapDispatch = dispatch => {
     fetchOrders: () => {
       return dispatch(fetchOrders())
     },
-    fetchFilteredOrders: orderStatus => {
-      dispatch(fetchFilteredOrders(orderStatus))
+    fetchFilteredOrders: filterCriteria => {
+      dispatch(fetchFilteredOrders(filterCriteria))
     },
     fetchUsers: () => {
       dispatch(fetchUsers())
