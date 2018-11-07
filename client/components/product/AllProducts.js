@@ -8,6 +8,7 @@ import {
 import {connect} from 'react-redux'
 import ProductCard from './ProductCard'
 import {Link} from 'react-router-dom'
+import history from '../../history'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -47,7 +48,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit,
     marginLeft: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 6,
-    alignSelf: 'flex-end'
+    alignSelf: 'center'
   }
 })
 
@@ -70,6 +71,10 @@ class AllProducts extends Component {
 
   handleClear = () => {
     this.props.clearSearchedProducts()
+  }
+
+  handleAddProduct = () => {
+    history.push('/products/add')
   }
 
   render() {
@@ -105,29 +110,30 @@ class AllProducts extends Component {
                 </option>
               ))}
             </TextField>
-            {this.props.searchedProducts.length > 0 ? (
+            <div className={classes.buttons}>
+              {this.props.searchedProducts.length > 0 ? (
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.handleClear}
+                  className={classes.submit}
+                >
+                  Clear Filter
+                </Button>
+              ) : (
+                <div />
+              )}
               <Button
                 type="button"
-                variant="contained"
-                color="secondary"
-                onClick={this.handleClear}
-                className={classes.submit}
-              >
-                Clear Filter
-              </Button>
-            ) : (
-              <div />
-            )}
-            <Link to="/products/add">
-              <Button
-                type="button"
+                onClick={this.handleAddProduct}
                 variant="contained"
                 color="secondary"
                 className={classes.submit}
               >
                 Add Product
               </Button>
-            </Link>
+            </div>
           </div>
           <GridList
             cellHeight="auto"
