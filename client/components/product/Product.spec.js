@@ -1,11 +1,21 @@
+import React from 'react'
 import { expect } from 'chai'
-import Enzyme, { shallow } from 'enzyme'
+import Enzyme, { shallow, mount } from 'enzyme'
 import AllProducts from './AllProducts'
 import ProductCard from './ProductCard'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
-import TextField from '@material-ui/core/TextField'
-import Card from '@material-ui/core/Card'
+import {MemoryRouter} from 'react-router'
+import {Provider} from 'react-redux'
+import { productData, categoryData } from '../../../script/seed-data.js'
+
+// MOUNT IMPORTS
+const { JSDOM } = require('jsdom');
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+const { window } = jsdom;
+global.window = window;
+global.document = window.document;
+global.navigator = {
+  userAgent: 'node.js',
+}
 
 // CREATE MOCK STORE
 import thunkMiddleware from 'redux-thunk'
@@ -13,52 +23,19 @@ import configureMockStore from 'redux-mock-store'
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 
-import { productData, categoryData } from '../../../script/seed-data.js'
-import React from 'react'
-import store from '../../store'
-
-
-
 describe('<AllProducts />', () => {
   let allProducts
-  const initialState = {products: productData, categories: categoryData}
+  const cartData = [{productId: 1}, {productId: 2}]
+  const userData = {isAdmin: false}
+  const initialState = {product: {allProducts: productData, categories: categoryData}, user: {currentUser: userData}, cart: {cart: cartData}}
 
   beforeEach(() => {
-    // const store = mockStore(initialState)
-    allProducts = shallow(<AllProducts store={store} products={productData} categories={categoryData} />).dive().dive()
+    const store = mockStore(initialState)
+    allProducts = mount(<Provider store={store}><MemoryRouter><AllProducts products={productData} categories={categoryData}/></MemoryRouter></Provider>)
   })
 
-  it('should contain a <ProductCard />', () => {
-    expect(allProducts.containsMatchingElement(ProductCard)).to.equal(true)
-  })
   it('should render a <ProductCard /> component for each product in the database', () => {
     const totalProducts = productData.length;
-
-    expect(allProducts.find(GridList)).to.have.lengthOf(1)
-    expect(allProducts.find(TextField)).to.have.lengthOf(1)
-
-
-    const GridListWrapper = allProducts.find(GridList).dive()
-
-    expect(GridListWrapper.find(GridListTile)).to.have.lengthOf(1)
-
-    // expect(allProducts.find(GridList).dive().find(GridListTile)).to.have.lengthOf(1);
-
-    // expect(allProducts.find(GridList).dive().find(GridListTile)).to.have.lengthOf(1)
+    expect(allProducts.find(ProductCard)).to.have.lengthOf(totalProducts)
   })
-
-
 });
-
-
-
-
-// describe("<AllProcuts />", () => {
-//   it('should render a <ProductCard /> component for each product in the database', () => {
-//     const totalProducts = productData.length;
-//     const allProductsWrapper = shallow(<AllProducts products={productData} categories={categoryData} classes={styles}/>)
-//     // expect(allProductsWrapper.find('.classes.submit').text()).to.equal('Add Product')
-//     console.log(withStyles(allProductsWrapper))
-//     expect(allProductsWrapper.find(withStyles(ProductCard))).to.have.lengthOf(totalProducts)
-//   })
-// })

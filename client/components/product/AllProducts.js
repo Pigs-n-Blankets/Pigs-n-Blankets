@@ -153,6 +153,7 @@ const mapStateToProps = state => {
   }
 }
 
+export const TestComponent = withStyles(styles)(AllProducts)
 export default withStyles(styles)(
   connect(mapStateToProps, mapDispatchToProps)(AllProducts)
 )
