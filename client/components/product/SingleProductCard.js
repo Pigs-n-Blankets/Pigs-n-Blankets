@@ -28,11 +28,12 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-end',
-    height: 'auto'
+    height: 'auto',
+    width: '100%'
   },
   card: {
     display: 'flex',
-    width: '68vw',
+    width: '100%',
     height: '50vh',
     boxShadow: 'none',
     border: '1px solid #D8DEE2'

@@ -8,6 +8,7 @@ import {
 import {connect} from 'react-redux'
 import ProductCard from './ProductCard'
 import {Link} from 'react-router-dom'
+import history from '../../history'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -41,13 +42,13 @@ const styles = theme => ({
   top: {
     display: 'flex',
     width: 'auto',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   submit: {
     marginTop: theme.spacing.unit,
     marginLeft: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 6,
-    alignSelf: 'flex-end'
+    alignSelf: 'center'
   }
 })
 
@@ -72,8 +73,14 @@ class AllProducts extends Component {
     this.props.clearSearchedProducts()
   }
 
+  handleAddProduct = () => {
+    history.push('/products/add')
+  }
+
   render() {
     const {classes, categories} = this.props
+    const isAdmin = this.props.user.isAdmin
+
     let products
     if (this.props.searchedProducts.length < 1) {
       products = this.props.products
@@ -105,33 +112,32 @@ class AllProducts extends Component {
                 </option>
               ))}
             </TextField>
-            {this.props.searchedProducts.length > 0 ? (
-              <Button
-                type="button"
-                variant="contained"
-                color="secondary"
-                onClick={this.handleClear}
-                className={classes.submit}
-              >
-                Clear Filter
-              </Button>
-            ) : (
-              <div />
-            )}
-            {this.props.user.isAdmin ? (
-              <Link to="/products/add">
+            <div className={classes.buttons}>
+              {this.props.searchedProducts.length > 0 ? (
                 <Button
                   type="button"
                   variant="contained"
                   color="secondary"
+                  onClick={this.handleClear}
                   className={classes.submit}
                 >
-                  Add Product
+                  Clear Filter
                 </Button>
-              </Link>
-            ) : (
-              <div />
-            )}
+              ) : (
+                <div />
+              )}
+              {isAdmin ? (
+                <Button
+                type="button"
+                onClick={this.handleAddProduct}
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
+                Add Product
+              </Button>
+              ) : (<div />)}
+            </div>
           </div>
           <GridList
             cellHeight="auto"
@@ -185,7 +191,7 @@ const mapStateToProps = state => {
     products: state.product.allProducts,
     categories: state.product.categories,
     searchedProducts: state.product.searchedProducts,
-    user: state.user.currentUser
+    user: state.user.currentUser,
   }
 }
 
