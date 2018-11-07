@@ -52,11 +52,6 @@ const styles = theme => ({
   },
   table: {
     width: '100%'
-  },
-  submit: {
-    marginTop: theme.spacing.unit,
-    marginLeft: theme.spacing.unit * 2,
-    alignSelf: 'flex-end'
   }
 })
 
