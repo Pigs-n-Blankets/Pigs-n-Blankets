@@ -4,6 +4,8 @@ import {fetchCart, updateOrderOnCheckout} from '../../store'
 import axios from 'axios'
 import {connect} from 'react-redux'
 const numeral = require('numeral')
+import history from '../../history'
+
 
 import {withStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -92,6 +94,7 @@ class Payment extends Component {
     })
 
     this.props.updateOrderOnCheckout(this.props.user.id)
+    history.push('/products')
 
     if (response.ok) {
       console.log('Purchase Complete!')
