@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import OrderHistoryCard from '../user/OrderHistoryCard'
-import {fetchOrders, fetchFilteredOrders, fetchUsers, fetchOrderHistory} from '../../store'
+import {fetchOrders, fetchFilteredOrders, fetchUsers, fetchOrderHistory, fetchFilteredByUserOrders} from '../../store'
 import {Loading} from '../utils/Loading'
 
 // MATERIAL UI IMPORTS
@@ -59,7 +59,7 @@ class Orders extends React.Component {
   constructor() {
     super()
     this.state = {
-      user: ''
+      user: 0
     }
     this.handleAll = this.handleAll.bind(this)
     this.handleCanceled = this.handleCanceled.bind(this)
@@ -91,8 +91,7 @@ class Orders extends React.Component {
     this.setState({
       user: event.target.value
     })
-    // console.log('user id', this.state.user.id)
-    // this.props.fetchOrderHistory(Number(this.state.user.id))
+    this.props.fetchFilteredOrders(event.target.value)
   }
 
 
@@ -146,7 +145,7 @@ class Orders extends React.Component {
               >
                 <option>all</option>
                 {this.props.users.map(option => (
-                  <option key={option.id} value={option.firstName}>
+                  <option key={option.id} value={option.id}>
                     {`${option.firstName} ${option.lastName}`}
                   </option>
                 ))}
@@ -245,8 +244,8 @@ const mapDispatch = dispatch => {
     fetchOrders: () => {
       return dispatch(fetchOrders())
     },
-    fetchFilteredOrders: orderStatus => {
-      dispatch(fetchFilteredOrders(orderStatus))
+    fetchFilteredOrders: filterCriteria => {
+      dispatch(fetchFilteredOrders(filterCriteria))
     },
     fetchUsers: () => {
       dispatch(fetchUsers())

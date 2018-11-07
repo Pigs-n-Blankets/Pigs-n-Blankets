@@ -28,8 +28,15 @@ router.get('/admin', isAdmin, async (req, res, next) => {
   }
 })
 
-router.get('/admin/:orderStatus', isAdmin, async (req, res, next) => {
-  const orderStatus = req.params.orderStatus
+router.get('/admin/:filterCriteria', isAdmin, async (req, res, next) => {
+
+  const filterCriteria = req.params.filterCriteria
+  console.log('NUMBER CONVERSION --->', Number(filterCriteria))
+  const modelCol = Number(filterCriteria) ? 'userId':'orderStatus'
+  const orderCol = Number(filterCriteria) ? 'userId':'purchaseDate'
+
+
+  // const orderStatus = req.params.orderStatus
   try {
     const orders = await Order.findAll({
       include: [
@@ -39,9 +46,9 @@ router.get('/admin/:orderStatus', isAdmin, async (req, res, next) => {
         }
       ],
       where: {
-        orderStatus: orderStatus
+        [modelCol]: filterCriteria
       },
-      order: [['purchaseDate', 'DESC']]
+      order: [[orderCol, 'DESC']]
     })
     res.json(orders)
   } catch (err) {

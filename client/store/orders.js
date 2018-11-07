@@ -34,18 +34,26 @@ export const updateOrderStatus = (orderId, orderStatus) => async dispatch => {
     console.error(err)
   }
 }
-export const fetchFilteredOrders = orderStatus => async dispatch => {
+export const fetchFilteredOrders = filterCriteria => async dispatch => {
   try {
     const route =
-      orderStatus === 'all'
+    filterCriteria === 'all'
         ? `api/orders/admin`
-        : `/api/orders/admin/${orderStatus}`
+        : `/api/orders/admin/${filterCriteria}`
     const {data: orders} = await axios.get(route)
     dispatch(getFilteredOrders(orders))
   } catch (err) {
     console.error(err)
   }
 }
+// export const fetchFilteredByUserOrders = userId => async dispatch => {
+//   try {
+//     const {data: orders} = await axios.get(`/api/orders/admin/${userId}`)
+//     dispatch(getFilteredOrders(orders))
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 
 // HANDLERS
 const handler = {
