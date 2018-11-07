@@ -9,7 +9,6 @@ const Stars = props => {
   for (let i = 0; i < props.rating; i++) {
     ratArr.push(i)
   }
-  console.log(ratArr.length)
   if (Number(rating.toString()[1]) < 5 && rating > 9) {
     return <div>{ratArr.map(idx => <StarIcon key={idx} />)}</div>
   } else {

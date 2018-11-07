@@ -32,12 +32,10 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexGrow: 1
-    // backgroundColor: theme.palette.background.paper
   },
   content: {
     width: '80%',
     overflow: 'hidden'
-    // backgroundColor: theme.palette.background.paper
   },
   appBar: {
     backgroundColor: 'transparent',

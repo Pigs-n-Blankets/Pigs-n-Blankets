@@ -116,11 +116,7 @@ const ProductCard = props => {
               <DeleteIcon />
             </Button>
             <Link to={`/products/update/${id}`}>
-              <Button
-                // onClick={() => props.fetchSingleProduct(id)}
-                size="small"
-                color="primary"
-              >
+              <Button size="small" color="primary">
                 <EditIcon />
               </Button>
             </Link>

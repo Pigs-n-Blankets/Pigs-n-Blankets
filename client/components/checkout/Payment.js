@@ -70,7 +70,6 @@ class Payment extends Component {
   }
   componentDidMount() {
     let totalPrice = 0
-    console.log(this.props.cart)
     this.props.cart.forEach(order => {
       totalPrice += order.price * order.quantity
     })
@@ -105,7 +104,6 @@ class Payment extends Component {
 
   render() {
     const {classes} = this.props
-    console.log(this.state.totalPrice)
     return (
       <div className={classes.root}>
         <Card className={classes.card}>

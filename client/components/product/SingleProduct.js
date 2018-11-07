@@ -34,7 +34,6 @@ class SingleProduct extends Component {
   }
 
   render() {
-    console.log('REVIEWS --->', this.props.reviews)
     const {product, reviews, classes} = this.props
     if (!product.id) {
       return <Loading />
@@ -53,7 +52,6 @@ class SingleProduct extends Component {
           <Grid item xs={12}>
             <Reviews reviews={reviews} />
           </Grid>
-
         </Grid>
       </div>
     )

@@ -6,7 +6,6 @@ import history from './history'
 import store from './store'
 import App from './app'
 
-
 // establishes socket connection
 import './socket'
 
@@ -25,12 +24,7 @@ const theme = createMuiTheme({
   status: {
     danger: 'orange'
   },
-  typography: {
-    // fontFamily: [
-    //   '"Source Sans Pro"',
-    //   'sans-serif'
-    // ]
-  }
+  typography: {}
 })
 
 ReactDOM.render(

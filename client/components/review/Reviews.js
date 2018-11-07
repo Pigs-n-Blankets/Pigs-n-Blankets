@@ -26,9 +26,7 @@ const styles = theme => ({
     width: '60%',
     height: '100%'
   },
-  gridListTitle: {
-    // backgroundColor: theme.palette.primary.light
-  },
+  gridListTitle: {},
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'
   },
@@ -55,7 +53,6 @@ const Reviews = props => {
       </Typography>
       </div>
   }
-  console.log('user --->', reviews[0].user)
   return (
     <div>
       <Typography gutterBottom variant="h5">

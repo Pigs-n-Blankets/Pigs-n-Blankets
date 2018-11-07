@@ -27,12 +27,9 @@ const styles = theme => ({
     width: '25%'
   },
   nameCell: {
-    // width: '25%',
     textAlign: 'right'
   },
-  priceCell: {
-    // width: '20%',
-  },
+  priceCell: {},
   quantityCell: {
     width: '10%',
     fontSize: '10px',
@@ -102,7 +99,6 @@ class CartCard extends Component {
             value={this.state.quantity}
             onChange={this.handleChange}
             margin="normal"
-            // variant="outlined"
           />
         </TableCell>
         <TableCell className={classes.updateCell}>

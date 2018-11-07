@@ -76,17 +76,9 @@ const UserCard = props => {
           size="small"
           color="primary"
         >
-          {isAdmin ? (
-            <AdminIcon color="secondary"/>
-          ) : (
-            <AdminIcon />
-          )}
+          {isAdmin ? <AdminIcon color="secondary" /> : <AdminIcon />}
         </Button>
-        <Button
-          // onClick={() => deleteThisProduct(id)}
-          size="small"
-          color="primary"
-        >
+        <Button size="small" color="primary">
           <PasswordIcon />
         </Button>
       </CardActions>
@@ -100,7 +92,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteUser: (userId) => {
+    deleteUser: userId => {
       return dispatch(deleteUser(userId))
     },
     putUser: (userId, updatedUserBody) => {
