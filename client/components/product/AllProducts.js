@@ -2,11 +2,13 @@ import React, {Component} from 'react'
 import {
   fetchProducts,
   fetchFilteredProducts,
-  fetchCategories
+  fetchCategories,
+  clearSearchedProducts
 } from '../../store'
 import {connect} from 'react-redux'
 import ProductCard from './ProductCard'
 import {Link} from 'react-router-dom'
+import history from '../../history'
 
 // MATERIAL UI IMPORTS
 import {withStyles} from '@material-ui/core/styles'
@@ -40,13 +42,13 @@ const styles = theme => ({
   top: {
     display: 'flex',
     width: 'auto',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   submit: {
     marginTop: theme.spacing.unit,
     marginLeft: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 6,
-    alignSelf: 'flex-end'
+    alignSelf: 'center'
   }
 })
 
@@ -67,8 +69,24 @@ class AllProducts extends Component {
     this.props.fetchFilteredProducts(event.target.value)
   }
 
+  handleClear = () => {
+    this.props.clearSearchedProducts()
+  }
+
+  handleAddProduct = () => {
+    history.push('/products/add')
+  }
+
   render() {
-    const {classes, products, categories} = this.props
+    const {classes, categories} = this.props
+    const isAdmin = this.props.user.isAdmin
+
+    let products
+    if (this.props.searchedProducts.length < 1) {
+      products = this.props.products
+    } else {
+      products = this.props.searchedProducts
+    }
     return (
       <div className={classes.root}>
         <div className={classes.content}>
@@ -94,16 +112,32 @@ class AllProducts extends Component {
                 </option>
               ))}
             </TextField>
-            <Link to="/products/add">
-              <Button
+            <div className={classes.buttons}>
+              {this.props.searchedProducts.length > 0 ? (
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.handleClear}
+                  className={classes.submit}
+                >
+                  Clear Filter
+                </Button>
+              ) : (
+                <div />
+              )}
+              {isAdmin ? (
+                <Button
                 type="button"
+                onClick={this.handleAddProduct}
                 variant="contained"
                 color="secondary"
                 className={classes.submit}
               >
                 Add Product
               </Button>
-            </Link>
+              ) : (<div />)}
+            </div>
           </div>
           <GridList
             cellHeight="auto"
@@ -145,6 +179,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchFilteredProducts: categoryName => {
       dispatch(fetchFilteredProducts(categoryName))
+    },
+    clearSearchedProducts: () => {
+      dispatch(clearSearchedProducts())
     }
   }
 }
@@ -152,7 +189,9 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     products: state.product.allProducts,
-    categories: state.product.categories
+    categories: state.product.categories,
+    searchedProducts: state.product.searchedProducts,
+    user: state.user.currentUser,
   }
 }
 

@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout, fetchCart} from '../../store'
+import {logout, fetchCart, fetchSearchedProducts} from '../../store'
+import history from '../../history'
 
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -23,8 +24,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
-import { mainListItems, secondaryListItems } from '../admin/DashboardList';
-
+import {mainListItems, secondaryListItems} from '../admin/DashboardList'
 
 const drawerWidth = 240
 
@@ -151,6 +151,11 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3
+  },
+  searchButton: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    color: 'inherit'
   }
 })
 
@@ -161,19 +166,39 @@ const handleSubmit = event => {
 }
 
 class Navbar extends Component {
+  constructor() {
+    super()
+    this.state = {
+      right: false,
+      search: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
   componentDidMount() {
     this.props.fetchCart()
   }
 
   state = {
-    right: false,
-  };
+    right: false
+  }
 
   toggleDrawer = (side, open) => () => {
     this.setState({
-      [side]: open,
-    });
-  };
+      [side]: open
+    })
+  }
+
+  handleChange = event => {
+    this.setState({search: event.target.value})
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    this.props.fetchSearchedProducts(this.state.search)
+    this.setState({search: ''})
+    history.push('/products')
+  }
 
   render() {
     const classes = this.props.classes
@@ -181,6 +206,8 @@ class Navbar extends Component {
     const isLoggedIn = this.props.isLoggedIn
     const isAdmin = this.props.user.isAdmin
     const cart = this.props.cart
+    //test
+    //test 2
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
@@ -202,13 +229,17 @@ class Navbar extends Component {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-              />
+              <form onSubmit={this.handleSubmit}>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput
+                  }}
+                  value={this.state.search}
+                  onChange={this.handleChange}
+                />
+              </form>
             </div>
             <div className={classes.grow} />
             {!isAdmin ? (
@@ -286,9 +317,9 @@ class Navbar extends Component {
               onClick={this.toggleDrawer('right', false)}
               onKeyDown={this.toggleDrawer('right', false)}
             >
-            <List>{mainListItems}</List>
-            <Divider />
-            <List>{secondaryListItems}</List>
+              <List>{mainListItems}</List>
+              <Divider />
+              <List>{secondaryListItems}</List>
             </div>
           </Drawer>
         ) : (
@@ -303,17 +334,23 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.user.currentUser.id,
     cart: state.cart.cart,
-    user: state.user.currentUser
+    user: state.user.currentUser,
+    products: state.product.allProducts
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, ownProps) => {
+  const history = ownProps.history
+
   return {
     handleClick() {
       dispatch(logout())
     },
     fetchCart: () => {
       return dispatch(fetchCart())
+    },
+    fetchSearchedProducts: search => {
+      dispatch(fetchSearchedProducts(search))
     }
   }
 }

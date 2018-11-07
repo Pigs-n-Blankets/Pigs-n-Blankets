@@ -8,6 +8,7 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider'
 
 const styles = theme => ({
   root: {
@@ -25,9 +26,7 @@ const styles = theme => ({
     width: '60%',
     height: '100%'
   },
-  gridListTitle: {
-    // backgroundColor: theme.palette.primary.light
-  },
+  gridListTitle: {},
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'
   },
@@ -44,9 +43,16 @@ const styles = theme => ({
 const Reviews = props => {
   const {classes, reviews} = props
   if (!reviews[0]) {
-    return <div>There are no current reviews for this product!</div>
+    return <div>
+      <Typography gutterBottom variant="h5">
+        Product Reviews
+      </Typography>
+      <Divider />
+      <Typography gutterBottom variant="subtitle1">
+      There are no current reviews for this product!
+      </Typography>
+      </div>
   }
-  console.log('user --->', reviews[0].user)
   return (
     <div>
       <Typography gutterBottom variant="h5">

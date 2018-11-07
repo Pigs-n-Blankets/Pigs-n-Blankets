@@ -56,7 +56,6 @@ router.post('/:productId', async (req, res, next) => {
     })
 
     const newRating = Number((reviewSum / allReviews.length).toFixed(2))
-    console.log(newRating)
     await reviewWithUser.product.update({rating: newRating})
 
     res.json(reviewWithUser)

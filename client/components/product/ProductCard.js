@@ -25,13 +25,13 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
 const styles = theme => ({
   card: {
-    maxWidth: 345,
+    maxWidth: '30vw',
     boxShadow: 'none',
     border: '1px solid #D8DEE2',
     height: '450'
   },
   media: {
-    height: 250
+    height: 280
   },
   description: {
     height: 40
@@ -116,11 +116,7 @@ const ProductCard = props => {
               <DeleteIcon />
             </Button>
             <Link to={`/products/update/${id}`}>
-              <Button
-                // onClick={() => props.fetchSingleProduct(id)}
-                size="small"
-                color="primary"
-              >
+              <Button size="small" color="primary">
                 <EditIcon />
               </Button>
             </Link>
