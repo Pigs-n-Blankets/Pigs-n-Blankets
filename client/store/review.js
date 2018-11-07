@@ -15,7 +15,6 @@ const addReview = review => ({type: ADD_REVIEW, review})
 export const fetchReviews = productId => async dispatch => {
   try {
     const res = await axios.get(`/api/reviews/${productId}`)
-    console.log('REVIEWS', res.data)
     dispatch(getReviews(res.data))
   } catch (err) {
     console.error(err)
@@ -23,7 +22,10 @@ export const fetchReviews = productId => async dispatch => {
 }
 export const postReview = (productId, newReview) => async dispatch => {
   try {
-    const {data: review} = await axios.post(`/api/reviews/${productId}`, newReview)
+    const {data: review} = await axios.post(
+      `/api/reviews/${productId}`,
+      newReview
+    )
     dispatch(addReview(review))
   } catch (err) {
     console.error(err)

@@ -14,9 +14,7 @@ import Divider from '@material-ui/core/Divider'
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    // maxWidth: 600,
-    // minWidth: 600,
+    width: '100%'
   },
   avatarImg: {
     width: '200%'
@@ -26,8 +24,7 @@ const styles = theme => ({
 const ReviewCard = props => {
   const {classes, id, rating, description, user} = props
   const primary = `${user.firstName} ${user.lastName} ${rating} Stars`
-  return (
-    user.id ? (
+  return user.id ? (
     <div className={classes.root}>
       <Divider />
       <ListItem>
@@ -36,7 +33,9 @@ const ReviewCard = props => {
         </Avatar>
         <ListItemText primary={primary} secondary={description} />
       </ListItem>
-    </div>) : (<div/>)
+    </div>
+  ) : (
+    <div />
   )
 }
 

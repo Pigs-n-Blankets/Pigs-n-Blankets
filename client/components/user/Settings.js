@@ -53,7 +53,6 @@ class Settings extends Component {
   handleSubmit(event) {
     event.preventDefault()
     this.props.updateMe(this.state)
-    // window.location.reload()
   }
 
   render() {
@@ -61,11 +60,11 @@ class Settings extends Component {
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                Update User Settings
-              </Typography>
-            </CardContent>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              Update User Settings
+            </Typography>
+          </CardContent>
           <CardContent className={classes.form}>
             <GridList
               cellHeight="auto"
@@ -129,13 +128,7 @@ class Settings extends Component {
             </GridList>
           </CardContent>
           <CardActions className={classes.cardActions}>
-            <Button
-              // size="small"
-              type="button"
-              // color="primary"
-              // className={classes.submit}
-              onClick={this.handleSubmit}
-            >
+            <Button type="button" onClick={this.handleSubmit}>
               Update
             </Button>
           </CardActions>
