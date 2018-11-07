@@ -1,7 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import OrderHistoryCard from '../user/OrderHistoryCard'
-import {fetchOrders, fetchFilteredOrders, fetchUsers, fetchOrderHistory, fetchFilteredByUserOrders} from '../../store'
+import {
+  fetchOrders,
+  fetchFilteredOrders,
+  fetchUsers,
+  fetchOrderHistory,
+  fetchFilteredByUserOrders
+} from '../../store'
 import {Loading} from '../utils/Loading'
 
 // MATERIAL UI IMPORTS
@@ -28,10 +34,9 @@ const styles = theme => ({
     width: '70%',
     display: 'flex',
     justifyContent: 'space-between',
-    // backgroundColor: theme.palette.secondary.main
   },
   gridListTitle: {
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   content: {
     width: '80%',
@@ -94,7 +99,6 @@ class Orders extends React.Component {
     this.props.fetchFilteredOrders(event.target.value)
   }
 
-
   filterOrders(orders) {
     if (orders.length) {
       let prevUserId = orders[0].userId
@@ -129,28 +133,6 @@ class Orders extends React.Component {
             cols={5}
             spacing={15}
           >
-            <GridListTile className={classes.gridListTitle} cols={1}>
-              <TextField
-                select
-                className={classes.textField}
-                onChange={this.handleChange}
-                value={this.state.name}
-                SelectProps={{
-                  native: true,
-                  MenuProps: {
-                    className: classes.menu
-                  }
-                }}
-                margin="normal"
-              >
-                <option>all</option>
-                {this.props.users.map(option => (
-                  <option key={option.id} value={option.id}>
-                    {`${option.firstName} ${option.lastName}`}
-                  </option>
-                ))}
-              </TextField>
-            </GridListTile>
             <GridListTile className={classes.gridListTitle} cols={1}>
               <Button
                 size="small"
@@ -190,6 +172,25 @@ class Orders extends React.Component {
                 Completed
               </Button>
             </GridListTile>
+            <TextField
+              select
+              className={classes.gridListTile}
+              onChange={this.handleChange}
+              value={this.state.name}
+              SelectProps={{
+                native: true,
+                MenuProps: {
+                  className: classes.menu
+                }
+              }}
+            >
+              <option>all</option>
+              {this.props.users.map((option, idx) => (
+                <option key={idx} value={option.id}>
+                  {`${option.firstName} ${option.lastName}`}
+                </option>
+              ))}
+            </TextField>
           </GridList>
 
           {this.filterOrders(orders).map((order, idx) => {
@@ -210,10 +211,10 @@ class Orders extends React.Component {
                   </TableHead>
                   <TableBody>
                     {order ? (
-                      order.map(item => {
+                      order.map((item, idx) => {
                         return (
                           <OrderHistoryCard
-                            key={order.id}
+                            key={idx}
                             order={item}
                             isAdmin={true}
                           />
