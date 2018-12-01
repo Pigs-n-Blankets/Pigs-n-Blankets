@@ -1,5 +1,5 @@
 # PIGS-n-BLANKETS
-Pigs-n-Blankets is an e-commerce boutique for pets. It features a product catalog, persistant user sessions & a checkout process.
+Pigs-n-Blankets is an e-commerce boutique for pets. It features a product catalog, persistant user sessions & a checkout process
 
 
 ![](pigs-n-blankets.gif)
